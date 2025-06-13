@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // =================================================================================
-    // --- STATE MANAGEMENT (v3.0) ---
+    // --- STATE MANAGEMENT (v3.0 Final) ---
     // =================================================================================
     const state = {
         cameras: [
@@ -36,10 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- DOM SELECTORS ---
     // =================================================================================
     const dom = {
+        // Navigation & Content
         navItems: document.querySelectorAll('.nav-item'),
         contentSections: document.querySelectorAll('.content-section'),
+        // Tables
         deviceListBody: document.getElementById('device-list'),
         userListBody: document.getElementById('user-list'),
+        // Views
         cameraGrid: document.getElementById('camera-grid'),
         eventLogList: document.getElementById('event-log-list'),
         // Modals
@@ -51,6 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
         editCameraForm: document.getElementById('edit-camera-form'),
         addUserForm: document.getElementById('add-user-form'),
         networkForm: document.getElementById('network-form'),
+        // Network Form Fields
+        ipTypeSelect: document.getElementById('ip-type'),
+        ipAddressInput: document.getElementById('ip-address'),
+        subnetMaskInput: document.getElementById('subnet-mask'),
+        gatewayInput: document.getElementById('gateway'),
         // Buttons
         addCamBtn: document.getElementById('add-camera-btn'),
         cancelAddCamBtn: document.getElementById('cancel-add-btn'),
@@ -94,8 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const toggleModal = (modal, show) => {
-        if (show) modal.classList.add('active');
-        else modal.classList.remove('active');
+        modal.classList.toggle('active', show);
     };
 
     // =================================================================================
@@ -169,9 +176,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
     
-    const renderCameraGrid = () => { /* Same as v2 */ };
-    const renderEventLog = () => { /* Same as v2 */ };
-    const renderNetworkSettings = () => { /* Same as v2, but reads from state.networkConfig */ };
+    const renderCameraGrid = () => {
+        dom.cameraGrid.innerHTML = '';
+        state.cameras.forEach(cam => {
+            const feed = document.createElement('div');
+            feed.className = `camera-feed ${cam.status !== 'Online' ? 'offline' : ''}`;
+            const kittenId = (cam.id % 16) + 1;
+            feed.innerHTML = `
+                ${cam.status !== 'Online' ? `<div class="offline-overlay">${cam.status}</div>` : ''}
+                <img src="https://placekitten.com/400/225?image=${kittenId}" alt="${cam.name}">
+                <div class="info">${cam.name}</div>
+            `;
+            dom.cameraGrid.appendChild(feed);
+        });
+    };
+
+    const renderEventLog = () => {
+        dom.eventLogList.innerHTML = state.eventLog.map(e => `
+            <li><span class="event-time">${e.timestamp}</span><span class="event-type-${e.type}">${e.type}</span><span>${e.message}</span></li>
+        `).join('');
+    };
+    
+    const renderNetworkSettings = () => {
+        dom.ipTypeSelect.value = state.networkConfig.mode;
+        dom.ipAddressInput.value = state.networkConfig.ip;
+        dom.subnetMaskInput.value = state.networkConfig.subnet;
+        dom.gatewayInput.value = state.networkConfig.gateway;
+        const isStatic = state.networkConfig.mode === 'static';
+        dom.ipAddressInput.disabled = !isStatic;
+        dom.subnetMaskInput.disabled = !isStatic;
+        dom.gatewayInput.disabled = !isStatic;
+    };
 
     const renderTask = () => {
         if (state.guidedTasks.isComplete) return;
@@ -235,151 +270,177 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // =================================================================================
-    // --- EVENT HANDLERS ---
+    // --- EVENT HANDLERS SETUP ---
     // =================================================================================
-    
-    // Navigation
-    dom.navItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = e.currentTarget.dataset.target;
-            dom.navItems.forEach(i => i.classList.remove('active'));
-            e.currentTarget.classList.add('active');
-            dom.contentSections.forEach(s => s.classList.toggle('active', s.id === targetId));
-            applyHelpHighlight(); // Re-apply highlight in case user navigates away
-        });
-    });
 
-    // Modal Buttons
-    dom.addCamBtn.addEventListener('click', () => toggleModal(dom.addCameraModal, true));
-    dom.cancelAddCamBtn.addEventListener('click', () => toggleModal(dom.addCameraModal, false));
-    dom.cancelEditCamBtn.addEventListener('click', () => toggleModal(dom.editCameraModal, false));
-    dom.addUserBtn.addEventListener('click', () => toggleModal(dom.addUserModal, true));
-    dom.cancelUserBtn.addEventListener('click', () => toggleModal(dom.addUserModal, false));
-
-    // Hint System
-    dom.helpIcon.addEventListener('click', () => {
-        if (state.hintSystem.currentHint) showToast(state.hintSystem.currentHint, 'info');
-        else showToast("No hints right now. Keep up the good work!", 'success');
-    });
-    dom.hintCloseBtn.addEventListener('click', hideHintPopup);
-
-    // Device Actions (Event Delegation)
-    dom.deviceListBody.addEventListener('click', (e) => {
-        if (e.target.closest('.btn-reboot')) { /* Reboot logic from v2 */ }
-        if (e.target.closest('.btn-edit')) {
-            const id = parseInt(e.target.closest('.btn-edit').dataset.id);
-            const camera = state.cameras.find(c => c.id === id);
-            if (!camera) return;
-            // Populate and show edit modal
-            const form = dom.editCameraForm;
-            form.querySelector('#edit-cam-id').value = camera.id;
-            form.querySelector('#edit-cam-name').value = camera.name;
-            form.querySelector('#edit-cam-ip').value = camera.ip;
-            form.querySelector('#edit-cam-gateway').value = camera.gateway;
-            form.querySelector('#edit-cam-user').value = camera.username;
-            form.querySelector('#edit-cam-rec-mode').value = camera.recMode;
-            form.querySelector('#edit-cam-pass').value = '';
-            toggleModal(dom.editCameraModal, true);
-        }
-    });
-
-    // Form Submissions
-    dom.addCameraForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const ip = dom.addCameraForm.querySelector('#cam-ip').value;
-        const name = dom.addCameraForm.querySelector('#cam-name').value;
-        if (state.guidedTasks.isComplete) {
-            const validation = validateCameraIP(ip);
-            if (!validation.valid) {
-                setHint(validation.message);
-                showHintPopup();
-                showToast("Invalid Input Detected.", "error");
-                return;
-            }
-        }
-        const newCam = {
-            id: Math.max(...state.cameras.map(c => c.id)) + 1,
-            name: name, ip: ip, gateway: '192.168.1.1', model: 'IPC-New-4K', status: 'Online',
-            username: dom.addCameraForm.querySelector('#cam-user').value,
-            password: dom.addCameraForm.querySelector('#cam-pass').value, recMode: 'Continuous'
-        };
-        state.cameras.push(newCam);
-        logEvent(`Added camera '${name}' (${ip}).`, 'SUCCESS');
-        toggleModal(dom.addCameraModal, false);
-        dom.addCameraForm.reset();
-        renderAll();
-        checkTaskCompletion();
-    });
-
-    dom.editCameraForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const id = parseInt(dom.editCameraForm.querySelector('#edit-cam-id').value);
-        const camera = state.cameras.find(c => c.id === id);
-        if(!camera) return;
-
-        const newIp = dom.editCameraForm.querySelector('#edit-cam-ip').value;
-
-        if (state.guidedTasks.isComplete) {
-            const validation = validateCameraIP(newIp, id);
-            if (!validation.valid) {
-                setHint(validation.message);
-                showHintPopup();
-                showToast("Invalid Input Detected.", "error");
-                return;
-            }
-        }
-        
-        // Update state
-        camera.name = dom.editCameraForm.querySelector('#edit-cam-name').value;
-        camera.ip = newIp;
-        camera.gateway = dom.editCameraForm.querySelector('#edit-cam-gateway').value;
-        camera.username = dom.editCameraForm.querySelector('#edit-cam-user').value;
-        const newPass = dom.editCameraForm.querySelector('#edit-cam-pass').value;
-        if(newPass) camera.password = newPass;
-        camera.recMode = dom.editCameraForm.querySelector('#edit-cam-rec-mode').value;
-        
-        // Check for auth fix
-        if (camera.status === 'Auth Error' && camera.password === 'Password123!') {
-             camera.status = 'Online';
-             logEvent(`Correct credentials entered for '${camera.name}'. Status is now Online.`, 'SUCCESS');
-        }
-
-        logEvent(`Updated settings for camera '${camera.name}'.`);
-        toggleModal(dom.editCameraModal, false);
-        renderAll();
-        checkTaskCompletion();
-    });
-    
-    dom.addUserForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const username = dom.addUserForm.querySelector('#user-username').value;
-        const newUser = {
-            id: Math.max(...state.users.map(u => u.id)) + 1,
-            username: username,
-            role: dom.addUserForm.querySelector('#user-role').value,
-            status: 'Active'
-        };
-        state.users.push(newUser);
-        logEvent(`Created new user: '${username}' with role '${newUser.role}'.`, 'USER');
-        toggleModal(dom.addUserModal, false);
-        dom.addUserForm.reset();
-        renderAll();
-        checkTaskCompletion();
-    });
-
-    // Edit Modal Tab handler
-    dom.modalTabs.addEventListener('click', (e) => {
-        if (e.target.classList.contains('tab-link')) {
-            const targetTab = e.target.dataset.tab;
-            dom.modalTabs.querySelectorAll('.tab-link').forEach(t => t.classList.remove('active'));
-            e.target.classList.add('active');
-            
-            dom.editCameraModal.querySelectorAll('.tab-content').forEach(c => {
-                c.classList.toggle('active', c.id === targetTab);
+    function setupEventListeners() {
+        // Navigation
+        dom.navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = e.currentTarget.dataset.target;
+                dom.navItems.forEach(i => i.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                dom.contentSections.forEach(s => s.classList.toggle('active', s.id === targetId));
+                applyHelpHighlight();
             });
-        }
-    });
+        });
+
+        // Modal Buttons
+        dom.addCamBtn.addEventListener('click', () => toggleModal(dom.addCameraModal, true));
+        dom.cancelAddCamBtn.addEventListener('click', () => toggleModal(dom.addCameraModal, false));
+        dom.cancelEditCamBtn.addEventListener('click', () => toggleModal(dom.editCameraModal, false));
+        dom.addUserBtn.addEventListener('click', () => toggleModal(dom.addUserModal, true));
+        dom.cancelUserBtn.addEventListener('click', () => toggleModal(dom.addUserModal, false));
+
+        // Hint System
+        dom.helpIcon.addEventListener('click', () => {
+            if (state.hintSystem.currentHint) showToast(state.hintSystem.currentHint, 'info');
+            else showToast("No hints right now. Keep up the good work!", 'success');
+        });
+        dom.hintCloseBtn.addEventListener('click', hideHintPopup);
+
+        // Device Actions (Event Delegation)
+        dom.deviceListBody.addEventListener('click', (e) => {
+            const rebootButton = e.target.closest('.btn-reboot');
+            if (rebootButton) {
+                const id = parseInt(rebootButton.dataset.id);
+                const camera = state.cameras.find(c => c.id === id);
+                if (!camera) return;
+                logEvent(`Rebooting camera '${camera.name}'...`);
+                camera.status = 'Offline';
+                renderAll();
+                showToast(`Rebooting ${camera.name}...`);
+                setTimeout(() => {
+                    camera.status = 'Online';
+                    logEvent(`Camera '${camera.name}' is back online.`, 'SUCCESS');
+                    showToast(`${camera.name} is now online.`, 'success');
+                    renderAll();
+                    checkTaskCompletion();
+                }, 2500);
+            }
+            const editButton = e.target.closest('.btn-edit');
+            if (editButton) {
+                const id = parseInt(editButton.dataset.id);
+                const camera = state.cameras.find(c => c.id === id);
+                if (!camera) return;
+                const form = dom.editCameraForm;
+                form.querySelector('#edit-cam-id').value = camera.id;
+                form.querySelector('#edit-cam-name').value = camera.name;
+                form.querySelector('#edit-cam-ip').value = camera.ip;
+                form.querySelector('#edit-cam-gateway').value = camera.gateway;
+                form.querySelector('#edit-cam-user').value = camera.username;
+                form.querySelector('#edit-cam-rec-mode').value = camera.recMode;
+                form.querySelector('#edit-cam-pass').value = '';
+                toggleModal(dom.editCameraModal, true);
+            }
+        });
+
+        // Form Submissions
+        dom.addCameraForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const ip = dom.addCameraForm.querySelector('#cam-ip').value;
+            const name = dom.addCameraForm.querySelector('#cam-name').value;
+            if (state.guidedTasks.isComplete) {
+                const validation = validateCameraIP(ip);
+                if (!validation.valid) {
+                    setHint(validation.message);
+                    showHintPopup();
+                    showToast("Invalid Input Detected.", "error");
+                    return;
+                }
+            }
+            const newCam = {
+                id: Math.max(0, ...state.cameras.map(c => c.id)) + 1,
+                name: name, ip: ip, gateway: dom.addCameraForm.querySelector('#cam-ip').value.replace(/\.\d+$/, '.1'), model: 'IPC-New-4K', status: 'Online',
+                username: dom.addCameraForm.querySelector('#cam-user').value,
+                password: dom.addCameraForm.querySelector('#cam-pass').value, recMode: 'Continuous'
+            };
+            state.cameras.push(newCam);
+            logEvent(`Added camera '${name}' (${ip}).`, 'SUCCESS');
+            toggleModal(dom.addCameraModal, false);
+            dom.addCameraForm.reset();
+            renderAll();
+            checkTaskCompletion();
+        });
+
+        dom.editCameraForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = parseInt(dom.editCameraForm.querySelector('#edit-cam-id').value);
+            const camera = state.cameras.find(c => c.id === id);
+            if(!camera) return;
+            const newIp = dom.editCameraForm.querySelector('#edit-cam-ip').value;
+            if (state.guidedTasks.isComplete) {
+                const validation = validateCameraIP(newIp, id);
+                if (!validation.valid) {
+                    setHint(validation.message);
+                    showHintPopup();
+                    showToast("Invalid Input Detected.", "error");
+                    return;
+                }
+            }
+            camera.name = dom.editCameraForm.querySelector('#edit-cam-name').value;
+            camera.ip = newIp;
+            camera.gateway = dom.editCameraForm.querySelector('#edit-cam-gateway').value;
+            camera.username = dom.editCameraForm.querySelector('#edit-cam-user').value;
+            const newPass = dom.editCameraForm.querySelector('#edit-cam-pass').value;
+            if(newPass) camera.password = newPass;
+            camera.recMode = dom.editCameraForm.querySelector('#edit-cam-rec-mode').value;
+            if (camera.status === 'Auth Error' && camera.password === 'Password123!') {
+                 camera.status = 'Online';
+                 logEvent(`Correct credentials for '${camera.name}'. Status: Online.`, 'SUCCESS');
+            }
+            logEvent(`Updated settings for camera '${camera.name}'.`);
+            toggleModal(dom.editCameraModal, false);
+            renderAll();
+            checkTaskCompletion();
+        });
+        
+        dom.addUserForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = dom.addUserForm.querySelector('#user-username').value;
+            const newUser = {
+                id: Math.max(0, ...state.users.map(u => u.id)) + 1,
+                username: username,
+                role: dom.addUserForm.querySelector('#user-role').value,
+                status: 'Active'
+            };
+            state.users.push(newUser);
+            logEvent(`Created new user: '${username}' with role '${newUser.role}'.`, 'USER');
+            toggleModal(dom.addUserModal, false);
+            dom.addUserForm.reset();
+            renderAll();
+            checkTaskCompletion();
+        });
+
+        dom.networkForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            state.networkConfig.mode = dom.ipTypeSelect.value;
+            if (state.networkConfig.mode === 'static') {
+                state.networkConfig.ip = dom.ipAddressInput.value;
+                state.networkConfig.subnet = dom.subnetMaskInput.value;
+                state.networkConfig.gateway = dom.gatewayInput.value;
+            }
+            logEvent(`NVR network settings updated. Mode: ${state.networkConfig.mode.toUpperCase()}.`);
+            showToast('Network settings saved!', 'success');
+            renderNetworkSettings();
+            checkTaskCompletion();
+        });
+        
+        dom.ipTypeSelect.addEventListener('change', () => renderNetworkSettings());
+
+        // Edit Modal Tab handler
+        dom.modalTabs.addEventListener('click', (e) => {
+            if (e.target.classList.contains('tab-link')) {
+                const targetTab = e.target.dataset.tab;
+                dom.modalTabs.querySelectorAll('.tab-link').forEach(t => t.classList.remove('active'));
+                e.target.classList.add('active');
+                dom.editCameraModal.querySelectorAll('.tab-content').forEach(c => {
+                    c.classList.toggle('active', c.id === targetTab);
+                });
+            }
+        });
+    }
 
     // =================================================================================
     // --- INITIALIZATION ---
@@ -388,6 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
         logEvent('System initialized. VMS_Lab_Pro v3.0 running.');
         logEvent("Camera 'Parking Lot 1' has lost connection.", 'ERROR');
         logEvent("Authentication failed for camera 'Side Entrance'.", 'ERROR');
+        setupEventListeners();
         renderAll();
     };
 
