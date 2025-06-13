@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVR Virtual Lab</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h3>VMS_Lab_Pro</h3>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active" data-target="dashboard"><a href="#">Dashboard</a></li>
+                <li class="nav-item" data-target="devices"><a href="#">Device Management</a></li>
+                <li class="nav-item" data-target="network"><a href="#">Network Settings</a></li>
+            </ul>
+            <div class="task-box">
+                <h4>Guided Task</h4>
+                <p id="task-text">Loading task...</p>
+                <div id="task-feedback" class="feedback-message"></div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <section id="dashboard" class="content-section active">
+                <div class="section-header">
+                    <h2>Live Dashboard</h2>
+                </div>
+                <div id="camera-grid" class="camera-grid">
+                    </div>
+            </section>
+
+            <section id="devices" class="content-section">
+                <div class="section-header">
+                    <h2>Device Management</h2>
+                    <button id="add-camera-btn" class="btn btn-primary">Add Camera</button>
+                </div>
+                <table class="device-table">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Camera Name</th>
+                            <th>IP Address</th>
+                            <th>Model</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="device-list">
+                        </tbody>
+                </table>
+            </section>
+
+            <section id="network" class="content-section">
+                <div class="section-header">
+                    <h2>NVR Network Settings</h2>
+                </div>
+                <form id="network-form" class="settings-form">
+                    <h3>LAN Configuration</h3>
+                    <div class="form-group">
+                        <label for="ip-type">Mode</label>
+                        <select id="ip-type">
+                            <option value="dhcp">DHCP</option>
+                            <option value="static">Static</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ip-address">IP Address</label>
+                        <input type="text" id="ip-address" value="192.168.1.10" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="subnet-mask">Subnet Mask</label>
+                        <input type="text" id="subnet-mask" value="255.255.255.0" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="gateway">Default Gateway</label>
+                        <input type="text" id="gateway" value="192.168.1.1" disabled>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <div id="add-camera-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <form id="add-camera-form">
+                <h3>Add Network Camera</h3>
+                <div class="form-group">
+                    <label for="cam-name">Camera Name</label>
+                    <input type="text" id="cam-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="cam-ip">IP Address</label>
+                    <input type="text" id="cam-ip" required>
+                </div>
+                 <div class="form-group">
+                    <label for="cam-subnet">Subnet Mask</label>
+                    <input type="text" id="cam-subnet" value="255.255.255.0">
+                </div>
+                <div class="form-group">
+                    <label for="cam-user">Username</label>
+                    <input type="text" id="cam-user" value="admin">
+                </div>
+                <div class="form-group">
+                    <label for="cam-pass">Password</label>
+                    <input type="password" id="cam-pass" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" id="scan-network-btn" class="btn btn-secondary">Scan Network</button>
+                    <button type="button" id="cancel-add-btn" class="btn btn-danger">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Device</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
