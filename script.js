@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // =================================================================================
-    // --- STATE MANAGEMENT (v3.1 Final) ---
+    // --- STATE MANAGEMENT ---
+    // This object holds all the data for the application.
     // =================================================================================
     const state = {
         cameras: [
@@ -34,40 +35,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // =================================================================================
     // --- DOM SELECTORS ---
+    // A single object to hold references to all necessary HTML elements.
     // =================================================================================
-    const dom = {
-        navItems: document.querySelectorAll('.nav-item'),
-        contentSections: document.querySelectorAll('.content-section'),
-        deviceListBody: document.getElementById('device-list'),
-        userListBody: document.getElementById('user-list'),
-        cameraGrid: document.getElementById('camera-grid'),
-        eventLogList: document.getElementById('event-log-list'),
-        allModals: document.querySelectorAll('.modal-overlay'),
-        addCameraModal: document.getElementById('add-camera-modal'),
-        editCameraModal: document.getElementById('edit-camera-modal'),
-        addUserModal: document.getElementById('add-user-modal'),
-        addCameraForm: document.getElementById('add-camera-form'),
-        editCameraForm: document.getElementById('edit-camera-form'),
-        addUserForm: document.getElementById('add-user-form'),
-        networkForm: document.getElementById('network-form'),
-        ipTypeSelect: document.getElementById('ip-type'),
-        ipAddressInput: document.getElementById('ip-address'),
-        subnetMaskInput: document.getElementById('subnet-mask'),
-        gatewayInput: document.getElementById('gateway'),
-        addCamBtn: document.getElementById('add-camera-btn'),
-        cancelAddCamBtn: document.getElementById('cancel-add-btn'),
-        cancelEditCamBtn: document.getElementById('cancel-edit-btn'),
-        addUserBtn: document.getElementById('add-user-btn'),
-        cancelUserBtn: document.getElementById('cancel-user-btn'),
-        taskBox: document.getElementById('task-box'),
-        taskText: document.getElementById('task-text'),
-        hintPopup: document.getElementById('hint-popup'),
-        hintText: document.getElementById('hint-text'),
-        hintCloseBtn: document.getElementById('hint-close-btn'),
-        helpIcon: document.getElementById('help-icon'),
-        toastContainer: document.getElementById('toast-container'),
-        modalTabs: document.querySelector('.modal-tabs'),
-    };
+    let dom = {};
+    try {
+        dom = {
+            navItems: document.querySelectorAll('.nav-item'),
+            contentSections: document.querySelectorAll('.content-section'),
+            deviceListBody: document.getElementById('device-list'),
+            userListBody: document.getElementById('user-list'),
+            cameraGrid: document.getElementById('camera-grid'),
+            eventLogList: document.getElementById('event-log-list'),
+            allModals: document.querySelectorAll('.modal-overlay'),
+            addCameraModal: document.getElementById('add-camera-modal'),
+            editCameraModal: document.getElementById('edit-camera-modal'),
+            addUserModal: document.getElementById('add-user-modal'),
+            addCameraForm: document.getElementById('add-camera-form'),
+            editCameraForm: document.getElementById('edit-camera-form'),
+            addUserForm: document.getElementById('add-user-form'),
+            networkForm: document.getElementById('network-form'),
+            ipTypeSelect: document.getElementById('ip-type'),
+            ipAddressInput: document.getElementById('ip-address'),
+            subnetMaskInput: document.getElementById('subnet-mask'),
+            gatewayInput: document.getElementById('gateway'),
+            addCamBtn: document.getElementById('add-camera-btn'),
+            cancelAddCamBtn: document.getElementById('cancel-add-btn'),
+            cancelEditCamBtn: document.getElementById('cancel-edit-btn'),
+            addUserBtn: document.getElementById('add-user-btn'),
+            cancelUserBtn: document.getElementById('cancel-user-btn'),
+            taskBox: document.getElementById('task-box'),
+            taskText: document.getElementById('task-text'),
+            hintPopup: document.getElementById('hint-popup'),
+            hintText: document.getElementById('hint-text'),
+            hintCloseBtn: document.getElementById('hint-close-btn'),
+            helpIcon: document.getElementById('help-icon'),
+            toastContainer: document.getElementById('toast-container'),
+            modalTabs: document.querySelector('.modal-tabs'),
+        };
+    } catch (error) {
+        console.error("Fatal Error: A required HTML element was not found. Please ensure your HTML is correct.", error);
+        alert("A critical error occurred. Check the console for details.");
+        return; // Stop script execution if the DOM is broken
+    }
+    
 
     // =================================================================================
     // --- CORE & UI FUNCTIONS ---
@@ -92,19 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
         renderEventLog();
     };
     
-    /**
-     * Controls modal visibility. This is the single point of control for all pop-ups.
-     * @param {HTMLElement} modal - The modal element to show/hide.
-     * @param {boolean} show - True to show, false to hide.
-     */
     const toggleModal = (modal, show) => {
-        if (show) {
-            // Hide any other modals first to prevent overlap
-            dom.allModals.forEach(m => m.classList.remove('active'));
-            modal.classList.add('active');
-        } else {
-            modal.classList.remove('active');
-        }
+        dom.allModals.forEach(m => m.classList.remove('active'));
+        if (show) modal.classList.add('active');
     };
 
     // =================================================================================
@@ -137,15 +137,69 @@ document.addEventListener('DOMContentLoaded', () => {
     // =================================================================================
     // --- RENDER FUNCTIONS ---
     // =================================================================================
-    const renderDeviceList = () => { /* Same as previous version */ };
-    const renderUserList = () => { /* Same as previous version */ };
-    const renderCameraGrid = () => { /* Same as previous version */ };
-    const renderEventLog = () => { /* Same as previous version */ };
-    const renderNetworkSettings = () => { /* Same as previous version */ };
-    const renderTask = () => { /* Same as previous version */ };
-    const removeHelpHighlight = () => { /* Same as previous version */ };
-    const applyHelpHighlight = () => { /* Same as previous version */ };
-    // --- Re-implementing Render Functions for clarity ---
+
+    const renderDeviceList = () => {
+        dom.deviceListBody.innerHTML = '';
+        state.cameras.forEach(cam => {
+            const statusClass = cam.status.toLowerCase().replace(' ', '-');
+            const row = document.createElement('tr');
+            row.dataset.ip = cam.ip;
+            row.innerHTML = `<td><span class="status-indicator ${statusClass}"></span>${cam.status}</td><td>${cam.name}</td><td>${cam.ip}</td><td>${cam.model}</td><td class="actions"><button class="btn btn-secondary btn-sm btn-reboot" data-id="${cam.id}">Reboot</button><button class="btn btn-secondary btn-sm btn-edit" data-id="${cam.id}">Edit</button></td>`;
+            dom.deviceListBody.appendChild(row);
+        });
+    };
+    const renderUserList = () => {
+        dom.userListBody.innerHTML = '';
+        state.users.forEach(user => {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${user.username}</td><td>${user.role}</td><td><span class="status-indicator active"></span>Active</td><td class="actions"><button class="btn btn-secondary btn-sm" disabled>Edit</button></td>`;
+            dom.userListBody.appendChild(row);
+        });
+    };
+    const renderCameraGrid = () => {
+        dom.cameraGrid.innerHTML = '';
+        state.cameras.forEach(cam => {
+            const feed = document.createElement('div');
+            feed.className = `camera-feed ${cam.status !== 'Online' ? 'offline' : ''}`;
+            const kittenId = (cam.id % 16) + 1;
+            feed.innerHTML = `${cam.status !== 'Online' ? `<div class="offline-overlay">${cam.status}</div>` : ''}<img src="https://placekitten.com/400/225?image=${kittenId}" alt="${cam.name}"><div class="info">${cam.name}</div>`;
+            dom.cameraGrid.appendChild(feed);
+        });
+    };
+    const renderEventLog = () => {
+        dom.eventLogList.innerHTML = state.eventLog.map(e => `<li><span class="event-time">${e.timestamp}</span><span class="event-type-${e.type}">${e.type}</span><span>${e.message}</span></li>`).join('');
+    };
+    const renderNetworkSettings = () => {
+        dom.ipTypeSelect.value = state.networkConfig.mode;
+        dom.ipAddressInput.value = state.networkConfig.ip;
+        dom.subnetMaskInput.value = state.networkConfig.subnet;
+        dom.gatewayInput.value = state.networkConfig.gateway;
+        const isStatic = state.networkConfig.mode === 'static';
+        dom.ipAddressInput.disabled = !isStatic;
+        dom.subnetMaskInput.disabled = !isStatic;
+        dom.gatewayInput.disabled = !isStatic;
+    };
+    const removeHelpHighlight = () => {
+        const highlighted = document.querySelector('.highlight-help');
+        if (highlighted) highlighted.classList.remove('highlight-help');
+    };
+    const applyHelpHighlight = () => {
+        removeHelpHighlight();
+        if(state.guidedTasks.isComplete) return;
+        const selector = state.guidedTasks.tasks[state.guidedTasks.currentTaskIndex]?.highlightSelector;
+        if (selector) {
+            setTimeout(() => {
+                const element = document.querySelector(selector);
+                if (element) element.classList.add('highlight-help');
+            }, 100);
+        }
+    };
+    const renderTask = () => {
+        if (state.guidedTasks.isComplete) return;
+        const currentTask = state.guidedTasks.tasks[state.guidedTasks.currentTaskIndex];
+        dom.taskText.textContent = currentTask.description;
+        applyHelpHighlight();
+    };
     const renderAll = () => {
         renderDeviceList();
         renderUserList();
@@ -156,15 +210,36 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // =================================================================================
-    // --- TASK & MODE LOGIC ---
+    // --- TASK COMPLETION & MODE LOGIC ---
     // =================================================================================
-    const checkTaskCompletion = () => { /* Same as previous version */ };
-    
+    const checkTaskCompletion = () => {
+        if (state.guidedTasks.isComplete) return;
+        const tasks = state.guidedTasks.tasks;
+        const i = state.guidedTasks.currentTaskIndex;
+        if (tasks[i].isComplete(state)) {
+            removeHelpHighlight();
+            showToast(`Task ${tasks[i].id} Complete!`, 'success');
+            logEvent(`Task ${tasks[i].id} completed.`, 'SUCCESS');
+            state.guidedTasks.currentTaskIndex++;
+            if (state.guidedTasks.currentTaskIndex >= tasks.length - 1) {
+                state.guidedTasks.isComplete = true;
+                removeHelpHighlight();
+                setTimeout(() => {
+                    dom.taskBox.classList.add('hidden');
+                    dom.helpIcon.classList.add('active');
+                    showToast("All tasks done. Explore Mode activated!", 'info');
+                    logEvent('Guided task mode completed. Switched to Explore Mode.', 'SYSTEM');
+                }, 2000);
+            }
+            setTimeout(renderTask, 1500);
+        }
+    };
+
     // =================================================================================
-    // --- EVENT HANDLERS SETUP ---
+    // --- EVENT HANDLERS ---
     // =================================================================================
+
     function setupEventListeners() {
-        // --- Navigation ---
         dom.navItems.forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -172,81 +247,128 @@ document.addEventListener('DOMContentLoaded', () => {
                 dom.navItems.forEach(i => i.classList.remove('active'));
                 e.currentTarget.classList.add('active');
                 dom.contentSections.forEach(s => s.classList.toggle('active', s.id === targetId));
-                if (!state.guidedTasks.isComplete) applyHelpHighlight();
+                applyHelpHighlight();
             });
         });
 
-        // --- Modal Control Buttons ---
         dom.addCamBtn.addEventListener('click', () => toggleModal(dom.addCameraModal, true));
         dom.cancelAddCamBtn.addEventListener('click', () => toggleModal(dom.addCameraModal, false));
-        
-        dom.cancelEditCamBtn.addEventListener('click', () => toggleModal(dom.editCameraModal, false));
-        
         dom.addUserBtn.addEventListener('click', () => toggleModal(dom.addUserModal, true));
         dom.cancelUserBtn.addEventListener('click', () => toggleModal(dom.addUserModal, false));
+        dom.cancelEditCamBtn.addEventListener('click', () => toggleModal(dom.editCameraModal, false));
 
-        // --- NEW: Click outside modal to close ---
         dom.allModals.forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                // If the click is on the dark background (the overlay itself)
-                if (e.target === modal) {
-                    toggleModal(modal, false);
-                }
-            });
+            modal.addEventListener('click', (e) => { if (e.target === modal) toggleModal(modal, false); });
         });
 
-        // --- Hint System ---
         dom.helpIcon.addEventListener('click', () => {
             if (state.hintSystem.currentHint) showToast(state.hintSystem.currentHint, 'info');
-            else showToast("No hints right now. Keep up the good work!", 'success');
+            else showToast("No hints available. You're doing great!", 'success');
         });
         dom.hintCloseBtn.addEventListener('click', hideHintPopup);
 
-        // --- Device Actions (Event Delegation) ---
-        dom.deviceListBody.addEventListener('click', (e) => { /* Same as previous version */ });
+        dom.deviceListBody.addEventListener('click', (e) => {
+            const rebootButton = e.target.closest('.btn-reboot');
+            if (rebootButton) {
+                const id = parseInt(rebootButton.dataset.id);
+                const camera = state.cameras.find(c => c.id === id);
+                if (!camera) return;
+                logEvent(`Rebooting camera '${camera.name}'...`);
+                camera.status = 'Offline'; renderAll(); showToast(`Rebooting ${camera.name}...`);
+                setTimeout(() => { camera.status = 'Online'; logEvent(`Camera '${camera.name}' is back online.`, 'SUCCESS'); showToast(`${camera.name} is now online.`, 'success'); renderAll(); checkTaskCompletion(); }, 2500);
+            }
+            const editButton = e.target.closest('.btn-edit');
+            if (editButton) {
+                const id = parseInt(editButton.dataset.id);
+                const camera = state.cameras.find(c => c.id === id);
+                if (!camera) return;
+                const form = dom.editCameraForm;
+                form.querySelector('#edit-cam-id').value = camera.id;
+                form.querySelector('#edit-cam-name').value = camera.name;
+                form.querySelector('#edit-cam-ip').value = camera.ip;
+                form.querySelector('#edit-cam-gateway').value = camera.gateway;
+                form.querySelector('#edit-cam-user').value = camera.username;
+                form.querySelector('#edit-cam-rec-mode').value = camera.recMode;
+                form.querySelector('#edit-cam-pass').value = '';
+                toggleModal(dom.editCameraModal, true);
+            }
+        });
 
-        // --- Form Submissions ---
-        dom.addCameraForm.addEventListener('submit', (e) => { /* Same as previous version */ });
-        dom.editCameraForm.addEventListener('submit', (e) => { /* Same as previous version */ });
-        dom.addUserForm.addEventListener('submit', (e) => { /* Same as previous version */ });
-        dom.networkForm.addEventListener('submit', (e) => { /* Same as previous version */ });
+        dom.addCameraForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const ip = dom.addCameraForm.querySelector('#cam-ip').value;
+            const name = dom.addCameraForm.querySelector('#cam-name').value;
+            if (state.guidedTasks.isComplete) {
+                const validation = validateCameraIP(ip);
+                if (!validation.valid) { setHint(validation.message); showHintPopup(); showToast("Invalid Input Detected.", "error"); return; }
+            }
+            const newCam = { id: Math.max(0, ...state.cameras.map(c => c.id)) + 1, name: name, ip: ip, gateway: ip.replace(/\.\d+$/, '.1'), model: 'IPC-New-4K', status: 'Online', username: dom.addCameraForm.querySelector('#cam-user').value, password: dom.addCameraForm.querySelector('#cam-pass').value, recMode: 'Continuous' };
+            state.cameras.push(newCam);
+            logEvent(`Added camera '${name}' (${ip}).`, 'SUCCESS');
+            toggleModal(dom.addCameraModal, false); dom.addCameraForm.reset(); renderAll(); checkTaskCompletion();
+        });
+
+        dom.editCameraForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = parseInt(dom.editCameraForm.querySelector('#edit-cam-id').value);
+            const camera = state.cameras.find(c => c.id === id);
+            if(!camera) return;
+            const newIp = dom.editCameraForm.querySelector('#edit-cam-ip').value;
+            if (state.guidedTasks.isComplete) {
+                const validation = validateCameraIP(newIp, id);
+                if (!validation.valid) { setHint(validation.message); showHintPopup(); showToast("Invalid Input Detected.", "error"); return; }
+            }
+            camera.name = dom.editCameraForm.querySelector('#edit-cam-name').value;
+            camera.ip = newIp;
+            camera.gateway = dom.editCameraForm.querySelector('#edit-cam-gateway').value;
+            camera.username = dom.editCameraForm.querySelector('#edit-cam-user').value;
+            const newPass = dom.editCameraForm.querySelector('#edit-cam-pass').value;
+            if(newPass) camera.password = newPass;
+            camera.recMode = dom.editCameraForm.querySelector('#edit-cam-rec-mode').value;
+            if (camera.status === 'Auth Error' && camera.password === 'Password123!') { camera.status = 'Online'; logEvent(`Correct credentials for '${camera.name}'. Status: Online.`, 'SUCCESS'); }
+            logEvent(`Updated settings for camera '${camera.name}'.`);
+            toggleModal(dom.editCameraModal, false); renderAll(); checkTaskCompletion();
+        });
         
-        // --- Other Listeners ---
+        dom.addUserForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = dom.addUserForm.querySelector('#user-username').value;
+            const newUser = { id: Math.max(0, ...state.users.map(u => u.id)) + 1, username: username, role: dom.addUserForm.querySelector('#user-role').value, status: 'Active' };
+            state.users.push(newUser);
+            logEvent(`Created new user: '${username}' with role '${newUser.role}'.`, 'USER');
+            toggleModal(dom.addUserModal, false); dom.addUserForm.reset(); renderAll(); checkTaskCompletion();
+        });
+
+        dom.networkForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            state.networkConfig.mode = dom.ipTypeSelect.value;
+            if (state.networkConfig.mode === 'static') {
+                state.networkConfig.ip = dom.ipAddressInput.value;
+                state.networkConfig.subnet = dom.subnetMaskInput.value;
+                state.networkConfig.gateway = dom.gatewayInput.value;
+            }
+            logEvent(`NVR network settings updated. Mode: ${state.networkConfig.mode.toUpperCase()}.`);
+            showToast('Network settings saved!', 'success');
+            renderNetworkSettings(); checkTaskCompletion();
+        });
+        
         dom.ipTypeSelect.addEventListener('change', renderNetworkSettings);
-        dom.modalTabs.addEventListener('click', (e) => { /* Same as previous version */ });
+
+        dom.modalTabs.addEventListener('click', (e) => {
+            if (e.target.classList.contains('tab-link')) {
+                const targetTab = e.target.dataset.tab;
+                dom.modalTabs.querySelectorAll('.tab-link').forEach(t => t.classList.remove('active'));
+                e.target.classList.add('active');
+                dom.editCameraModal.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.id === targetTab));
+            }
+        });
     }
 
     // =================================================================================
-    // --- FULL IMPLEMENTATION OF FUNCTIONS (Copying from previous correct version) ---
-    // =================================================================================
-    
-    // The previous stubs are now replaced with full function bodies for a complete, working file.
-    // Re-implementing Render Functions
-    function renderDeviceList() { dom.deviceListBody.innerHTML = ''; state.cameras.forEach(cam => { const statusClass = cam.status.toLowerCase().replace(' ', '-'); const row = document.createElement('tr'); row.dataset.ip = cam.ip; row.innerHTML = `<td><span class="status-indicator ${statusClass}"></span>${cam.status}</td><td>${cam.name}</td><td>${cam.ip}</td><td>${cam.model}</td><td class="actions"><button class="btn btn-secondary btn-sm btn-reboot" data-id="${cam.id}">Reboot</button><button class="btn btn-secondary btn-sm btn-edit" data-id="${cam.id}">Edit</button></td>`; dom.deviceListBody.appendChild(row); }); }
-    function renderUserList() { dom.userListBody.innerHTML = ''; state.users.forEach(user => { const row = document.createElement('tr'); row.innerHTML = `<td>${user.username}</td><td>${user.role}</td><td><span class="status-indicator active"></span>Active</td><td class="actions"><button class="btn btn-secondary btn-sm" disabled>Edit</button></td>`; dom.userListBody.appendChild(row); }); }
-    function renderCameraGrid() { dom.cameraGrid.innerHTML = ''; state.cameras.forEach(cam => { const feed = document.createElement('div'); feed.className = `camera-feed ${cam.status !== 'Online' ? 'offline' : ''}`; const kittenId = (cam.id % 16) + 1; feed.innerHTML = `${cam.status !== 'Online' ? `<div class="offline-overlay">${cam.status}</div>` : ''}<img src="https://placekitten.com/400/225?image=${kittenId}" alt="${cam.name}"><div class="info">${cam.name}</div>`; dom.cameraGrid.appendChild(feed); }); }
-    function renderEventLog() { dom.eventLogList.innerHTML = state.eventLog.map(e => `<li><span class="event-time">${e.timestamp}</span><span class="event-type-${e.type}">${e.type}</span><span>${e.message}</span></li>`).join(''); }
-    function renderNetworkSettings() { dom.ipTypeSelect.value = state.networkConfig.mode; dom.ipAddressInput.value = state.networkConfig.ip; dom.subnetMaskInput.value = state.networkConfig.subnet; dom.gatewayInput.value = state.networkConfig.gateway; const isStatic = state.networkConfig.mode === 'static'; dom.ipAddressInput.disabled = !isStatic; dom.subnetMaskInput.disabled = !isStatic; dom.gatewayInput.disabled = !isStatic; }
-    function renderTask() { if (state.guidedTasks.isComplete) return; const currentTask = state.guidedTasks.tasks[state.guidedTasks.currentTaskIndex]; dom.taskText.textContent = currentTask.description; applyHelpHighlight(); }
-    function removeHelpHighlight() { const highlighted = document.querySelector('.highlight-help'); if (highlighted) highlighted.classList.remove('highlight-help'); }
-    function applyHelpHighlight() { removeHelpHighlight(); const selector = state.guidedTasks.tasks[state.guidedTasks.currentTaskIndex]?.highlightSelector; if (selector) { setTimeout(() => { const element = document.querySelector(selector); if (element) element.classList.add('highlight-help'); }, 100); } }
-    
-    // Re-implementing Task Logic
-    function checkTaskCompletion() { if (state.guidedTasks.isComplete) return; const tasks = state.guidedTasks.tasks; const i = state.guidedTasks.currentTaskIndex; if (tasks[i].isComplete(state)) { removeHelpHighlight(); showToast(`Task ${tasks[i].id} Complete!`, 'success'); logEvent(`Task ${tasks[i].id} completed.`, 'SUCCESS'); state.guidedTasks.currentTaskIndex++; if (state.guidedTasks.currentTaskIndex >= tasks.length - 1) { state.guidedTasks.isComplete = true; setTimeout(() => { dom.taskBox.classList.add('hidden'); dom.helpIcon.classList.add('active'); showToast("All tasks done. Explore Mode activated!", 'info'); logEvent('Guided task mode completed. Switched to Explore Mode.', 'SYSTEM'); }, 2000); } setTimeout(renderTask, 1500); } }
-
-    // Re-implementing full Event Handlers from setupEventListeners
-    dom.deviceListBody.addEventListener('click', (e) => { const rebootButton = e.target.closest('.btn-reboot'); if (rebootButton) { const id = parseInt(rebootButton.dataset.id); const camera = state.cameras.find(c => c.id === id); if (!camera) return; logEvent(`Rebooting camera '${camera.name}'...`); camera.status = 'Offline'; renderAll(); showToast(`Rebooting ${camera.name}...`); setTimeout(() => { camera.status = 'Online'; logEvent(`Camera '${camera.name}' is back online.`, 'SUCCESS'); showToast(`${camera.name} is now online.`, 'success'); renderAll(); checkTaskCompletion(); }, 2500); } const editButton = e.target.closest('.btn-edit'); if (editButton) { const id = parseInt(editButton.dataset.id); const camera = state.cameras.find(c => c.id === id); if (!camera) return; const form = dom.editCameraForm; form.querySelector('#edit-cam-id').value = camera.id; form.querySelector('#edit-cam-name').value = camera.name; form.querySelector('#edit-cam-ip').value = camera.ip; form.querySelector('#edit-cam-gateway').value = camera.gateway; form.querySelector('#edit-cam-user').value = camera.username; form.querySelector('#edit-cam-rec-mode').value = camera.recMode; form.querySelector('#edit-cam-pass').value = ''; toggleModal(dom.editCameraModal, true); } });
-    dom.addCameraForm.addEventListener('submit', (e) => { e.preventDefault(); const ip = dom.addCameraForm.querySelector('#cam-ip').value; const name = dom.addCameraForm.querySelector('#cam-name').value; if (state.guidedTasks.isComplete) { const validation = validateCameraIP(ip); if (!validation.valid) { setHint(validation.message); showHintPopup(); showToast("Invalid Input Detected.", "error"); return; } } const newCam = { id: Math.max(0, ...state.cameras.map(c => c.id)) + 1, name: name, ip: ip, gateway: ip.replace(/\.\d+$/, '.1'), model: 'IPC-New-4K', status: 'Online', username: dom.addCameraForm.querySelector('#cam-user').value, password: dom.addCameraForm.querySelector('#cam-pass').value, recMode: 'Continuous' }; state.cameras.push(newCam); logEvent(`Added camera '${name}' (${ip}).`, 'SUCCESS'); toggleModal(dom.addCameraModal, false); dom.addCameraForm.reset(); renderAll(); checkTaskCompletion(); });
-    dom.editCameraForm.addEventListener('submit', (e) => { e.preventDefault(); const id = parseInt(dom.editCameraForm.querySelector('#edit-cam-id').value); const camera = state.cameras.find(c => c.id === id); if(!camera) return; const newIp = dom.editCameraForm.querySelector('#edit-cam-ip').value; if (state.guidedTasks.isComplete) { const validation = validateCameraIP(newIp, id); if (!validation.valid) { setHint(validation.message); showHintPopup(); showToast("Invalid Input Detected.", "error"); return; } } camera.name = dom.editCameraForm.querySelector('#edit-cam-name').value; camera.ip = newIp; camera.gateway = dom.editCameraForm.querySelector('#edit-cam-gateway').value; camera.username = dom.editCameraForm.querySelector('#edit-cam-user').value; const newPass = dom.editCameraForm.querySelector('#edit-cam-pass').value; if(newPass) camera.password = newPass; camera.recMode = dom.editCameraForm.querySelector('#edit-cam-rec-mode').value; if (camera.status === 'Auth Error' && camera.password === 'Password123!') { camera.status = 'Online'; logEvent(`Correct credentials for '${camera.name}'. Status: Online.`, 'SUCCESS'); } logEvent(`Updated settings for camera '${camera.name}'.`); toggleModal(dom.editCameraModal, false); renderAll(); checkTaskCompletion(); });
-    dom.addUserForm.addEventListener('submit', (e) => { e.preventDefault(); const username = dom.addUserForm.querySelector('#user-username').value; const newUser = { id: Math.max(0, ...state.users.map(u => u.id)) + 1, username: username, role: dom.addUserForm.querySelector('#user-role').value, status: 'Active' }; state.users.push(newUser); logEvent(`Created new user: '${username}' with role '${newUser.role}'.`, 'USER'); toggleModal(dom.addUserModal, false); dom.addUserForm.reset(); renderAll(); checkTaskCompletion(); });
-    dom.networkForm.addEventListener('submit', (e) => { e.preventDefault(); state.networkConfig.mode = dom.ipTypeSelect.value; if (state.networkConfig.mode === 'static') { state.networkConfig.ip = dom.ipAddressInput.value; state.networkConfig.subnet = dom.subnetMaskInput.value; state.networkConfig.gateway = dom.gatewayInput.value; } logEvent(`NVR network settings updated. Mode: ${state.networkConfig.mode.toUpperCase()}.`); showToast('Network settings saved!', 'success'); renderNetworkSettings(); checkTaskCompletion(); });
-    dom.modalTabs.addEventListener('click', (e) => { if (e.target.classList.contains('tab-link')) { const targetTab = e.target.dataset.tab; dom.modalTabs.querySelectorAll('.tab-link').forEach(t => t.classList.remove('active')); e.target.classList.add('active'); dom.editCameraModal.querySelectorAll('.tab-content').forEach(c => { c.classList.toggle('active', c.id === targetTab); }); } });
-    
-    // =================================================================================
     // --- INITIALIZATION ---
     // =================================================================================
-    const init = () => {
-        logEvent('System initialized. VMS_Lab_Pro v3.1 running.');
+    function init() {
+        logEvent('System initialized. VMS_Lab_Pro Final running.');
         logEvent("Camera 'Parking Lot 1' has lost connection.", 'ERROR');
         logEvent("Authentication failed for camera 'Side Entrance'.", 'ERROR');
         setupEventListeners();
