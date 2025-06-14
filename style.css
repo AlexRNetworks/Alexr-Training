@@ -15,10 +15,6 @@
     --glow-color: #00aaff;
 }
 
-* {
-    box-sizing: border-box;
-}
-
 html, body {
     height: 100%;
     margin: 0;
@@ -29,12 +25,16 @@ html, body {
     overflow: hidden;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 /* ==========================================================================
    Main App Layout
    ========================================================================== */
 .app-container {
     display: flex;
-    height: calc(100vh - 60px); /* Full viewport height minus the header */
+    height: calc(100vh - 60px);
 }
 
 header {
@@ -141,23 +141,57 @@ header h1 {
         linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
     background-size: 20px 20px;
     overflow: hidden;
+    cursor: default;
+}
+
+#network-canvas-container.connect-mode {
+    cursor: crosshair;
+}
+
+#connection-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none; /* Allows clicks to pass through to devices */
+}
+
+#connection-lines line {
+    stroke: var(--text-medium);
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+#canvas-devices {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .canvas-device {
     position: absolute;
     z-index: 10;
-    /* Styles are the same as .device in the toolbar */
     background-color: var(--bg-light);
     border-radius: 8px;
     padding: 1rem;
     text-align: center;
     cursor: move;
     border: 2px solid var(--border-color);
+    user-select: none; /* Prevents text selection while dragging */
 }
 
 .canvas-device.selected {
     border-color: var(--glow-color);
     box-shadow: 0 0 15px var(--glow-color);
+}
+
+.canvas-device.connect-source {
+    border-color: var(--success);
+    box-shadow: 0 0 15px var(--success);
 }
 
 
@@ -180,12 +214,46 @@ header h1 {
     padding-bottom: 0.5rem;
 }
 
+.config-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.config-header h4 {
+    margin: 0;
+}
+
+.btn-connect {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--text-medium);
+    cursor: pointer;
+    padding: 0.25rem;
+    line-height: 1;
+}
+
+.btn-connect:hover {
+    color: var(--text-light);
+}
+
 .config-view {
     display: none;
 }
 
 .config-view.active {
     display: block;
+}
+
+.config-subtitle {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    color: var(--text-medium);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
 }
 
 .form-group {
@@ -199,7 +267,7 @@ header h1 {
     font-size: 0.9rem;
 }
 
-.form-group input {
+.form-group input, .form-group select {
     width: 100%;
     padding: 0.7rem;
     background-color: var(--bg-dark);
@@ -215,6 +283,35 @@ header h1 {
     opacity: 0.7;
 }
 
+.form-inline {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.form-inline input {
+    flex-grow: 1;
+}
+
+#vlan-list .vlan-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-dark);
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+#vlan-list .vlan-item-gateway {
+    color: var(--text-medium);
+    font-size: 0.9rem;
+}
+
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
 .btn {
     width: 100%;
     padding: 0.8rem 1.2rem;
@@ -225,10 +322,11 @@ header h1 {
     font-size: 1rem;
     transition: all 0.2s;
 }
-
 .btn-primary { background-color: var(--primary-blue); color: white; }
 .btn-primary:hover { opacity: 0.9; }
 .btn-secondary { background-color: var(--bg-light); color: var(--text-light); }
+.btn-danger { background-color: var(--danger); color: white; }
+.btn-small { padding: 0.25rem 0.5rem; font-size: 0.8rem; width: auto; }
 
 
 /* ==========================================================================
@@ -245,12 +343,21 @@ header h1 {
     padding: 0.8rem;
     text-align: left;
     border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
 }
 
 .port-table th, .firewall-table th {
     background-color: var(--bg-light);
     font-weight: 500;
 }
+
+.firewall-table td .btn {
+    padding: 0.2rem 0.5rem;
+    margin-left: 0.2rem;
+}
+
+.firewall-table .allow { color: var(--success); }
+.firewall-table .deny { color: var(--danger); }
 
 
 /* ==========================================================================
@@ -264,13 +371,14 @@ header h1 {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 1000;
-    display: none; /* Hidden by default */
+    display: none;
     justify-content: center;
     align-items: center;
+    backdrop-filter: blur(5px);
 }
 
 .modal-overlay.active {
-    display: flex; /* Shown with JS */
+    display: flex;
 }
 
 .modal-content {
@@ -279,6 +387,7 @@ header h1 {
     border-radius: 8px;
     width: 90%;
     max-width: 600px;
+    border: 1px solid var(--border-color);
 }
 
 .modal-content.large {
@@ -291,6 +400,11 @@ header h1 {
     padding-bottom: 1rem;
 }
 
+.modal-content p {
+    color: var(--text-medium);
+    line-height: 1.5;
+}
+
 .modal-actions {
     display: flex;
     justify-content: flex-end;
@@ -299,5 +413,5 @@ header h1 {
 }
 
 .modal-actions .btn {
-    width: auto; /* Override full-width buttons for modals */
+    width: auto;
 }
