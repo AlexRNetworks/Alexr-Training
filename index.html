@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Network & Firewall Simulator</title>
+    <title>Network & Firewall Simulator (Final)</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -39,12 +39,14 @@
             </div>
             <div id="task-box">
                 <h4>Current Scenario</h4>
-                <p id="task-text">Your first task is to build a basic office network. Drag a Router and a Switch onto the canvas.</p>
+                <p id="task-text">Loading...</p>
             </div>
         </aside>
 
         <main id="network-canvas-container">
-            </main>
+            <svg id="connection-lines"></svg>
+            <div id="canvas-devices"></div>
+        </main>
 
         <aside id="config-panel">
             <h2>Configuration</h2>
@@ -54,7 +56,10 @@
                 </div>
 
                 <div id="config-router" class="config-view">
-                    <h4>Router Settings</h4>
+                    <div class="config-header">
+                        <h4>Router Settings</h4>
+                        <button class="btn-connect" title="Connect this device">🔗</button>
+                    </div>
                     <div class="form-group">
                         <label for="router-name">Device Name</label>
                         <input type="text" id="router-name">
@@ -63,23 +68,29 @@
                         <label for="router-wan-ip">WAN IP (From ISP)</label>
                         <input type="text" id="router-wan-ip" value="75.125.66.182" disabled>
                     </div>
-                    <div class="form-group">
-                        <label for="router-lan-ip">LAN IP (Gateway)</label>
-                        <input type="text" id="router-lan-ip">
-                    </div>
                     <button id="firewall-btn" class="btn btn-primary">Open Firewall Rules</button>
+                    <h5 class="config-subtitle">VLANs & Networks</h5>
+                    <div id="vlan-list">
+                        </div>
+                    <div class="form-inline">
+                        <input type="text" id="vlan-name-input" placeholder="New VLAN Name">
+                        <button id="add-vlan-btn" class="btn btn-secondary">Add VLAN</button>
+                    </div>
                 </div>
 
                 <div id="config-switch" class="config-view">
-                    <h4>Switch Settings</h4>
+                    <div class="config-header">
+                        <h4>Switch Settings</h4>
+                        <button class="btn-connect" title="Connect this device">🔗</button>
+                    </div>
                     <div class="form-group">
                         <label for="switch-name">Device Name</label>
                         <input type="text" id="switch-name">
                     </div>
-                    <h5>Port & VLAN Assignments</h5>
+                    <h5 class="config-subtitle">Port & VLAN Assignments</h5>
                     <table class="port-table">
                         <thead>
-                            <tr><th>Port</th><th>VLAN</th></tr>
+                            <tr><th>Port</th><th>VLAN Assignment</th></tr>
                         </thead>
                         <tbody id="switch-ports">
                             </tbody>
@@ -87,7 +98,10 @@
                 </div>
 
                 <div id="config-endpoint" class="config-view">
-                    <h4>Device Settings</h4>
+                    <div class="config-header">
+                        <h4 id="endpoint-title">Device Settings</h4>
+                        <button class="btn-connect" title="Connect this device">🔗</button>
+                    </div>
                     <div class="form-group">
                         <label for="endpoint-name">Device Name</label>
                         <input type="text" id="endpoint-name">
@@ -98,7 +112,7 @@
                     </div>
                     <div class="form-group">
                         <label for="endpoint-subnet">Subnet Mask</label>
-                        <input type="text" id="endpoint-subnet">
+                        <input type="text" id="endpoint-subnet" value="255.255.255.0">
                     </div>
                     <div class="form-group">
                         <label for="endpoint-gateway">Default Gateway</label>
@@ -112,7 +126,7 @@
     <div id="firewall-modal" class="modal-overlay">
         <div class="modal-content large">
             <h3>Firewall Policy</h3>
-            <p>Rules are processed from top to bottom. The first rule that matches a traffic pattern is applied.</p>
+            <p>Rules are processed from top to bottom. The first rule that matches an activity is applied. The implicit final rule is to Deny All traffic.</p>
             <table class="firewall-table">
                 <thead>
                     <tr>
@@ -120,7 +134,7 @@
                         <th>Action</th>
                         <th>Source</th>
                         <th>Destination</th>
-                        <th>Protocol/Port</th>
+                        <th>Port/Service</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -131,6 +145,37 @@
                 <button id="add-rule-btn" class="btn btn-primary">Add New Rule</button>
                 <button id="close-firewall-btn" class="btn btn-secondary">Close</button>
             </div>
+        </div>
+    </div>
+    
+    <div id="add-rule-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Create Firewall Rule</h3>
+            <form id="add-rule-form">
+                <div class="form-group">
+                    <label for="rule-action">Action</label>
+                    <select id="rule-action">
+                        <option value="Allow">Allow</option>
+                        <option value="Deny">Deny</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="rule-source">Source</label>
+                    <input type="text" id="rule-source" placeholder="e.g., VLAN10, 192.168.10.10, 50.207.118.1, Any">
+                </div>
+                <div class="form-group">
+                    <label for="rule-dest">Destination</label>
+                    <input type="text" id="rule-dest" placeholder="e.g., VLAN20, 192.168.10.10, Any">
+                </div>
+                <div class="form-group">
+                    <label for="rule-port">Port / Service</label>
+                    <input type="text" id="rule-port" placeholder="e.g., 443, 8443, Any">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" id="cancel-rule-btn" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Rule</button>
+                </div>
+            </form>
         </div>
     </div>
     
