@@ -1,0 +1,303 @@
+/* ==========================================================================
+   Global Styles & Variables
+   ========================================================================== */
+:root {
+    --bg-dark: #1a1c23;
+    --bg-medium: #252830;
+    --bg-light: #313540;
+    --primary-blue: #007bff;
+    --text-light: #f1f1f1;
+    --text-medium: #a0a0a0;
+    --border-color: #444857;
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --glow-color: #00aaff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   Main App Layout
+   ========================================================================== */
+.app-container {
+    display: flex;
+    height: calc(100vh - 60px); /* Full viewport height minus the header */
+}
+
+header {
+    background-color: var(--bg-medium);
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    height: 60px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   Left Column: Device Toolbar & Task Box
+   ========================================================================== */
+#device-toolbar {
+    width: 240px;
+    flex-shrink: 0;
+    background-color: var(--bg-medium);
+    padding: 1rem;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+}
+
+#device-toolbar h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.device-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.device {
+    background-color: var(--bg-light);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    cursor: grab;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--border-color);
+}
+
+.device:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.device:active {
+    cursor: grabbing;
+    background-color: var(--primary-blue);
+}
+
+.device-icon {
+    font-size: 2rem;
+    display: block;
+}
+
+.device-label {
+    margin-top: 0.5rem;
+    display: block;
+    font-size: 0.9rem;
+}
+
+#task-box {
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: auto;
+}
+
+#task-box h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-blue);
+}
+
+#task-box p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    line-height: 1.4;
+}
+
+
+/* ==========================================================================
+   Center Column: Network Canvas
+   ========================================================================== */
+#network-canvas-container {
+    flex-grow: 1;
+    position: relative;
+    background-color: #202229;
+    background-image: 
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    overflow: hidden;
+}
+
+.canvas-device {
+    position: absolute;
+    z-index: 10;
+    /* Styles are the same as .device in the toolbar */
+    background-color: var(--bg-light);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    cursor: move;
+    border: 2px solid var(--border-color);
+}
+
+.canvas-device.selected {
+    border-color: var(--glow-color);
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
+
+/* ==========================================================================
+   Right Column: Configuration Panel
+   ========================================================================== */
+#config-panel {
+    width: 320px;
+    flex-shrink: 0;
+    background-color: var(--bg-medium);
+    border-left: 1px solid var(--border-color);
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+#config-panel h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.config-view {
+    display: none;
+}
+
+.config-view.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-medium);
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.form-group input:disabled {
+    background-color: var(--bg-light);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.btn {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.btn-primary { background-color: var(--primary-blue); color: white; }
+.btn-primary:hover { opacity: 0.9; }
+.btn-secondary { background-color: var(--bg-light); color: var(--text-light); }
+
+
+/* ==========================================================================
+   Tables (Switch Ports, Firewall Rules)
+   ========================================================================== */
+.port-table, .firewall-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.port-table th, .port-table td,
+.firewall-table th, .firewall-table td {
+    padding: 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.port-table th, .firewall-table th {
+    background-color: var(--bg-light);
+    font-weight: 500;
+}
+
+
+/* ==========================================================================
+   Modals
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay.active {
+    display: flex; /* Shown with JS */
+}
+
+.modal-content {
+    background-color: var(--bg-medium);
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+}
+
+.modal-content.large {
+    max-width: 900px;
+}
+
+.modal-content h3 {
+    margin: 0 0 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.modal-actions .btn {
+    width: auto; /* Override full-width buttons for modals */
+}
