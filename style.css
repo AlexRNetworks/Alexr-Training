@@ -3,18 +3,21 @@
    ========================================================================== */
 
 /* Import a clean, modern font from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 /* Define color palette and global variables */
 :root {
-    --primary-color: #0056b3; /* A strong, trustworthy blue */
+    --primary-color: #0056b3; 
     --primary-hover-color: #004494;
-    --secondary-color: #f4f7fc; /* A very light grey for backgrounds */
-    --dark-color: #1a202c; /* For headlines and primary text */
-    --text-color: #4a5568; /* For paragraph text */
+    --accent-color: #17a2b8; /* A new teal accent for badges and highlights */
+    --secondary-color: #f4f7fc; 
+    --dark-color: #1a202c; 
+    --text-color: #4a5568; 
+    --light-grey-color: #e2e8f0; /* For tags and borders */
     --white-color: #ffffff;
     --border-radius: 8px;
-    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    --box-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.12);
     --transition-speed: 0.3s ease;
 }
 
@@ -29,7 +32,6 @@
 }
 
 html {
-    /* This ensures the smooth scrolling behavior works consistently */
     scroll-behavior: smooth;
 }
 
@@ -47,22 +49,17 @@ h1, h2, h3 {
     line-height: 1.2;
 }
 
-h1 {
-    font-size: 2.5rem; /* 40px */
-}
+h1 { font-size: 2.8rem; }
+h2 { font-size: 2.2rem; margin-bottom: 1.5rem; text-align: center;}
+h3 { font-size: 1.5rem; }
 
-h2 {
-    font-size: 2rem; /* 32px */
+p { margin-bottom: 1rem; }
+
+.section-subtitle {
     text-align: center;
-    margin-bottom: 3rem;
-}
-
-h3 {
-    font-size: 1.25rem; /* 20px */
-}
-
-p {
-    margin-bottom: 1rem;
+    max-width: 600px;
+    margin: -1rem auto 3rem auto;
+    font-size: 1.1rem;
 }
 
 a {
@@ -75,23 +72,18 @@ a:hover {
     color: var(--primary-hover-color);
 }
 
-ul {
-    list-style: none;
-}
-
 section {
-    padding: 60px 20px;
-    max-width: 1100px;
+    padding: 80px 20px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
 /* ==========================================================================
-   3. Header & Navigation
+   3. Header & Hero
    ========================================================================== */
-
 header {
     background: var(--white-color);
-    box-shadow: var(--box-shadow);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     padding: 1rem 20px;
     position: sticky;
     top: 0;
@@ -102,7 +94,7 @@ header nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -114,192 +106,227 @@ header nav {
 
 header nav ul {
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
+    list-style: none;
 }
 
 header nav ul a {
     font-weight: 600;
     font-size: 1rem;
-    padding-bottom: 2px;
-    border-bottom: 2px solid transparent; /* Prepare for active state */
-    transition: all var(--transition-speed);
 }
-
-/* Style for the active navigation link (controlled by script.js) */
-header nav ul a.active {
-    color: var(--primary-color);
-    border-bottom: 2px solid var(--primary-color);
-}
-
-
-/* ==========================================================================
-   4. Hero Section
-   ========================================================================== */
 
 .hero {
     text-align: center;
     padding: 80px 20px;
 }
 
-.hero h1 {
-    max-width: 800px;
-    margin: 0 auto 1rem auto;
-}
-
-.sub-headline {
-    font-size: 1.15rem;
-    max-width: 600px;
-    margin: 0 auto 2rem auto;
-}
+.hero h1 { max-width: 800px; margin: 0 auto 1rem auto; }
+.sub-headline { font-size: 1.2rem; max-width: 650px; margin: 0 auto 2.5rem auto; }
 
 .cta-button {
     background-color: var(--primary-color);
     color: var(--white-color);
-    padding: 15px 30px;
+    padding: 15px 35px;
     border-radius: var(--border-radius);
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.1rem;
     display: inline-block;
-    transition: background-color var(--transition-speed);
+    transition: all var(--transition-speed);
+    transform: translateY(0);
 }
 
 .cta-button:hover {
     background-color: var(--primary-hover-color);
     color: var(--white-color);
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow-hover);
 }
 
 /* ==========================================================================
-   5. Why Us & Courses Sections
+   4. Why Us & Features Section
    ========================================================================== */
-
 .why-us {
     background-color: var(--secondary-color);
 }
 
-.features-grid, .courses-grid {
+.features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     text-align: center;
 }
 
-.feature, .course-card, .testimonial-card {
-    background-color: var(--white-color);
+.feature {
+    background: var(--white-color);
     padding: 2rem;
     border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
 }
 
-.feature h3 {
-    margin-bottom: 0.5rem;
+.feature h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+
+
+/* ==========================================================================
+   5. NEW Course Section
+   ========================================================================== */
+.courses-section {
+    background-color: var(--white-color);
 }
 
-.secondary-button {
-    display: block;
-    width: fit-content;
-    margin: 3rem auto 0 auto;
-    padding: 12px 25px;
-    border: 2px solid var(--primary-color);
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2.5rem;
+}
+
+.course-card {
+    background: var(--white-color);
     border-radius: var(--border-radius);
-    font-weight: 600;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
     transition: all var(--transition-speed);
 }
 
-.secondary-button:hover {
+.course-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--box-shadow-hover);
+}
+
+.course-info {
+    padding: 2rem;
+}
+
+.course-level {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--white-color);
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.course-info h3 { margin-bottom: 0.75rem; }
+.course-info p { font-size: 0.95rem; margin-bottom: 1.5rem; }
+
+.topic-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.topic-tags span {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    padding: 5px 12px;
+    border-radius: var(--border-radius);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.course-button {
+    display: block;
+    width: 100%;
     background-color: var(--primary-color);
+    color: var(--white-color);
+    text-align: center;
+    padding: 1rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: background-color var(--transition-speed);
+}
+
+.course-button:hover {
+    background-color: var(--primary-hover-color);
     color: var(--white-color);
 }
 
 
 /* ==========================================================================
-   6. Testimonials Section
+   6. NEW Learning Experience Section
    ========================================================================== */
-.testimonials {
-     background-color: var(--secondary-color);
+.learning-experience {
+    background-color: var(--secondary-color);
 }
 
-.testimonial-card {
-    max-width: 700px;
-    margin: 0 auto 1.5rem auto;
-    text-align: left;
-}
-
-.testimonial-card blockquote {
-    font-style: italic;
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    color: var(--dark-color);
-}
-
-.testimonial-card cite {
-    font-weight: 600;
-    font-style: normal;
-    color: var(--primary-color);
-}
-
-/* ==========================================================================
-   7. Final CTA / Waitlist Section
-   ========================================================================== */
-.final-cta {
+.experience-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
     text-align: center;
 }
 
-.final-cta form {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    max-width: 500px;
-    margin: 2rem auto 0 auto;
+.experience-item {
+    padding: 2rem;
 }
 
-.final-cta input[type="email"] {
-    width: 100%;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: var(--border-radius);
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
+.experience-item h3 {
+    margin-bottom: 0.75rem;
+    font-size: 1.3rem;
 }
 
-.final-cta button {
-    border: none;
-    cursor: pointer;
-}
 
 /* ==========================================================================
-   8. Footer
+   7. NEW Footer Styles
    ========================================================================== */
 
 footer {
     background-color: var(--dark-color);
     color: var(--white-color);
-    text-align: center;
-    padding: 1.5rem 20px;
+    padding: 2rem 20px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-links a {
+    color: var(--white-color);
+    border: 2px solid var(--white-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    transition: all var(--transition-speed);
+}
+
+.social-links a:hover {
+    background-color: var(--white-color);
+    color: var(--dark-color);
 }
 
 /* ==========================================================================
-   9. Responsive Design (Mobile First Approach)
+   8. Responsive Design
    ========================================================================== */
 
 @media (max-width: 768px) {
-    h1 { font-size: 2rem; }
-    h2 { font-size: 1.75rem; }
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
 
-    header nav {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    header nav ul {
-        gap: 1.5rem;
-        /* You could add more styles here for a hamburger menu later */
-    }
+    header nav { flex-direction: column; gap: 1rem; }
+    header nav ul { gap: 1.5rem; }
 
-    .final-cta form {
-        flex-direction: column;
-    }
-    
-    .final-cta button {
-        width: 100%;
-    }
+    .footer-content { justify-content: center; text-align: center; }
+}
+
+@media (max-width: 480px) {
+    .courses-grid { grid-template-columns: 1fr; }
 }
