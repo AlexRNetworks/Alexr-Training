@@ -28,6 +28,11 @@
     padding: 0;
 }
 
+html {
+    /* This ensures the smooth scrolling behavior works consistently */
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
@@ -115,7 +120,17 @@ header nav ul {
 header nav ul a {
     font-weight: 600;
     font-size: 1rem;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent; /* Prepare for active state */
+    transition: all var(--transition-speed);
 }
+
+/* Style for the active navigation link (controlled by script.js) */
+header nav ul a.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
 
 /* ==========================================================================
    4. Hero Section
@@ -277,6 +292,7 @@ footer {
     
     header nav ul {
         gap: 1.5rem;
+        /* You could add more styles here for a hamburger menu later */
     }
 
     .final-cta form {
