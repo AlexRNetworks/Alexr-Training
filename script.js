@@ -3,67 +3,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //======================================================================
     // 1. SMOOTH SCROLLING FOR ANCHOR LINKS
+    // (Kept from previous version - still highly relevant)
     //======================================================================
-    // Select all anchor links that have a href starting with '#'
-    const scrollLinks = document.querySelectorAll('a[href^="#"]');
-
-    scrollLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            // Prevent the default jump behavior
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
-
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
 
             if (targetElement) {
                 targetElement.scrollIntoView({
-                    behavior: 'smooth', // This is the magic part!
-                    block: 'start'
+                    behavior: 'smooth'
                 });
             }
         });
     });
 
-
     //======================================================================
-    // 2. WAITLIST FORM VALIDATION
+    // 2. ACTIVE NAVIGATION LINK ON SCROLL
+    // (Kept from previous version - works with new section IDs)
     //======================================================================
-    const waitlistForm = document.querySelector('#waitlist form');
-    const emailInput = document.querySelector('#waitlist input[type="email"]');
-
-    waitlistForm.addEventListener('submit', function(e) {
-        // Prevent the form from submitting by default
-        e.preventDefault();
-
-        const email = emailInput.value;
-
-        // A simple regex for email validation
-        const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-        if (email.trim() === '') {
-            alert('Please enter your email address.');
-        } else if (!isValidEmail) {
-            alert('Please enter a valid email address.');
-        } else {
-            // If the email is valid, you can proceed.
-            // In a real application, you would send this to a server or email service.
-            alert('Thank you for joining the waitlist!');
-            this.submit(); // Or use fetch() to send the data without a page reload
-        }
-    });
-
-
-    //======================================================================
-    // 3. BONUS: ACTIVE NAVIGATION LINK ON SCROLL
-    //======================================================================
-    // Note: This requires sections to have an 'id' that matches the nav link's href
-    // We will add IDs to the sections in index.html for this to work.
-    // For now, this code is ready for when you add those IDs.
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('header nav ul a');
 
     const onScroll = () => {
-        const scrollPosition = window.scrollY + 150; // Offset to trigger a bit earlier
+        const scrollPosition = window.scrollY + 150; // Offset for earlier activation
 
         sections.forEach(section => {
             if (scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight) {
@@ -78,5 +42,24 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.addEventListener('scroll', onScroll);
+
+
+    //======================================================================
+    // 3. NEW: REVEAL ELEMENTS ON SCROLL
+    // (Adds a reactive fade-in animation to elements)
+    //======================================================================
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1 // Trigger when 10% of the element is visible
+    });
+
+    // Select all elements you want to have the reveal animation
+    const elementsToReveal = document.querySelectorAll('.feature, .course-card, .experience-item');
+    elementsToReveal.forEach((el) => observer.observe(el));
 
 });
