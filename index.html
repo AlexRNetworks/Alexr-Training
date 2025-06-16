@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alexr Training - Start Building Your Future in Web Development</title>
     <meta name="description" content="Structured courses to take you from the very basics of HTML to building complex, modern websites. Join our waitlist to get started.">
-    </head>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
 
     <header>
         <nav>
             <a href="index.html" class="brand-logo">Alexr Training</a>
             <ul>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Courses</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -28,7 +29,7 @@
             <a href="#waitlist" class="cta-button">Join the Waitlist</a>
         </section>
 
-        <section class="why-us">
+        <section class="why-us" id="about">
             <h2>Why Alexr Training?</h2>
             <div class="features-grid">
                 <div class="feature">
@@ -46,7 +47,7 @@
             </div>
         </section>
 
-        <section class="courses-peek">
+        <section class="courses-peek" id="courses">
             <h2>Upcoming Courses Sneak Peek</h2>
             <div class="courses-grid">
                 <div class="course-card">
@@ -92,9 +93,11 @@
 
     </main>
 
-    <footer>
+    <footer id="contact">
         <p>&copy; 2025 Alexr Training. All Rights Reserved.</p>
     </footer>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
