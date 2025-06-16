@@ -3,188 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Network & Firewall Simulator (Final)</title>
-
-    <link rel="icon" type="image/png" href="favicon.png">
-
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
-</head>
+    <title>Alexr Training - Start Building Your Future in Web Development</title>
+    <meta name="description" content="Structured courses to take you from the very basics of HTML to building complex, modern websites. Join our waitlist to get started.">
+    </head>
 <body>
 
     <header>
-        <h1>Network & Firewall Simulator</h1>
+        <nav>
+            <a href="index.html" class="brand-logo">Alexr Training</a>
+            <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Courses</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <div class="app-container">
-        <aside id="device-toolbar">
-            <h2>Devices</h2>
-            <div class="device-list">
-                <div class="device" draggable="true" data-type="router">
-                    <span class="device-icon">🌐</span>
-                    <span class="device-label">Router</span>
+    <main>
+
+        <section class="hero">
+            <h1>Stop Just Watching. Start Building. Master Web Development.</h1>
+            <p class="sub-headline">Our structured courses take you from the very basics to building complex, modern websites. No experience required.</p>
+            <a href="#waitlist" class="cta-button">Join the Waitlist</a>
+        </section>
+
+        <section class="why-us">
+            <h2>Why Alexr Training?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <h3>Project-Based Learning</h3>
+                    <p>Learn by doing. Build a real, professional portfolio as you progress through our courses.</p>
                 </div>
-                <div class="device" draggable="true" data-type="switch">
-                    <span class="device-icon">↔️</span>
-                    <span class="device-label">Switch</span>
+                <div class="feature">
+                    <h3>A Structured Path</h3>
+                    <p>From basic HTML to advanced JavaScript, follow a clear, logical path designed for success.</p>
                 </div>
-                <div class="device" draggable="true" data-type="nvr">
-                    <span class="device-icon">📼</span>
-                    <span class="device-label">NVR</span>
-                </div>
-                <div class="device" draggable="true" data-type="ip-camera">
-                    <span class="device-icon">📷</span>
-                    <span class="device-label">IP Camera</span>
-                </div>
-                <div class="device" draggable="true" data-type="workstation">
-                    <span class="device-icon">💻</span>
-                    <span class="device-label">Workstation</span>
+                <div class="feature">
+                    <h3>Community Support</h3>
+                    <p>You're not alone. Join a vibrant community of fellow learners and mentors to help you on your journey.</p>
                 </div>
             </div>
-            <div id="task-box">
-                <h4>Current Scenario</h4>
-                <p id="task-text">Loading...</p>
-            </div>
-        </aside>
+        </section>
 
-        <main id="network-canvas-container">
-            <svg id="connection-lines"></svg>
-            <div id="canvas-devices"></div>
-        </main>
-
-        <aside id="config-panel">
-            <h2>Configuration</h2>
-            <div id="config-content">
-                <div id="config-default" class="config-view active">
-                    <p>Click on a device on the canvas to configure its properties.</p>
+        <section class="courses-peek">
+            <h2>Upcoming Courses Sneak Peek</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <h3>Basic Course</h3>
+                    <p>Master the fundamental building blocks of the web, including HTML5 and CSS3, and build your first static website.</p>
                 </div>
-
-                <div id="config-router" class="config-view">
-                    <div class="config-header">
-                        <h4>Router Settings</h4>
-                        <button class="btn-connect" title="Connect this device">🔗</button>
-                    </div>
-                    <div class="form-group">
-                        <label for="router-name">Device Name</label>
-                        <input type="text" id="router-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="router-wan-ip">WAN IP (From ISP)</label>
-                        <input type="text" id="router-wan-ip" value="75.125.66.182" disabled>
-                    </div>
-                    <button id="firewall-btn" class="btn btn-primary">Open Firewall Rules</button>
-                    <h5 class="config-subtitle">VLANs & Networks</h5>
-                    <div id="vlan-list">
-                        </div>
-                    <div class="form-inline">
-                        <input type="text" id="vlan-name-input" placeholder="New VLAN Name">
-                        <button id="add-vlan-btn" class="btn btn-secondary">Add VLAN</button>
-                    </div>
+                <div class="course-card">
+                    <h3>Beginner Course</h3>
+                    <p>Dive into JavaScript and learn to build interactive, responsive websites that work on any device.</p>
                 </div>
-
-                <div id="config-switch" class="config-view">
-                    <div class="config-header">
-                        <h4>Switch Settings</h4>
-                        <button class="btn-connect" title="Connect this device">🔗</button>
-                    </div>
-                    <div class="form-group">
-                        <label for="switch-name">Device Name</label>
-                        <input type="text" id="switch-name">
-                    </div>
-                    <h5 class="config-subtitle">Port & VLAN Assignments</h5>
-                    <table class="port-table">
-                        <thead>
-                            <tr><th>Port</th><th>VLAN Assignment</th></tr>
-                        </thead>
-                        <tbody id="switch-ports">
-                            </tbody>
-                    </table>
-                </div>
-
-                <div id="config-endpoint" class="config-view">
-                    <div class="config-header">
-                        <h4 id="endpoint-title">Device Settings</h4>
-                        <button class="btn-connect" title="Connect this device">🔗</button>
-                    </div>
-                    <div class="form-group">
-                        <label for="endpoint-name">Device Name</label>
-                        <input type="text" id="endpoint-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="endpoint-ip">IP Address</label>
-                        <input type="text" id="endpoint-ip">
-                    </div>
-                    <div class="form-group">
-                        <label for="endpoint-subnet">Subnet Mask</label>
-                        <input type="text" id="endpoint-subnet" value="255.255.255.0">
-                    </div>
-                    <div class="form-group">
-                        <label for="endpoint-gateway">Default Gateway</label>
-                        <input type="text" id="endpoint-gateway">
-                    </div>
+                <div class="course-card">
+                    <h3>Intermediate Course</h3>
+                    <p>Explore modern frameworks and back-end development to build complex, full-stack web applications.</p>
                 </div>
             </div>
-        </aside>
-    </div>
+            <a href="#" class="secondary-button">Preview the Curriculum</a>
+        </section>
 
-    <div id="firewall-modal" class="modal-overlay">
-        <div class="modal-content large">
-            <h3>Firewall Policy</h3>
-            <p>Rules are processed from top to bottom. The first rule that matches an activity is applied. The implicit final rule is to Deny All traffic.</p>
-            <table class="firewall-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Action</th>
-                        <th>Source</th>
-                        <th>Destination</th>
-                        <th>Port/Service</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="firewall-rules-list">
-                    </tbody>
-            </table>
-            <div class="modal-actions">
-                <button id="add-rule-btn" class="btn btn-primary">Add New Rule</button>
-                <button id="close-firewall-btn" class="btn btn-secondary">Close</button>
+        <section class="testimonials">
+            <h2>What Our Students Will Say</h2>
+            <div class="testimonial-card">
+                <blockquote>
+                    "This is where a glowing testimonial from a future student will go. Be one of the first to share your success story!"
+                </blockquote>
+                <cite>- An Aspiring Developer</cite>
             </div>
-        </div>
-    </div>
-    
-    <div id="add-rule-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h3>Create Firewall Rule</h3>
-            <form id="add-rule-form">
-                <div class="form-group">
-                    <label for="rule-action">Action</label>
-                    <select id="rule-action">
-                        <option value="Allow">Allow</option>
-                        <option value="Deny">Deny</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="rule-source">Source</label>
-                    <input type="text" id="rule-source" placeholder="e.g., VLAN10, 192.168.10.10, 50.207.118.1, Any">
-                </div>
-                <div class="form-group">
-                    <label for="rule-dest">Destination</label>
-                    <input type="text" id="rule-dest" placeholder="e.g., VLAN20, 192.168.10.10, Any">
-                </div>
-                <div class="form-group">
-                    <label for="rule-port">Port / Service</label>
-                    <input type="text" id="rule-port" placeholder="e.g., 443, 8443, Any">
-                </div>
-                <div class="modal-actions">
-                    <button type="button" id="cancel-rule-btn" class="btn btn-secondary">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Rule</button>
-                </div>
+            <div class="testimonial-card">
+                 <blockquote>
+                    "Alexr Training's project-based approach will give me the confidence and the portfolio I need to land my first developer job."
+                </blockquote>
+                <cite>- Future Student</cite>
+            </div>
+        </section>
+
+        <section id="waitlist" class="final-cta">
+            <h2>Get Notified When We Launch</h2>
+            <p>Be the first to know when our courses go live and get an exclusive early-bird discount. Enter your email below to join the waitlist!</p>
+            <form>
+                <input type="email" name="email" placeholder="Your best email address">
+                <button type="submit" class="cta-button">Notify Me!</button>
             </form>
-        </div>
-    </div>
-    
-    <script src="script.js" defer></script>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Alexr Training. All Rights Reserved.</p>
+    </footer>
+
 </body>
 </html>
