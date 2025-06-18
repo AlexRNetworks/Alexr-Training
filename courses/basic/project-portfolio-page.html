@@ -6,91 +6,55 @@
     <title>Project: Build a Portfolio - Alexr Training</title>
     
     <link rel="stylesheet" href="/assets/css/style.css">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/vscode-dark.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
-        .lesson-container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+        .lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
         .breadcrumb { margin-bottom: 2rem; }
         .lesson-content h1 { font-size: 2.5rem; color: var(--primary-color); }
-        
-        .ide-wrapper {
-            margin-top: 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: 0 15px 35px rgba(0, 86, 179, 0.15);
+        .lesson-content h2 { font-size: 1.8rem; text-align: left; margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 2px solid var(--light-grey-color); padding-bottom: 0.5rem; }
+        .lesson-content p, .lesson-content li { font-size: 1.1rem; line-height: 1.7; }
+        .requirements-box { background-color: var(--secondary-color); border-left: 5px solid var(--accent-color); padding: 1.5rem 2rem; margin: 2rem 0; border-radius: var(--border-radius); }
+        .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); }
+        .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; text-align: center; }
+        .nav-button.complete { background-color: #28a745; }
+
+        /* NEW Iframe and Fullscreen Button Styles */
+        .embedded-editor-wrapper {
+            margin-top: 2.5rem;
             border: 1px solid #ddd;
-            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0, 86, 179, 0.1);
+            overflow: hidden; /* To keep the border-radius on the iframe */
         }
-        .ide-toolbar {
+        #project-iframe {
+            width: 100%;
+            height: 700px; /* A good, tall default size */
+            border: none;
+        }
+        .fullscreen-controls {
+            text-align: center;
+            padding: 1rem;
             background-color: #f7f9fc;
-            padding: 0.75rem 1rem;
-            border-bottom: 1px solid #ddd;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
+            border-top: 1px solid #ddd;
         }
-        #run-button {
-            background: linear-gradient(to bottom, #007bff, #0056b3);
+        #fullscreen-button {
+            background-color: var(--dark-color);
             color: white;
-            border: 1px solid #0056b3;
-            padding: 10px 25px;
+            border: none;
+            padding: 10px 20px;
             font-size: 1rem;
             font-weight: bold;
-            border-radius: 6px;
+            border-radius: var(--border-radius);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: background-color var(--transition-speed);
         }
-        #run-button:hover {
-            background: linear-gradient(to bottom, #0069d9, #0056b3);
-            box-shadow: 0 4px 10px rgba(0, 86, 179, 0.2);
-            transform: translateY(-2px);
+        #fullscreen-button:hover {
+            background-color: #333;
         }
-
-        .ide-body {
-            display: flex;
-            height: 60vh;
-            min-height: 500px;
+        #fullscreen-button .fa-expand {
+            margin-right: 8px;
         }
-
-        .ide-sidebar {
-            width: 200px;
-            background-color: #252526;
-            color: #ccc;
-            padding: 1rem 0;
-            border-right: 1px solid #333;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-        .file {
-            padding: 10px 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: background-color 0.2s ease;
-        }
-        .file:hover { background-color: #37373d; }
-        .file.active { background-color: #094771; color: white; }
-
-        .ide-editor { flex-grow: 1; }
-        .CodeMirror { height: 100%; font-size: 16px; }
-        
-        .ide-preview { border-top: 1px solid #ddd; }
-        .ide-preview-header {
-            background-color: #f7f9fc;
-            padding: 0.75rem 1rem;
-            font-weight: bold;
-            border-bottom: 1px solid #ddd;
-        }
-        .ide-preview iframe {
-            width: 100%;
-            height: 60vh;
-            min-height: 500px;
-            border: none;
-            background-color: white;
-        }
-        .lesson-navigation { margin-top: 3rem; }
     </style>
 </head>
 <body>
@@ -109,31 +73,24 @@
             </nav>
 
             <article class="lesson-content">
-                <h1>Final Project: Build Your Personal Portfolio</h1>
-                <p>Use the professional editor below to build your portfolio. Select a file from the sidebar to edit, then press "Run Preview" to see your changes.</p>
+                <h1>Final Project: Build Your Personal Portfolio Page</h1>
+                <p>It's time to apply everything you've learned! Use the live code editor embedded below to build your project. When you're ready for more space, use the "Go Fullscreen" button.</p>
+                <div class="requirements-box">
+                    <h2>Project Requirements</h2>
+                    <ul>
+                        <li>A main heading (<code>&lt;h1&gt;</code>) with your name.</li>
+                        <li>An "About Me" section and a "Skills" section (<code>&lt;ul&gt;</code>).</li>
+                        <li>Custom CSS to style the page's colors, fonts, and spacing.</li>
+                    </ul>
+                </div>
             </article>
 
-            <div class="ide-wrapper">
-                <div class="ide-toolbar">
-                    <button id="run-button"><i class="fas fa-play"></i> Run Preview</button>
-                </div>
-                <div class="ide-body">
-                    <div class="ide-sidebar">
-                        <div class="file active" data-editor="html">
-                            <i class="fab fa-html5" style="color: #e34c26;"></i> index.html
-                        </div>
-                        <div class="file" data-editor="css">
-                            <i class="fab fa-css3-alt" style="color: #264de4;"></i> style.css
-                        </div>
-                    </div>
-                    <div class="ide-editor">
-                        <textarea id="html-editor"></textarea>
-                        <textarea id="css-editor"></textarea>
-                    </div>
-                </div>
-                <div class="ide-preview">
-                    <div class="ide-preview-header">Preview</div>
-                    <iframe id="preview"></iframe>
+            <div class="embedded-editor-wrapper">
+                <iframe id="project-iframe" src="https://alexrcode.netlify.app/" title="AlexrCode Live Editor"></iframe>
+                <div class="fullscreen-controls">
+                    <button id="fullscreen-button">
+                        <i class="fas fa-expand"></i> Go Fullscreen
+                    </button>
                 </div>
             </div>
 
@@ -143,11 +100,6 @@
             </nav>
         </div>
     </main>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/xml/xml.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/css/css.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/htmlmixed/htmlmixed.min.js"></script>
     
     <script src="/assets/js/script.js"></script>
 </body>
