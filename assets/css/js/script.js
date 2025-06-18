@@ -48,84 +48,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- NEW STABLE IDE LOGIC ---
-    // Check if we are on the project page
-    if (document.getElementById('html-editor')) {
-        
-        const startingHtml = `<!DOCTYPE html>
-<html>
-<head>
-    <title>My Portfolio</title>
-</head>
-<body>
-    <h1>Your Name</h1>
-    <p>Aspiring Web Developer</p>
+    // --- NEW IFRAME FULLSCREEN LOGIC ---
+    const fullscreenButton = document.getElementById('fullscreen-button');
+    const projectIframe = document.getElementById('project-iframe');
 
-    <h2>About Me</h2>
-    <p>I am learning to code with Alexr Training!</p>
-</body>
-</html>`;
-
-        const startingCss = `body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f0f4f8;
-    color: #333;
-    padding: 20px;
-}
-
-h1 {
-    color: #0056b3;
-}`;
-
-        // Initialize two separate editors
-        const htmlEditor = CodeMirror.fromTextArea(document.getElementById('html-editor'), {
-            mode: 'htmlmixed', theme: 'vscode-dark', lineNumbers: true, value: startingHtml
+    if (fullscreenButton && projectIframe) {
+        fullscreenButton.addEventListener('click', () => {
+            // Request fullscreen on the iframe element
+            if (projectIframe.requestFullscreen) {
+                projectIframe.requestFullscreen();
+            } else if (projectIframe.webkitRequestFullscreen) { /* Safari */
+                projectIframe.webkitRequestFullscreen();
+            } else if (projectIframe.msRequestFullscreen) { /* IE11 */
+                projectIframe.msRequestFullscreen();
+            }
         });
-        const cssEditor = CodeMirror.fromTextArea(document.getElementById('css-editor'), {
-            mode: 'css', theme: 'vscode-dark', lineNumbers: true, value: startingCss
-        });
-
-        // Hide the CSS editor by default
-        const cssEditorWrapper = cssEditor.getWrapperElement();
-        cssEditorWrapper.style.display = 'none';
-
-        // File switching logic
-        const fileButtons = document.querySelectorAll('.file');
-        fileButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const fileType = button.dataset.editor;
-
-                fileButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-
-                if (fileType === 'html') {
-                    cssEditorWrapper.style.display = 'none';
-                    htmlEditor.getWrapperElement().style.display = 'block';
-                    htmlEditor.refresh();
-                } else {
-                    htmlEditor.getWrapperElement().style.display = 'none';
-                    cssEditorWrapper.style.display = 'block';
-                    cssEditor.refresh(); // Crucial step to fix display bugs on hidden editors
-                }
-            });
-        });
-        
-        // Preview logic
-        const previewFrame = document.getElementById('preview');
-        const runButton = document.getElementById('run-button');
-
-        const updatePreview = () => {
-            const htmlCode = htmlEditor.getValue();
-            const cssCode = cssEditor.getValue();
-            const previewDoc = `
-                <html><head><style>${cssCode}</style></head><body>${htmlCode}</body></html>
-            `;
-            previewFrame.srcdoc = previewDoc;
-        };
-
-        runButton.addEventListener('click', updatePreview);
-        updatePreview(); // Initial preview
     }
 
     // --- INITIALIZATION ---
