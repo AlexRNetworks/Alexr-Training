@@ -1,30 +1,39 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- SMOOTH SCROLLING LOGIC ---
-    // (This part remains the same)
-    document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const homeUrl = new URL(anchor.baseURI).origin;
-            window.location.href = homeUrl + this.getAttribute('href');
+    // --- SMOOTH SCROLLING & PROGRESS TRACKING LOGIC ---
+    // (This part is unchanged and correct)
+    const setupEventListeners = () => {
+        document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const homeUrl = new URL(anchor.baseURI).origin;
+                window.location.href = homeUrl + this.getAttribute('href');
+            });
         });
-    });
-     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-            if (targetElement) { targetElement.scrollIntoView({ behavior: 'smooth' }); }
+         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) { targetElement.scrollIntoView({ behavior: 'smooth' }); }
+            });
         });
-    });
 
-    // --- PROGRESS TRACKING LOGIC ---
-    // (This part remains the same)
+        const lessonNavButtons = document.querySelectorAll('.nav-button[data-lesson-id]');
+        lessonNavButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const lessonId = button.dataset.lessonId;
+                if (lessonId) { completeLesson(lessonId); }
+            });
+        });
+    };
+
     const completeLesson = (lessonId) => {
         let progress = JSON.parse(localStorage.getItem('alexrTrainingProgress')) || {};
         progress[lessonId] = true;
         localStorage.setItem('alexrTrainingProgress', JSON.stringify(progress));
     };
+
     const loadAndApplyProgress = () => {
         let progress = JSON.parse(localStorage.getItem('alexrTrainingProgress')) || {};
         document.querySelectorAll('.lesson-item[data-lesson-id]').forEach(item => {
@@ -38,40 +47,26 @@ document.addEventListener('DOMContentLoaded', () => {
             if (basicCourseCard) { basicCourseCard.classList.add('completed'); }
         }
     };
-    const lessonNavButtons = document.querySelectorAll('.nav-button[data-lesson-id]');
-    lessonNavButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const lessonId = button.dataset.lessonId;
-            if (lessonId) { completeLesson(lessonId); }
-        });
-    });
 
-    // --- NEW PROFESSIONAL IDE LOGIC ---
-    // Check if we are on the project page by looking for the main editor textarea
-    if (document.getElementById('code-editor')) {
+    // --- NEW STABLE IDE LOGIC ---
+    // Check if we are on the project page
+    if (document.getElementById('html-editor')) {
         
-        // Store the content for each "file" in memory
-        const fileContent = {
-            html: `<!DOCTYPE html>
+        const startingHtml = `<!DOCTYPE html>
 <html>
 <head>
     <title>My Portfolio</title>
-    </head>
+</head>
 <body>
     <h1>Your Name</h1>
     <p>Aspiring Web Developer</p>
 
     <h2>About Me</h2>
     <p>I am learning to code with Alexr Training!</p>
-
-    <h2>My Skills</h2>
-    <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-    </ul>
 </body>
-</html>`,
-            css: `body {
+</html>`;
+
+        const startingCss = `body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     line-height: 1.6;
     background-color: #f0f4f8;
@@ -80,71 +75,60 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
 h1 {
-    color: #0056b3; /* Blue from our site */
-}
+    color: #0056b3;
+}`;
 
-h2 {
-    border-bottom: 2px solid #0056b3;
-    padding-bottom: 5px;
-    margin-top: 30px;
-}`
-        };
-
-        let currentFile = 'html'; // Start with the HTML file active
-
-        // Initialize a single CodeMirror instance
-        const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
-            mode: 'htmlmixed',
-            theme: 'vscode-dark',
-            lineNumbers: true,
-            value: fileContent.html
+        // Initialize two separate editors
+        const htmlEditor = CodeMirror.fromTextArea(document.getElementById('html-editor'), {
+            mode: 'htmlmixed', theme: 'vscode-dark', lineNumbers: true, value: startingHtml
+        });
+        const cssEditor = CodeMirror.fromTextArea(document.getElementById('css-editor'), {
+            mode: 'css', theme: 'vscode-dark', lineNumbers: true, value: startingCss
         });
 
+        // Hide the CSS editor by default
+        const cssEditorWrapper = cssEditor.getWrapperElement();
+        cssEditorWrapper.style.display = 'none';
+
+        // File switching logic
         const fileButtons = document.querySelectorAll('.file');
-        
-        // Logic to switch the file content and editor mode
         fileButtons.forEach(button => {
             button.addEventListener('click', () => {
-                const fileType = button.dataset.file;
-                if (fileType === currentFile) return; // Do nothing if clicking the active file
+                const fileType = button.dataset.editor;
 
-                // Save current content
-                fileContent[currentFile] = editor.getValue();
-
-                // De-activate all buttons
                 fileButtons.forEach(btn => btn.classList.remove('active'));
-                // Activate clicked button
                 button.classList.add('active');
 
-                // Load new content and set the mode
-                currentFile = fileType;
-                editor.setValue(fileContent[currentFile]);
-                const newMode = currentFile === 'html' ? 'htmlmixed' : 'css';
-                editor.setOption('mode', newMode);
+                if (fileType === 'html') {
+                    cssEditorWrapper.style.display = 'none';
+                    htmlEditor.getWrapperElement().style.display = 'block';
+                    htmlEditor.refresh();
+                } else {
+                    htmlEditor.getWrapperElement().style.display = 'none';
+                    cssEditorWrapper.style.display = 'block';
+                    cssEditor.refresh(); // Crucial step to fix display bugs on hidden editors
+                }
             });
         });
         
+        // Preview logic
         const previewFrame = document.getElementById('preview');
         const runButton = document.getElementById('run-button');
 
         const updatePreview = () => {
-            // Before running, make sure to save the currently active editor's content
-            fileContent[currentFile] = editor.getValue();
-
-            // Construct the document from the stored content
+            const htmlCode = htmlEditor.getValue();
+            const cssCode = cssEditor.getValue();
             const previewDoc = `
-                <html>
-                    <head><style>${fileContent.css}</style></head>
-                    <body>${fileContent.html}</body>
-                </html>
+                <html><head><style>${cssCode}</style></head><body>${htmlCode}</body></html>
             `;
             previewFrame.srcdoc = previewDoc;
         };
 
         runButton.addEventListener('click', updatePreview);
-        updatePreview(); // Show initial boilerplate in preview
+        updatePreview(); // Initial preview
     }
 
     // --- INITIALIZATION ---
+    setupEventListeners();
     loadAndApplyProgress();
 });
