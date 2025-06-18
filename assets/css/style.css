@@ -82,8 +82,8 @@ section {
 header {
     background: var(--white-color);
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    /* MODIFIED: Significantly increased padding for a much taller header */
-    padding: 25px 40px; 
+    /* MODIFIED: Padding is now handled by the nav element for corner alignment */
+    padding: 0; 
     position: sticky;
     top: 0;
     z-index: 100;
@@ -93,8 +93,10 @@ header nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    /* MODIFIED: Centered with max-width, with padding for height */
+    max-width: 1400px;
     margin: 0 auto;
+    padding: 15px 30px; 
 }
 
 .brand-logo {
@@ -103,26 +105,26 @@ header nav {
     color: var(--dark-color);
 }
 
-/* MODIFIED: Dramatically increased logo height. */
+/* MODIFIED: Dramatically increased logo height */
 .brand-logo img {
-    height: 85px; /* You can adjust this value! Try 75px or 90px */
+    height: 100px; /* Much larger logo */
     width: auto;
     vertical-align: middle;
 }
 
 header nav ul {
     display: flex;
-    gap: 3rem; /* Increased gap to balance */
+    gap: 3rem;
     list-style: none;
 }
 
-/* MODIFIED: Increased font size to balance the new header */
+/* MODIFIED: Increased font size to balance the large logo */
 header nav ul a {
     font-weight: 600;
     font-size: 1.2rem; 
 }
 
-/* ... a lot of CSS here that remains the same ... */
+/* ... rest of the CSS is the same ... */
 
 .hero {
     text-align: center;
@@ -333,7 +335,7 @@ footer {
     h1 { font-size: 2.2rem; }
     h2 { font-size: 1.8rem; }
 
-    header nav { flex-direction: column; gap: 1rem; }
+    header nav { flex-direction: column; gap: 1.5rem; }
     header nav ul { gap: 1.5rem; }
 
     .footer-content { justify-content: center; text-align: center; }
