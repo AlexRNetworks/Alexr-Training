@@ -1,4 +1,3 @@
-
 /* ==========================================================================
    1. Google Fonts & Global Styles (Variables)
    ========================================================================== */
@@ -10,7 +9,7 @@
 :root {
     --primary-color: #0056b3; 
     --primary-hover-color: #004494;
-    --accent-color: #17a2b8; /* A new teal accent for badges and highlights */
+    --accent-color: #17a2b8; /* A teal accent for badges and highlights */
     --secondary-color: #f4f7fc; 
     --dark-color: #1a202c; 
     --text-color: #4a5568; 
@@ -167,7 +166,7 @@ header nav ul a {
 
 
 /* ==========================================================================
-   5. NEW Course Section
+   5. Course Section
    ========================================================================== */
 .courses-section {
     background-color: var(--white-color);
@@ -248,7 +247,7 @@ header nav ul a {
 
 
 /* ==========================================================================
-   6. NEW Learning Experience Section
+   6. Learning Experience Section
    ========================================================================== */
 .learning-experience {
     background-color: var(--secondary-color);
@@ -272,7 +271,7 @@ header nav ul a {
 
 
 /* ==========================================================================
-   7. NEW Footer Styles
+   7. Footer Styles
    ========================================================================== */
 
 footer {
@@ -315,7 +314,51 @@ footer {
 }
 
 /* ==========================================================================
-   8. Responsive Design
+   8. Animation & Reactive Effects
+   ========================================================================== */
+
+.feature, .course-card, .experience-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.feature.visible,
+.course-card.visible,
+.experience-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   9. Progress Tracking & Checkmarks
+   ========================================================================== */
+
+.lesson-item.completed .lesson-link::after {
+    content: '✔';
+    color: #28a745; /* A success green color */
+    font-size: 1.5rem;
+    margin-left: auto; /* This pushes the checkmark to the far right */
+    font-weight: bold;
+}
+
+.course-card.completed {
+    border-top: 5px solid #28a745;
+}
+
+.course-card.completed .course-button {
+    background-color: #28a745;
+    pointer-events: none; /* Disables clicking on the button */
+    color: var(--white-color);
+    text-decoration: line-through;
+}
+
+.course-card.completed .course-button:hover {
+    background-color: #218838;
+}
+
+/* ==========================================================================
+   10. Responsive Design
    ========================================================================== */
 
 @media (max-width: 768px) {
