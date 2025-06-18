@@ -107,7 +107,7 @@ header nav {
 
 /* MODIFIED: Dramatically increased logo height */
 .brand-logo img {
-    height: 300px; /* Much larger logo */
+    height: 200px; /* Much larger logo */
     width: auto;
     vertical-align: middle;
 }
