@@ -1,27 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- SMOOTH SCROLLING LOGIC ---
-    // Handles smooth scroll for nav links pointing to the homepage (e.g., /#courses)
     document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const homeUrl = new URL(anchor.baseURI).origin;
-            const targetHash = this.getAttribute('href');
-            // Navigate to homepage and let the browser handle scrolling to the hash
-            window.location.href = homeUrl + targetHash;
+            window.location.href = homeUrl + this.getAttribute('href');
         });
     });
 
-    // Handles smooth scrolling for on-page links (e.g., #courses)
      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href').substring(1);
             const targetElement = document.getElementById(targetId);
             if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
+                targetElement.scrollIntoView({ behavior: 'smooth' });
             }
         });
     });
@@ -35,22 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const loadAndApplyProgress = () => {
         let progress = JSON.parse(localStorage.getItem('alexrTrainingProgress')) || {};
-        
         document.querySelectorAll('.lesson-item[data-lesson-id]').forEach(item => {
             const lessonId = item.dataset.lessonId;
-            if (progress[lessonId]) {
-                item.classList.add('completed');
-            }
+            if (progress[lessonId]) { item.classList.add('completed'); }
         });
-
         const basicCourseLessons = ['html-basics', 'structuring-a-page', 'intro-to-css', 'box-model', 'project-portfolio'];
         const isBasicCourseComplete = basicCourseLessons.every(id => progress[id]);
-
         if (isBasicCourseComplete) {
             const basicCourseCard = document.querySelector('.course-card[data-course-id="basic"]');
-            if (basicCourseCard) {
-                basicCourseCard.classList.add('completed');
-            }
+            if (basicCourseCard) { basicCourseCard.classList.add('completed'); }
         }
     };
 
@@ -58,53 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
     lessonNavButtons.forEach(button => {
         button.addEventListener('click', () => {
             const lessonId = button.dataset.lessonId;
-            if (lessonId) {
-                completeLesson(lessonId);
-            }
+            if (lessonId) { completeLesson(lessonId); }
         });
     });
 
-    // --- INTERACTIVE IDE LOGIC ---
-    // Check if we are on the project page by looking for the editor elements
-    if (document.getElementById('html-editor') && document.getElementById('css-editor')) {
+    // --- REVERTED AND SIMPLIFIED INTERACTIVE IDE LOGIC ---
+    if (document.getElementById('html-editor')) {
         
-        const startingHtml = `<!DOCTYPE html>
-<html>
-<head>
-    <title>My Portfolio</title>
-</head>
-<body>
-    <h1>Your Name</h1>
-    <p>Aspiring Web Developer</p>
-
-    <h2>About Me</h2>
-    <p>I am learning to code with Alexr Training!</p>
-
-    <h2>My Skills</h2>
-    <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-    </ul>
-</body>
-</html>`;
-
-        const startingCss = `body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f0f4f8;
-    color: #333;
-    padding: 20px;
-}
-
-h1 {
-    color: #0056b3; /* Blue from our site */
-}
-
-h2 {
-    border-bottom: 2px solid #0056b3;
-    padding-bottom: 5px;
-    margin-top: 30px;
-}`;
+        const startingHtml = `\n<h1>Your Name</h1>\n`;
+        const startingCss = `/* Type your CSS code here! */\nbody {\n    font-family: sans-serif;\n}\n\nh1 {\n    color: steelblue;\n}`;
 
         const htmlEditor = CodeMirror.fromTextArea(document.getElementById('html-editor'), {
             mode: 'htmlmixed',
@@ -121,27 +70,23 @@ h2 {
         });
 
         const previewFrame = document.getElementById('preview');
+        const runButton = document.getElementById('run-button');
 
         const updatePreview = () => {
             const htmlCode = htmlEditor.getValue();
             const cssCode = cssEditor.getValue();
             const previewDoc = `
-                <html>
-                    <head>
-                        <style>${cssCode}</style>
-                    </head>
-                    <body>${htmlCode}</body>
-                </html>
+                <html><head><style>${cssCode}</style></head><body>${htmlCode}</body></html>
             `;
             previewFrame.srcdoc = previewDoc;
         };
 
-        htmlEditor.on('change', updatePreview);
-        cssEditor.on('change', updatePreview);
+        // Update the preview only when the button is clicked
+        runButton.addEventListener('click', updatePreview);
 
-        updatePreview(); // Initial update
+        // Optional: Run once on load to show the initial boilerplate
+        updatePreview();
     }
-
 
     // --- INITIALIZATION ---
     loadAndApplyProgress();
