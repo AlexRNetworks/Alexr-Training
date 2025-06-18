@@ -25,49 +25,79 @@
         .nav-button.complete { background-color: #28a745; }
         .nav-button.complete:hover { background-color: #218838; }
 
-        /* NEW Embedded IDE Styles */
+        /* NEW REFINED IDE Styles */
         .live-project-area {
-            border: 1px solid var(--light-grey-color);
+            background-color: #1a202c; /* Dark container background */
             border-radius: var(--border-radius);
             margin-top: 2rem;
-            overflow: hidden; /* Ensures child border-radius is respected */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
         }
-        .editor-header {
+        .editor-tabs {
+            display: flex;
+            background-color: #333;
+        }
+        .tab-button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #333;
+            color: #aaa;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .tab-button.active {
+            color: white;
+            background-color: #1a202c;
+            border-bottom: 3px solid var(--accent-color);
+        }
+        .editor-pane {
+            /* We will control visibility with JS */
+        }
+        .CodeMirror {
+            height: 450px; /* Much taller editor */
+            font-size: 16px;
+        }
+        .ide-controls {
+            padding: 1rem;
+            text-align: center;
+            background-color: #282c34;
+            border-top: 1px solid #444;
+        }
+        #run-button {
+            background: linear-gradient(to bottom, #28a745, #218838);
+            color: white;
+            border: 1px solid #1e7e34;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        #run-button:hover {
+            background: linear-gradient(to bottom, #29b34a, #22963b);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transform: translateY(-2px);
+        }
+        #run-button:active {
+             transform: translateY(-1px);
+        }
+        .preview-area {
+            border-top: 1px solid #444;
+        }
+        .preview-area .editor-header {
             background-color: #333;
             color: #ccc;
             padding: 8px 15px;
             font-weight: bold;
             font-family: sans-serif;
         }
-        .CodeMirror {
-            height: 300px; /* A fixed, reasonable height for each editor */
-            font-size: 16px;
-        }
-        .ide-controls {
-            padding: 1rem;
-            text-align: center;
-            background-color: var(--secondary-color);
-        }
-        #run-button {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: background-color var(--transition-speed);
-        }
-        #run-button:hover {
-            background-color: #138496;
-        }
-        .preview-area {
-            border-top: 1px solid var(--light-grey-color);
-        }
         .preview-area iframe {
             width: 100%;
-            height: 400px; /* A good height for the preview */
+            height: 500px;
             border: none;
             background-color: white;
         }
@@ -90,27 +120,32 @@
 
             <article class="lesson-content">
                 <h1>Final Project: Build Your Personal Portfolio Page</h1>
-                <p>Congratulations! It's time to put everything together and build something real. Your task is to use the live editor below to create a simple, single-page personal portfolio.</p>
+                <p>Use the professional code editor below to build your portfolio. Switch between the HTML and CSS tabs to write your code, then hit "Run Preview" to see your work come to life.</p>
                 <div class="requirements-box">
                     <h2>Project Requirements</h2>
                     <ul>
-                        <li>A main heading (<code>&lt;h1&gt;</code>) with your name.</li>
-                        <li>An "About Me" section with a heading and at least one paragraph.</li>
-                        <li>A "Skills" section with a heading and an unordered list (<code>&lt;ul&gt;</code>).</li>
+                        <li>A main heading (<code>&lt;h1&gt;</code>) with your name and a sub-heading for your title.</li>
+                        <li>An "About Me" section and a "Skills" section using an unordered list (<code>&lt;ul&gt;</code>).</li>
                         <li>Custom CSS to style your page's colors, fonts, and spacing.</li>
                     </ul>
                 </div>
             </article>
 
             <div class="live-project-area">
-                <div class="editor-header">HTML</div>
-                <textarea id="html-editor"></textarea>
+                <div class="editor-tabs">
+                    <button class="tab-button active" data-editor="html">HTML</button>
+                    <button class="tab-button" data-editor="css">CSS</button>
+                </div>
                 
-                <div class="editor-header">CSS</div>
-                <textarea id="css-editor"></textarea>
+                <div class="editor-pane" id="html-editor-pane">
+                    <textarea id="html-editor"></textarea>
+                </div>
+                <div class="editor-pane" id="css-editor-pane" style="display: none;">
+                    <textarea id="css-editor"></textarea>
+                </div>
 
                 <div class="ide-controls">
-                    <button id="run-button">Show Preview</button>
+                    <button id="run-button">Run Preview</button>
                 </div>
 
                 <div class="preview-area">
