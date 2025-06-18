@@ -6,217 +6,70 @@
     <title>Project: Build a Portfolio - Alexr Training</title>
     <meta name="description" content="Apply your HTML and CSS skills to build your first personal portfolio page.">
     
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 
     <style>
-        .lesson-container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        .breadcrumb {
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
-            color: var(--text-color);
-        }
-        .breadcrumb a {
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-        .breadcrumb a:hover {
-            text-decoration: underline;
-        }
-        .lesson-content h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-        .lesson-content h2 {
-           font-size: 1.8rem;
-           text-align: left;
-           margin-top: 2.5rem;
-           margin-bottom: 1rem;
-           border-bottom: 2px solid var(--light-grey-color);
-           padding-bottom: 0.5rem;
-        }
-        .lesson-content p, .lesson-content li {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-        .lesson-content ul {
-            list-style-type: square;
-            list-style-position: inside;
-        }
-        .code-block {
-            background-color: #2d2d2d;
-            color: #f8f8f2;
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            margin-bottom: 2rem;
-            overflow-x: auto;
-            font-family: 'Courier New', Courier, monospace;
-        }
-        .requirements-box {
-            background-color: var(--secondary-color);
-            border-left: 5px solid var(--accent-color);
-            padding: 1.5rem 2rem;
-            margin: 2rem 0;
-            border-radius: var(--border-radius);
-        }
-        .lesson-navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--light-grey-color);
-        }
-        .nav-button {
-            background-color: var(--primary-color);
-            color: var(--white-color);
-            padding: 12px 25px;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            text-align: center;
-        }
-        .nav-button:hover {
-            background-color: var(--primary-hover-color);
-            color: var(--white-color);
-        }
-        .nav-button.complete {
-            background-color: #28a745; /* Green for completion */
-        }
-         .nav-button.complete:hover {
-            background-color: #218838;
-        }
+        .lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .breadcrumb { margin-bottom: 2rem; font-size: 0.9rem; color: var(--text-color); }
+        .breadcrumb a { color: var(--primary-color); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .lesson-content h1 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary-color); }
+        .lesson-content h2 { font-size: 1.8rem; text-align: left; margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 2px solid var(--light-grey-color); padding-bottom: 0.5rem; }
+        .lesson-content p, .lesson-content li { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1.5rem; }
+        .lesson-content ul { list-style-type: square; list-style-position: inside; }
+        .code-block { background-color: #2d2d2d; color: #f8f8f2; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 2rem; overflow-x: auto; font-family: 'Courier New', Courier, monospace; }
+        .requirements-box { background-color: var(--secondary-color); border-left: 5px solid var(--accent-color); padding: 1.5rem 2rem; margin: 2rem 0; border-radius: var(--border-radius); }
+        .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); }
+        .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; text-align: center; }
+        .nav-button:hover { background-color: var(--primary-hover-color); color: var(--white-color); }
+        .nav-button.complete { background-color: #28a745; }
+        .nav-button.complete:hover { background-color: #218838; }
     </style>
 </head>
 <body>
-
     <header>
         <nav>
-            <a href="index.html" class="brand-logo">Alexr Training</a>
+            <a href="/" class="brand-logo">Alexr Training</a>
             <ul>
-                <li><a href="index.html#about">Why Us</a></li>
-                <li><a href="index.html#courses">Courses</a></li>
+                <li><a href="/#about">Why Us</a></li>
+                <li><a href="/#courses">Courses</a></li>
             </ul>
         </nav>
     </header>
-
     <main>
         <div class="lesson-container">
             <nav class="breadcrumb">
-                <a href="index.html">Home</a> &gt; 
-                <a href="basic-course.html">Basic Course</a> &gt; 
+                <a href="/">Home</a> &gt; 
+                <a href="/courses/basic/basic-course.html">Basic Course</a> &gt; 
                 <span>Final Project: Personal Portfolio</span>
             </nav>
-
             <article class="lesson-content">
                 <h1>Final Project: Build Your Personal Portfolio Page</h1>
-                <p>
-                    Congratulations! You've learned about HTML structure, CSS styling, and the box model. Now it's time to put it all together and build something real. Your task is to create a simple, elegant, single-page personal portfolio.
-                </p>
-
+                <p>Congratulations! You've learned about HTML structure, CSS styling, and the box model. Now it's time to put it all together and build something real. Your task is to create a simple, elegant, single-page personal portfolio.</p>
                 <div class="requirements-box">
                     <h2>Project Requirements</h2>
-                    <p>Your finished page must include:</p>
                     <ul>
                         <li>A main heading (<code>&lt;h1&gt;</code>) with your name.</li>
-                        <li>A sub-heading (e.g., <code>&lt;h2&gt;</code> or <code>&lt;p&gt;</code>) with a title like "Aspiring Web Developer".</li>
                         <li>An "About Me" section with a heading and at least one paragraph.</li>
-                        <li>A "Skills" section with a heading and an unordered list (<code>&lt;ul&gt;</code>) of skills you're learning.</li>
-                        <li>A simple footer with your email or a copyright notice.</li>
-                        <li>Custom CSS styling for colors, fonts, and spacing (using margin and padding).</li>
+                        <li>A "Skills" section with a heading and an unordered list (<code>&lt;ul&gt;</code>).</li>
+                        <li>Custom CSS styling for colors, fonts, and spacing.</li>
                     </ul>
                 </div>
-
                 <h2>Step 1: The HTML Structure</h2>
-                <p>
-                    First, create the skeleton of your page. Use the semantic tags we learned about (<code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;section&gt;</code>) to organize your content logically.
-                </p>
-                <div class="code-block">
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;title&gt;Your Name - Portfolio&lt;/title&gt;
-    &lt;link rel="stylesheet" href="your-portfolio-style.css"&gt; &lt;!-- Important! --&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-    &lt;header&gt;
-        &lt;!-- Your name and title go here --&gt;
-    &lt;/header&gt;
-
-    &lt;main&gt;
-        &lt;section id="about"&gt;
-            &lt;!-- Your "About Me" content goes here --&gt;
-        &lt;/section&gt;
-
-        &lt;section id="skills"&gt;
-            &lt;!-- Your "Skills" list goes here --&gt;
-        &lt;/section&gt;
-    &lt;/main&gt;
-
-    &lt;footer&gt;
-        &lt;!-- Your footer content goes here --&gt;
-    &lt;/footer&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-                </div>
-                
+                <p>First, create the skeleton of your page. Use the semantic tags we learned about (<code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;section&gt;</code>) to organize your content logically.</p>
                 <h2>Step 2: The CSS Styling</h2>
-                <p>
-                    This is where you get to be creative! Create a new file called <code>your-portfolio-style.css</code>. Don't forget to link to it from your HTML file as shown above.
-                </p>
-                <p>
-                    Try to style your page. Experiment with the properties you've learned. Here are some ideas and hints:
-                </p>
-                <ul>
-                    <li>Give the <code>body</code> a background color and a default font family.</li>
-                    <li>Center the content by setting a <code>max-width</code> and using <code>margin: 0 auto;</code> on a main container div.</li>
-                    <li>Style your sections by giving them `padding` and a `margin-bottom` to create space.</li>
-                    <li>Choose a color palette for your headings and text.</li>
-                </ul>
-
-                <h3>Example CSS Snippet (A Hint!)</h3>
-                <p>Here's a small example of how you could style one of your sections to get you started.</p>
-                <div class="code-block">
-<pre><code>/* In your-portfolio-style.css */
-
-body {
-    font-family: 'Helvetica', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-}
-
-#about {
-    background-color: #fff;
-    padding: 25px;
-    margin: 20px 0;
-    border-radius: 8px;
-    border-left: 5px solid #0056b3; /* An accent border */
-}
-
-h1, h2 {
-    color: #0056b3;
-}</code></pre>
-                </div>
-
+                <p>This is where you get to be creative! We recommend adding your styles to our main <code>style.css</code> file to keep things organized. Try to style your page and experiment with the properties you've learned.</p>
             </article>
-
             <nav class="lesson-navigation">
-                <a href="lesson-box-model.html" class="nav-button">Previous Lesson</a>
-                <a href="index.html#courses" class="nav-button complete">Course Complete! Back to Courses</a>
+                <a href="/courses/basic/lesson-box-model.html" class="nav-button">Previous Lesson</a>
+                <a href="/#courses" class="nav-button complete">Course Complete! Back to Courses</a>
             </nav>
         </div>
     </main>
-
     <footer>
         <div class="footer-content">
             <p>&copy; 2025 Alexr Training. All Rights Reserved.</p>
         </div>
     </footer>
-
 </body>
 </html>
