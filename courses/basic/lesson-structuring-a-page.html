@@ -23,10 +23,7 @@
     <header>
         <nav>
             <a href="/" class="brand-logo">Alexr Training</a>
-            <ul>
-                <li><a href="/#about">Why Us</a></li>
-                <li><a href="/#courses">Courses</a></li>
-            </ul>
+            <ul><li><a href="/#about">Why Us</a></li><li><a href="/#courses">Courses</a></li></ul>
         </nav>
     </header>
     <main>
@@ -38,7 +35,8 @@
             </nav>
             <article class="lesson-content">
                 <h1>Lesson 2: Structuring a Web Page</h1>
-                <p>Every HTML document has a standard "boilerplate" structure that acts as its foundation. Let's break down the key parts.</p>
+                <p>Every HTML document has a standard "boilerplate" structure that acts as its foundation. Think of this as the minimum required code for any webpage.</p>
+                <h2>The HTML Boilerplate</h2>
                 <div class="code-block"><pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
@@ -46,11 +44,11 @@
     &lt;title&gt;My First Web Page&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
-    &lt;header&gt; ... &lt;/header&gt;
-    &lt;main&gt; ... &lt;/main&gt;
-    &lt;footer&gt; ... &lt;/footer&gt;
+    &lt;!-- Your content goes here! --&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre></div>
+                <h2>Key Structural Tags Explained</h2>
+                <p>Inside the <code>&lt;body&gt;</code>, we use "semantic tags" like <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, and <code>&lt;footer&gt;</code> to give meaning to our layout. This helps with accessibility and SEO.</p>
             </article>
             <nav class="lesson-navigation">
                 <a href="/courses/basic/lesson-html-basics.html" class="nav-button">Previous Lesson</a>
@@ -59,9 +57,7 @@
         </div>
     </main>
     <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 Alexr Training. All Rights Reserved.</p>
-        </div>
+        <div class="footer-content"><p>&copy; 2025 Alexr Training. All Rights Reserved.</p></div>
     </footer>
 </body>
 </html>
