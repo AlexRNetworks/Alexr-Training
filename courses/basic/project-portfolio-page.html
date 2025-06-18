@@ -4,62 +4,115 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project: Build a Portfolio - Alexr Training</title>
+    
     <link rel="stylesheet" href="/assets/css/style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/material-darker.min.css">
+
     <style>
-        .lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
-        .breadcrumb { margin-bottom: 2rem; font-size: 0.9rem; color: var(--text-color); }
-        .breadcrumb a { color: var(--primary-color); text-decoration: none; }
-        .breadcrumb a:hover { text-decoration: underline; }
-        .lesson-content h1 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary-color); }
-        .lesson-content h2 { font-size: 1.8rem; text-align: left; margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 2px solid var(--light-grey-color); padding-bottom: 0.5rem; }
-        .lesson-content p, .lesson-content li { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1.5rem; }
-        .requirements-box { background-color: var(--secondary-color); border-left: 5px solid var(--accent-color); padding: 1.5rem 2rem; margin: 2rem 0; border-radius: var(--border-radius); }
-        .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); }
-        .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; text-align: center; }
-        .nav-button:hover { background-color: var(--primary-hover-color); color: var(--white-color); }
-        .nav-button.complete { background-color: #28a745; }
-        .nav-button.complete:hover { background-color: #218838; }
+        .lesson-container { max-width: 100%; padding: 0; margin: 0; }
+        .project-header { padding: 40px 20px; text-align: center; background-color: var(--secondary-color); }
+        .project-header h1 { font-size: 2.5rem; color: var(--primary-color); }
+        .project-header p { font-size: 1.1rem; max-width: 800px; margin: 1rem auto 0; }
+        
+        /* NEW IDE Styles */
+        .ide-container {
+            display: flex;
+            width: 100%;
+            height: 70vh; /* Make the IDE take up a good portion of the screen height */
+            background-color: #1a202c;
+        }
+        .editor-pane, .preview-pane {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .editor-column {
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            height: 100%;
+        }
+        .editor-wrapper {
+            flex-grow: 1; /* Allows editor to fill space */
+            position: relative;
+        }
+        .editor-wrapper .CodeMirror {
+             position: absolute;
+             top: 0; right: 0; bottom: 0; left: 0;
+             height: 100%;
+             font-size: 16px;
+        }
+        .editor-header {
+            background-color: #333;
+            color: #ccc;
+            padding: 8px 15px;
+            font-weight: bold;
+            font-family: sans-serif;
+        }
+        .preview-pane iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: white;
+        }
+        .lesson-navigation {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
     </style>
 </head>
 <body>
+
     <header>
         <nav>
             <a href="/" class="brand-logo">Alexr Training</a>
             <ul><li><a href="/#about">Why Us</a></li><li><a href="/#courses">Courses</a></li></ul>
         </nav>
     </header>
+
     <main>
         <div class="lesson-container">
-            <nav class="breadcrumb">
-                <a href="/">Home</a> &gt; 
-                <a href="/courses/basic/basic-course.html">Basic Course</a> &gt; 
-                <span>Final Project: Personal Portfolio</span>
-            </nav>
-            <article class="lesson-content">
-                <h1>Final Project: Build Your Personal Portfolio Page</h1>
-                <p>Congratulations! You've learned about HTML structure, CSS styling, and the box model. Now it's time to put it all together and build something real. Your task is to create a simple, elegant, single-page personal portfolio.</p>
-                <div class="requirements-box">
-                    <h2>Project Requirements</h2>
-                    <ul>
-                        <li>A main heading (<code>&lt;h1&gt;</code>) with your name.</li>
-                        <li>An "About Me" section with a heading and at least one paragraph.</li>
-                        <li>A "Skills" section with a heading and an unordered list (<code>&lt;ul&gt;</code>).</li>
-                        <li>Custom CSS styling for colors, fonts, and spacing.</li>
-                    </ul>
+            <div class="project-header">
+                <h1>Final Project: Build Your Personal Portfolio</h1>
+                <p>Use the editors below to build your portfolio. The preview pane on the right will update in real-time as you type. Fulfill the requirements to complete the course!</p>
+            </div>
+
+            <div class="ide-container">
+                <div class="editor-column">
+                    <div class="editor-header">HTML</div>
+                    <div class="editor-wrapper">
+                        <textarea id="html-editor"></textarea>
+                    </div>
                 </div>
-                <h2>Step 1: The HTML Structure</h2>
-                <p>First, create the skeleton of your page. Use the semantic tags we learned about to organize your content logically.</p>
-                <h2>Step 2: The CSS Styling</h2>
-                <p>This is where you get to be creative! Add your styles to our main <code>/assets/css/style.css</code> file to keep things organized. Experiment with the properties you've learned.</p>
-            </article>
+                <div class="editor-column">
+                    <div class="editor-header">CSS</div>
+                    <div class="editor-wrapper">
+                         <textarea id="css-editor"></textarea>
+                    </div>
+                </div>
+                <div class="preview-pane">
+                     <div class="editor-header">Live Preview</div>
+                     <iframe id="preview"></iframe>
+                </div>
+            </div>
+
             <nav class="lesson-navigation">
                 <a href="/courses/basic/lesson-box-model.html" class="nav-button">Previous Lesson</a>
                 <a href="/#courses" class="nav-button complete" data-lesson-id="project-portfolio">Course Complete! Back to Courses</a>
             </nav>
         </div>
     </main>
-    <footer>
-        <div class="footer-content"><p>&copy; 2025 Alexr Training. All Rights Reserved.</p></div>
-    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/htmlmixed/htmlmixed.min.js"></script>
+    
+    <script src="/assets/js/script.js"></script>
+
 </body>
 </html>
