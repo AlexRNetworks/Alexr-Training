@@ -1,16 +1,12 @@
-// Wait for the entire HTML document to be loaded and parsed before running the script
 document.addEventListener('DOMContentLoaded', () => {
 
-    //======================================================================
-    // 1. SMOOTH SCROLLING FOR ANCHOR LINKS
-    // (Kept from previous version - still highly relevant)
-    //======================================================================
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    // --- SMOOTH SCROLLING LOGIC ---
+    // This handles the smooth scroll when clicking nav links like /#courses
+    document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-
+            const targetId = this.getAttribute('href').substring(2); // remove /#
+            const targetElement = document.getElementById(targetId);
             if (targetElement) {
                 targetElement.scrollIntoView({
                     behavior: 'smooth'
@@ -19,47 +15,80 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    //======================================================================
-    // 2. ACTIVE NAVIGATION LINK ON SCROLL
-    // (Kept from previous version - works with new section IDs)
-    //======================================================================
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('header nav ul a');
-
-    const onScroll = () => {
-        const scrollPosition = window.scrollY + 150; // Offset for earlier activation
-
-        sections.forEach(section => {
-            if (scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href').substring(1) === section.getAttribute('id')) {
-                        link.classList.add('active');
-                    }
-                });
+    // This handles smooth scrolling for on-page links that don't have the root slash
+     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
             }
         });
-    };
-
-    window.addEventListener('scroll', onScroll);
-
-
-    //======================================================================
-    // 3. NEW: REVEAL ELEMENTS ON SCROLL
-    // (Adds a reactive fade-in animation to elements)
-    //======================================================================
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, {
-        threshold: 0.1 // Trigger when 10% of the element is visible
     });
 
-    // Select all elements you want to have the reveal animation
-    const elementsToReveal = document.querySelectorAll('.feature, .course-card, .experience-item');
-    elementsToReveal.forEach((el) => observer.observe(el));
+
+    // --- NEW PROGRESS TRACKING LOGIC ---
+
+    /**
+     * Saves a lesson's ID to the browser's localStorage.
+     * @param {string} lessonId - The unique ID of the lesson to be marked as complete.
+     */
+    const completeLesson = (lessonId) => {
+        console.log(`Completing lesson: ${lessonId}`);
+        // Get existing progress from localStorage, or create a new empty object
+        let progress = JSON.parse(localStorage.getItem('alexrTrainingProgress')) || {};
+        // Mark the lesson as true (completed)
+        progress[lessonId] = true;
+        // Save the updated progress object back to localStorage
+        localStorage.setItem('alexrTrainingProgress', JSON.stringify(progress));
+    };
+
+    /**
+     * Checks localStorage for completed lessons and applies a 'completed' class
+     * to the corresponding elements on the page.
+     */
+    const loadAndApplyProgress = () => {
+        let progress = JSON.parse(localStorage.getItem('alexrTrainingProgress')) || {};
+        
+        // Find all lesson items on the /courses/basic/basic-course.html page
+        document.querySelectorAll('.lesson-item[data-lesson-id]').forEach(item => {
+            const lessonId = item.dataset.lessonId;
+            if (progress[lessonId]) {
+                item.classList.add('completed');
+            }
+        });
+
+        // Define which lessons make up the "Basic" course
+        const basicCourseLessons = ['html-basics', 'structuring-a-page', 'intro-to-css', 'box-model', 'project-portfolio'];
+        // Check if EVERY lesson in the array exists and is true in our progress object
+        const isBasicCourseComplete = basicCourseLessons.every(id => progress[id]);
+
+        // If the entire course is complete, add the 'completed' class to the course card on the homepage
+        if (isBasicCourseComplete) {
+            const basicCourseCard = document.querySelector('.course-card[data-course-id="basic"]');
+            if (basicCourseCard) {
+                basicCourseCard.classList.add('completed');
+            }
+        }
+    };
+
+    /**
+     * Attaches a click event listener to all lesson navigation buttons.
+     * When clicked, it calls the function to save the lesson's progress.
+     */
+    const lessonNavButtons = document.querySelectorAll('.nav-button[data-lesson-id]');
+    lessonNavButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const lessonId = button.dataset.lessonId;
+            if (lessonId) {
+                completeLesson(lessonId);
+            }
+        });
+    });
+
+    // --- INITIALIZATION ---
+    // Load progress as soon as the DOM is ready to apply any existing checkmarks.
+    loadAndApplyProgress();
 
 });
