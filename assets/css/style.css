@@ -102,6 +102,13 @@ header nav {
     color: var(--dark-color);
 }
 
+/* NEW RULE FOR THE LOGO IMAGE */
+.brand-logo img {
+    height: 40px; /* Adjust this value as needed */
+    width: auto;
+    vertical-align: middle;
+}
+
 header nav ul {
     display: flex;
     gap: 2.5rem;
@@ -187,7 +194,6 @@ header nav ul a {
     transition: all var(--transition-speed);
 }
 
-/* This hover effect is safe and will work fine */
 .course-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--box-shadow-hover);
