@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson 3: Introduction to CSS - Alexr Training</title>
-    <meta name="description" content="Learn how to add style and design to your web pages with Cascading Style Sheets (CSS).">
-    
     <link rel="stylesheet" href="/assets/css/style.css">
-
     <style>
         .lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
         .breadcrumb { margin-bottom: 2rem; font-size: 0.9rem; color: var(--text-color); }
@@ -16,7 +13,6 @@
         .lesson-content h1 { font-size: 2.5rem; margin-bottom: 1rem; }
         .lesson-content h2 { font-size: 1.8rem; text-align: left; margin-top: 2.5rem; margin-bottom: 1rem; }
         .lesson-content p, .lesson-content li { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1.5rem; }
-        .lesson-content ul { list-style-position: inside; }
         .code-block { background-color: #2d2d2d; color: #f8f8f2; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 2rem; overflow-x: auto; font-family: 'Courier New', Courier, monospace; }
         .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); }
         .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; text-align: center; }
@@ -24,17 +20,12 @@
     </style>
 </head>
 <body>
-
     <header>
         <nav>
             <a href="/" class="brand-logo">Alexr Training</a>
-            <ul>
-                <li><a href="/#about">Why Us</a></li>
-                <li><a href="/#courses">Courses</a></li>
-            </ul>
+            <ul><li><a href="/#about">Why Us</a></li><li><a href="/#courses">Courses</a></li></ul>
         </nav>
     </header>
-
     <main>
         <div class="lesson-container">
             <nav class="breadcrumb">
@@ -44,16 +35,15 @@
             </nav>
             <article class="lesson-content">
                 <h1>Lesson 3: Introduction to CSS</h1>
-                <p>So far, our pages have structure, but they lack style. That's where <strong>Cascading Style Sheets (CSS)</strong> comes in. If HTML is the skeleton of a webpage, CSS is the skin, clothes, and overall appearance. It handles all the colors, fonts, layouts, and visual design.</p>
+                <p>If HTML is the skeleton of a webpage, <strong>Cascading Style Sheets (CSS)</strong> is the appearance. It handles all the colors, fonts, layouts, and visual design.</p>
                 <h2>What is a CSS Rule?</h2>
-                <p>CSS works by defining "rules". A rule selects an HTML element and tells the browser how to style it. The basic syntax looks like this:</p>
-                <div class="code-block"><pre><code>selector {
-    property: value;
+                <p>CSS works by defining "rules" that select an HTML element and tell the browser how to style it. The basic syntax is <code>selector { property: value; }</code>.</p>
+                <div class="code-block"><pre><code>p {
+    color: blue;
+    font-size: 16px;
 }</code></pre></div>
                 <h2>Three Ways to Add CSS</h2>
-                <p>There are three ways to include these CSS rules in your project, but one is highly preferred.</p>
-                <h3>1. External CSS (Best Practice)</h3>
-                <p>You create a separate file with a <code>.css</code> extension (like our own <code>style.css</code> file!) and link to it from your HTML file using a <code>&lt;link&gt;</code> tag inside the <code>&lt;head&gt;</code>. This is the best method because it separates content (HTML) from presentation (CSS) and allows you to style many pages with a single file.</p>
+                <p>You can add CSS using an external stylesheet (best practice), an internal style block in the head, or inline styles on an element. We use an external stylesheet for this site!</p>
             </article>
             <nav class="lesson-navigation">
                 <a href="/courses/basic/lesson-structuring-a-page.html" class="nav-button">Previous Lesson</a>
@@ -62,10 +52,7 @@
         </div>
     </main>
     <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 Alexr Training. All Rights Reserved.</p>
-        </div>
+        <div class="footer-content"><p>&copy; 2025 Alexr Training. All Rights Reserved.</p></div>
     </footer>
-
 </body>
 </html>
