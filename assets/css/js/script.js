@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- SMOOTH SCROLLING LOGIC ---
+    // (This part remains the same)
     document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- PROGRESS TRACKING LOGIC ---
+    // (This part remains the same)
     const completeLesson = (lessonId) => {
         let progress = JSON.parse(localStorage.getItem('alexrTrainingProgress')) || {};
         progress[lessonId] = true;
@@ -44,62 +46,103 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- ADVANCED INTERACTIVE IDE LOGIC ---
-    if (document.getElementById('html-editor')) {
+    // --- NEW PROFESSIONAL IDE LOGIC ---
+    // Check if we are on the project page by looking for the main editor textarea
+    if (document.getElementById('code-editor')) {
         
-        const startingHtml = `\n<h1>Your Name</h1>\n`;
-        const startingCss = `/* Type your CSS code here! */\nbody {\n    font-family: sans-serif;\n}\n\nh1 {\n    color: steelblue;\n}`;
+        // Store the content for each "file" in memory
+        const fileContent = {
+            html: `<!DOCTYPE html>
+<html>
+<head>
+    <title>My Portfolio</title>
+    </head>
+<body>
+    <h1>Your Name</h1>
+    <p>Aspiring Web Developer</p>
 
-        const htmlEditor = CodeMirror.fromTextArea(document.getElementById('html-editor'), {
-            mode: 'htmlmixed', theme: 'material-darker', lineNumbers: true, value: startingHtml
-        });
-        const cssEditor = CodeMirror.fromTextArea(document.getElementById('css-editor'), {
-            mode: 'css', theme: 'material-darker', lineNumbers: true, value: startingCss
+    <h2>About Me</h2>
+    <p>I am learning to code with Alexr Training!</p>
+
+    <h2>My Skills</h2>
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+    </ul>
+</body>
+</html>`,
+            css: `body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f0f4f8;
+    color: #333;
+    padding: 20px;
+}
+
+h1 {
+    color: #0056b3; /* Blue from our site */
+}
+
+h2 {
+    border-bottom: 2px solid #0056b3;
+    padding-bottom: 5px;
+    margin-top: 30px;
+}`
+        };
+
+        let currentFile = 'html'; // Start with the HTML file active
+
+        // Initialize a single CodeMirror instance
+        const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+            mode: 'htmlmixed',
+            theme: 'vscode-dark',
+            lineNumbers: true,
+            value: fileContent.html
         });
 
+        const fileButtons = document.querySelectorAll('.file');
+        
+        // Logic to switch the file content and editor mode
+        fileButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const fileType = button.dataset.file;
+                if (fileType === currentFile) return; // Do nothing if clicking the active file
+
+                // Save current content
+                fileContent[currentFile] = editor.getValue();
+
+                // De-activate all buttons
+                fileButtons.forEach(btn => btn.classList.remove('active'));
+                // Activate clicked button
+                button.classList.add('active');
+
+                // Load new content and set the mode
+                currentFile = fileType;
+                editor.setValue(fileContent[currentFile]);
+                const newMode = currentFile === 'html' ? 'htmlmixed' : 'css';
+                editor.setOption('mode', newMode);
+            });
+        });
+        
         const previewFrame = document.getElementById('preview');
         const runButton = document.getElementById('run-button');
 
         const updatePreview = () => {
-            const htmlCode = htmlEditor.getValue();
-            const cssCode = cssEditor.getValue();
-            const previewDoc = `<html><head><style>${cssCode}</style></head><body>${htmlCode}</body></html>`;
+            // Before running, make sure to save the currently active editor's content
+            fileContent[currentFile] = editor.getValue();
+
+            // Construct the document from the stored content
+            const previewDoc = `
+                <html>
+                    <head><style>${fileContent.css}</style></head>
+                    <body>${fileContent.html}</body>
+                </html>
+            `;
             previewFrame.srcdoc = previewDoc;
         };
 
         runButton.addEventListener('click', updatePreview);
-        updatePreview();
-
-        // --- NEW TAB SWITCHING LOGIC ---
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const editorPanes = document.querySelectorAll('.editor-pane');
-
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // De-activate all tabs
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                // Activate the clicked tab
-                button.classList.add('active');
-
-                // Get the target editor from the data attribute
-                const targetEditor = button.dataset.editor;
-
-                // Hide all editor panes
-                editorPanes.forEach(pane => {
-                    pane.style.display = 'none';
-                });
-
-                // Show the target editor pane
-                document.getElementById(`${targetEditor}-editor-pane`).style.display = 'block';
-                
-                // Refresh the codemirror instance to fix any display bugs after showing it
-                if(targetEditor === 'html') {
-                    htmlEditor.refresh();
-                } else {
-                    cssEditor.refresh();
-                }
-            });
-        });
+        updatePreview(); // Show initial boilerplate in preview
     }
 
     // --- INITIALIZATION ---
