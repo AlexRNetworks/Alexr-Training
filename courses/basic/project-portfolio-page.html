@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project: Build a Portfolio - Alexr Training</title>
-    <meta name="description" content="Apply your HTML and CSS skills to build your first personal portfolio page.">
     
     <link rel="stylesheet" href="/assets/css/style.css">
     
@@ -12,40 +11,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/material-darker.min.css">
 
     <style>
-        .lesson-container { max-width: 100%; padding: 0; margin: 0; }
-        .project-header { padding: 40px 20px; text-align: center; background-color: var(--secondary-color); }
-        .project-header h1 { font-size: 2.5rem; color: var(--primary-color); }
-        .project-header p { font-size: 1.1rem; max-width: 800px; margin: 1rem auto 0; }
-        
-        /* IDE Styles */
-        .ide-container {
-            display: flex;
-            flex-wrap: wrap; /* Allow wrapping for smaller screens */
-            width: 100%;
-            height: 70vh;
-            background-color: #1a202c;
-        }
-        .editor-column {
-            display: flex;
-            flex-direction: column;
-            min-width: 300px; /* Minimum width for editors */
-            flex-grow: 1; /* Each editor column will try to grow */
-            height: 50%; /* On smaller screens, stack them */
-        }
-        .preview-pane {
-            min-width: 300px;
-            flex-grow: 1; /* Preview pane will also grow */
-            height: 100%;
-        }
-        .editor-wrapper {
-            flex-grow: 1;
-            position: relative;
-        }
-        .editor-wrapper .CodeMirror {
-             position: absolute;
-             top: 0; right: 0; bottom: 0; left: 0;
-             height: 100%;
-             font-size: 16px;
+        .lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .breadcrumb { margin-bottom: 2rem; font-size: 0.9rem; color: var(--text-color); }
+        .breadcrumb a { color: var(--primary-color); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .lesson-content h1 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary-color); }
+        .lesson-content h2 { font-size: 1.8rem; text-align: left; margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 2px solid var(--light-grey-color); padding-bottom: 0.5rem; }
+        .lesson-content p, .lesson-content li { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1.5rem; }
+        .requirements-box { background-color: var(--secondary-color); border-left: 5px solid var(--accent-color); padding: 1.5rem 2rem; margin: 2rem 0; border-radius: var(--border-radius); }
+        .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); }
+        .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; text-align: center; }
+        .nav-button:hover { background-color: var(--primary-hover-color); color: var(--white-color); }
+        .nav-button.complete { background-color: #28a745; }
+        .nav-button.complete:hover { background-color: #218838; }
+
+        /* NEW Embedded IDE Styles */
+        .live-project-area {
+            border: 1px solid var(--light-grey-color);
+            border-radius: var(--border-radius);
+            margin-top: 2rem;
+            overflow: hidden; /* Ensures child border-radius is respected */
         }
         .editor-header {
             background-color: #333;
@@ -54,65 +39,83 @@
             font-weight: bold;
             font-family: sans-serif;
         }
-        .preview-pane iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background-color: white;
+        .CodeMirror {
+            height: 300px; /* A fixed, reasonable height for each editor */
+            font-size: 16px;
         }
-        .lesson-navigation {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 2rem 20px 0 20px;
-            display: flex;
-            justify-content: space-between;
+        .ide-controls {
+            padding: 1rem;
+            text-align: center;
+            background-color: var(--secondary-color);
+        }
+        #run-button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background-color var(--transition-speed);
+        }
+        #run-button:hover {
+            background-color: #138496;
+        }
+        .preview-area {
             border-top: 1px solid var(--light-grey-color);
         }
-        /* Media query for a better side-by-side experience */
-        @media (min-width: 768px) {
-            .editor-column {
-                width: 25%; /* Two editors take up 50% total */
-                height: 100%;
-            }
-            .preview-pane {
-                width: 50%;
-                height: 100%;
-            }
+        .preview-area iframe {
+            width: 100%;
+            height: 400px; /* A good height for the preview */
+            border: none;
+            background-color: white;
         }
     </style>
 </head>
 <body>
-
     <header>
         <nav>
             <a href="/" class="brand-logo">Alexr Training</a>
             <ul><li><a href="/#about">Why Us</a></li><li><a href="/#courses">Courses</a></li></ul>
         </nav>
     </header>
-
     <main>
         <div class="lesson-container">
-            <div class="project-header">
-                <h1>Final Project: Build Your Personal Portfolio</h1>
-                <p>Use the editors below to build your portfolio. The preview pane on the right will update in real-time as you type. Fulfill the requirements to complete the course!</p>
-            </div>
+            <nav class="breadcrumb">
+                <a href="/">Home</a> &gt; 
+                <a href="/courses/basic/basic-course.html">Basic Course</a> &gt; 
+                <span>Final Project: Personal Portfolio</span>
+            </nav>
 
-            <div class="ide-container">
-                <div class="editor-column">
-                    <div class="editor-header">HTML</div>
-                    <div class="editor-wrapper">
-                        <textarea id="html-editor"></textarea>
-                    </div>
+            <article class="lesson-content">
+                <h1>Final Project: Build Your Personal Portfolio Page</h1>
+                <p>Congratulations! It's time to put everything together and build something real. Your task is to use the live editor below to create a simple, single-page personal portfolio.</p>
+                <div class="requirements-box">
+                    <h2>Project Requirements</h2>
+                    <ul>
+                        <li>A main heading (<code>&lt;h1&gt;</code>) with your name.</li>
+                        <li>An "About Me" section with a heading and at least one paragraph.</li>
+                        <li>A "Skills" section with a heading and an unordered list (<code>&lt;ul&gt;</code>).</li>
+                        <li>Custom CSS to style your page's colors, fonts, and spacing.</li>
+                    </ul>
                 </div>
-                <div class="editor-column">
-                    <div class="editor-header">CSS</div>
-                    <div class="editor-wrapper">
-                         <textarea id="css-editor"></textarea>
-                    </div>
+            </article>
+
+            <div class="live-project-area">
+                <div class="editor-header">HTML</div>
+                <textarea id="html-editor"></textarea>
+                
+                <div class="editor-header">CSS</div>
+                <textarea id="css-editor"></textarea>
+
+                <div class="ide-controls">
+                    <button id="run-button">Show Preview</button>
                 </div>
-                <div class="preview-pane">
-                     <div class="editor-header">Live Preview</div>
-                     <iframe id="preview"></iframe>
+
+                <div class="preview-area">
+                    <div class="editor-header">Preview</div>
+                    <iframe id="preview"></iframe>
                 </div>
             </div>
 
@@ -129,6 +132,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/htmlmixed/htmlmixed.min.js"></script>
     
     <script src="/assets/js/script.js"></script>
-
 </body>
 </html>
