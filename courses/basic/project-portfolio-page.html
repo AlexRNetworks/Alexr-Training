@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project: Build a Portfolio - Alexr Training</title>
-    
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
     <style>
         .lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
         .breadcrumb { margin-bottom: 2rem; }
@@ -18,49 +16,20 @@
         .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); }
         .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; text-align: center; }
         .nav-button.complete { background-color: #28a745; }
-
-        /* NEW Iframe and Fullscreen Button Styles */
-        .embedded-editor-wrapper {
-            margin-top: 2.5rem;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            box-shadow: 0 10px 30px rgba(0, 86, 179, 0.1);
-            overflow: hidden; /* To keep the border-radius on the iframe */
-        }
-        #project-iframe {
-            width: 100%;
-            height: 700px; /* A good, tall default size */
-            border: none;
-        }
-        .fullscreen-controls {
-            text-align: center;
-            padding: 1rem;
-            background-color: #f7f9fc;
-            border-top: 1px solid #ddd;
-        }
-        #fullscreen-button {
-            background-color: var(--dark-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: background-color var(--transition-speed);
-        }
-        #fullscreen-button:hover {
-            background-color: #333;
-        }
-        #fullscreen-button .fa-expand {
-            margin-right: 8px;
-        }
+        .embedded-editor-wrapper { margin-top: 2.5rem; border: 1px solid #ddd; border-radius: var(--border-radius); box-shadow: 0 10px 30px rgba(0, 86, 179, 0.1); overflow: hidden; }
+        #project-iframe { width: 100%; height: 700px; border: none; }
+        .fullscreen-controls { text-align: center; padding: 1rem; background-color: #f7f9fc; border-top: 1px solid #ddd; }
+        #fullscreen-button { background-color: var(--dark-color); color: white; border: none; padding: 10px 20px; font-size: 1rem; font-weight: bold; border-radius: var(--border-radius); cursor: pointer; transition: background-color var(--transition-speed); }
+        #fullscreen-button:hover { background-color: #333; }
+        #fullscreen-button .fa-expand { margin-right: 8px; }
     </style>
 </head>
 <body>
     <header>
         <nav>
-            <a href="/" class="brand-logo">Alexr Training</a>
+            <a href="/" class="brand-logo">
+                <img src="https://i.ibb.co/RGyg4bJ8/Alexr-Training-512-x-256-px-512-x-180-px-1.png" alt="Alexr Training Logo">
+            </a>
             <ul><li><a href="/#about">Why Us</a></li><li><a href="/#courses">Courses</a></li></ul>
         </nav>
     </header>
@@ -71,7 +40,6 @@
                 <a href="/courses/basic/basic-course.html">Basic Course</a> &gt; 
                 <span>Final Project: Personal Portfolio</span>
             </nav>
-
             <article class="lesson-content">
                 <h1>Final Project: Build Your Personal Portfolio Page</h1>
                 <p>It's time to apply everything you've learned! Use the live code editor embedded below to build your project. When you're ready for more space, use the "Go Fullscreen" button.</p>
@@ -81,27 +49,21 @@
                         <li>A main heading (<code>&lt;h1&gt;</code>) with your name.</li>
                         <li>An "About Me" section and a "Skills" section (<code>&lt;ul&gt;</code>).</li>
                         <li>Custom CSS to style the page's colors, fonts, and spacing.</li>
-                        <li>Delete ALL other code in the Alexr Code to make it a better experience!!</li>
                     </ul>
                 </div>
             </article>
-
             <div class="embedded-editor-wrapper">
                 <iframe id="project-iframe" src="https://alexrcode.netlify.app/" title="AlexrCode Live Editor"></iframe>
                 <div class="fullscreen-controls">
-                    <button id="fullscreen-button">
-                        <i class="fas fa-expand"></i> Go Fullscreen
-                    </button>
+                    <button id="fullscreen-button"><i class="fas fa-expand"></i> Go Fullscreen</button>
                 </div>
             </div>
-
             <nav class="lesson-navigation">
                 <a href="/courses/basic/lesson-box-model.html" class="nav-button">Previous Lesson</a>
                 <a href="/#courses" class="nav-button complete" data-lesson-id="project-portfolio">Course Complete!</a>
             </nav>
         </div>
     </main>
-    
     <script src="/assets/js/script.js"></script>
 </body>
 </html>
