@@ -2,18 +2,16 @@
    1. Google Fonts & Global Styles (Variables)
    ========================================================================== */
 
-/* Import a clean, modern font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-/* Define color palette and global variables */
 :root {
     --primary-color: #0056b3; 
     --primary-hover-color: #004494;
-    --accent-color: #17a2b8; /* A teal accent for badges and highlights */
+    --accent-color: #17a2b8;
     --secondary-color: #f4f7fc; 
     --dark-color: #1a202c; 
     --text-color: #4a5568; 
-    --light-grey-color: #e2e8f0; /* For tags and borders */
+    --light-grey-color: #e2e8f0;
     --white-color: #ffffff;
     --border-radius: 8px;
     --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
@@ -189,6 +187,7 @@ header nav ul a {
     transition: all var(--transition-speed);
 }
 
+/* This hover effect is safe and will work fine */
 .course-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--box-shadow-hover);
@@ -314,24 +313,7 @@ footer {
 }
 
 /* ==========================================================================
-   8. Animation & Reactive Effects
-   ========================================================================== */
-
-.feature, .course-card, .experience-item {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.feature.visible,
-.course-card.visible,
-.experience-item.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* ==========================================================================
-   9. Progress Tracking & Checkmarks
+   8. Progress Tracking & Checkmarks
    ========================================================================== */
 
 .lesson-item.completed .lesson-link::after {
@@ -358,7 +340,7 @@ footer {
 }
 
 /* ==========================================================================
-   10. Responsive Design
+   9. Responsive Design
    ========================================================================== */
 
 @media (max-width: 768px) {
