@@ -3,139 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 1: Intro to HTML - Alexr Training</title>
-    <meta name="description" content="Learn what HTML is and how to write your first elements.">
-    
+    <title>Basic Course - Alexr Training</title>
     <link rel="stylesheet" href="/assets/css/style.css">
-
     <style>
-        .lesson-container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        .breadcrumb {
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
-            color: var(--text-color);
-        }
-        .breadcrumb a {
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-        .breadcrumb a:hover {
-            text-decoration: underline;
-        }
-        .lesson-content h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        .lesson-content h2 {
-           font-size: 1.8rem;
-           text-align: left;
-           margin-top: 2.5rem;
-           margin-bottom: 1rem;
-        }
-        .lesson-content p {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-        .code-block {
-            background-color: #2d2d2d;
-            color: #f8f8f2;
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            margin-bottom: 2rem;
-            overflow-x: auto;
-            font-family: 'Courier New', Courier, monospace;
-        }
-        .lesson-navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--light-grey-color);
-        }
-        .nav-button {
-            background-color: var(--primary-color);
-            color: var(--white-color);
-            padding: 12px 25px;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            text-align: center;
-        }
-        .nav-button:hover {
-            background-color: var(--primary-hover-color);
-            color: var(--white-color);
-        }
-        .nav-button.disabled {
-            background-color: var(--light-grey-color);
-            cursor: not-allowed;
-            color: var(--text-color);
-        }
+        .course-header { background-color: var(--secondary-color); text-align: center; padding: 60px 20px; }
+        .course-header h1 { font-size: 2.8rem; }
+        .course-header p { font-size: 1.2rem; max-width: 700px; margin: 1rem auto 0 auto; }
+        .lesson-list { list-style: none; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        .lesson-item { background-color: var(--white-color); border: 1px solid var(--light-grey-color); border-radius: var(--border-radius); margin-bottom: 1rem; transition: all var(--transition-speed); }
+        .lesson-item:hover { border-color: var(--primary-color); transform: translateY(-4px); box-shadow: var(--box-shadow); }
+        .lesson-link { display: flex; align-items: center; padding: 1.5rem; color: var(--dark-color); font-size: 1.2rem; font-weight: 600; }
+        .lesson-number { font-size: 1rem; font-weight: 700; margin-right: 1.5rem; color: var(--primary-color); background-color: var(--secondary-color); border-radius: 50%; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
-
     <header>
         <nav>
             <a href="/" class="brand-logo">Alexr Training</a>
             <ul>
                 <li><a href="/#about">Why Us</a></li>
                 <li><a href="/#courses">Courses</a></li>
+                <li><a href="/#learning-experience">Our Method</a></li>
             </ul>
         </nav>
     </header>
-
     <main>
-        <div class="lesson-container">
-            <nav class="breadcrumb">
-                <a href="/">Home</a> &gt; 
-                <a href="/courses/basic/basic-course.html">Basic Course</a> &gt; 
-                <span>Lesson 1: Introduction to HTML</span>
-            </nav>
-
-            <article class="lesson-content">
-                <h1>Lesson 1: Introduction to HTML</h1>
-                <p>
-                    Welcome to your first real lesson! Let's start at the very beginning. HTML, which stands for <strong>HyperText Markup Language</strong>, is the standard language used to create and design documents on the World Wide Web. It's the skeleton of every website.
-                </p>
-                <p>
-                    HTML isn't a programming language; it's a <em>markup language</em>. This means it uses tags to "mark up" or define the structure of content. You tell the browser what something is (like a heading, a paragraph, or an image), and the browser displays it accordingly.
-                </p>
-                
-                <h2>HTML Elements and Tags</h2>
-                <p>
-                    HTML consists of a series of <strong>elements</strong>, which you use to enclose, or wrap, different parts of the content to make it appear a certain way, or act a certain way. The enclosing tags can make a word or image hyperlink to somewhere else, can italicize words, can make the font bigger or smaller, and so on.
-                </p>
-                <p>
-                    A tag is simply a keyword wrapped in angle brackets, like <code>&lt;p&gt;</code>. Most tags come in pairs: an opening tag and a closing tag. For example, to mark up a paragraph, you would use an opening <code>&lt;p&gt;</code> and a closing <code>&lt;/p&gt;</code>.
-                </p>
-
-                <div class="code-block">
-                    <pre><code>&lt;p&gt;This is a paragraph of text.&lt;/p&gt;
-&lt;h1&gt;This is a main heading.&lt;/h1&gt;</code></pre>
-                </div>
-                
-                <p>
-                    In the example above, you can see the two most common tags: the paragraph tag <code>&lt;p&gt;</code> and the heading tag <code>&lt;h1&gt;</code>. The number in the heading tag can range from 1 to 6, with <code>&lt;h1&gt;</code> being the most important and largest. Try it out!
-                </p>
-
-            </article>
-
-            <nav class="lesson-navigation">
-                <a href="#" class="nav-button disabled">Previous Lesson</a>
-                <a href="/courses/basic/lesson-structuring-a-page.html" class="nav-button" data-lesson-id="html-basics">Next Lesson</a>
-            </nav>
-        </div>
+        <section class="course-header">
+            <h1>Basic Course: Web Foundations</h1>
+            <p>Learn the structure and styling that form the backbone of every website. This is the perfect place to start your journey.</p>
+        </section>
+        <ul class="lesson-list">
+            <li class="lesson-item" data-lesson-id="html-basics">
+                <a href="/courses/basic/lesson-html-basics.html" class="lesson-link"><span class="lesson-number">1</span> Introduction to HTML</a>
+            </li>
+            <li class="lesson-item" data-lesson-id="structuring-a-page">
+                <a href="/courses/basic/lesson-structuring-a-page.html" class="lesson-link"><span class="lesson-number">2</span> Structuring a Web Page</a>
+            </li>
+            <li class="lesson-item" data-lesson-id="intro-to-css">
+                <a href="/courses/basic/lesson-intro-to-css.html" class="lesson-link"><span class="lesson-number">3</span> Introduction to CSS</a>
+            </li>
+            <li class="lesson-item" data-lesson-id="box-model">
+                <a href="/courses/basic/lesson-box-model.html" class="lesson-link"><span class="lesson-number">4</span> The CSS Box Model</a>
+            </li>
+            <li class="lesson-item" data-lesson-id="project-portfolio">
+                <a href="/courses/basic/project-portfolio-page.html" class="lesson-link"><span class="lesson-number">5</span> Project: Build Your First Portfolio Page</a>
+            </li>
+        </ul>
     </main>
-
     <footer>
         <div class="footer-content">
             <p>&copy; 2025 Alexr Training. All Rights Reserved.</p>
+            <div class="social-links"><a href="#" title="GitHub">GH</a><a href="#" title="Twitter">TW</a><a href="#" title="LinkedIn">IN</a></div>
         </div>
     </footer>
-
+    <script src="/assets/js/script.js"></script>
 </body>
 </html>
