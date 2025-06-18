@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson 4: The CSS Box Model - Alexr Training</title>
-    <meta name="description" content="Understand the fundamental CSS Box Model, including margin, border, padding, and content.">
-    
     <link rel="stylesheet" href="/assets/css/style.css">
-
     <style>
         .lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
         .breadcrumb { margin-bottom: 2rem; font-size: 0.9rem; color: var(--text-color); }
@@ -16,7 +13,6 @@
         .lesson-content h1 { font-size: 2.5rem; margin-bottom: 1rem; }
         .lesson-content h2 { font-size: 1.8rem; text-align: left; margin-top: 2.5rem; margin-bottom: 1rem; }
         .lesson-content p, .lesson-content li { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1.5rem; }
-        .lesson-content ul { list-style-position: inside; }
         .code-block { background-color: #2d2d2d; color: #f8f8f2; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 2rem; overflow-x: auto; font-family: 'Courier New', Courier, monospace; }
         .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); }
         .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; text-align: center; }
@@ -31,17 +27,12 @@
     </style>
 </head>
 <body>
-
     <header>
         <nav>
             <a href="/" class="brand-logo">Alexr Training</a>
-            <ul>
-                <li><a href="/#about">Why Us</a></li>
-                <li><a href="/#courses">Courses</a></li>
-            </ul>
+            <ul><li><a href="/#about">Why Us</a></li><li><a href="/#courses">Courses</a></li></ul>
         </nav>
     </header>
-
     <main>
         <div class="lesson-container">
             <nav class="breadcrumb">
@@ -51,7 +42,7 @@
             </nav>
             <article class="lesson-content">
                 <h1>Lesson 4: The CSS Box Model</h1>
-                <p>Every single element on a web page is a rectangular box. Understanding how this box is structured is the most important key to mastering CSS layouts. This structure is called the <strong>Box Model</strong>.</p>
+                <p>Every element on a web page is a rectangular box. This structure is called the <strong>Box Model</strong>, and it's key to understanding CSS layouts.</p>
                 <div class="box-model-diagram">
                     <span class="margin">Margin</span>
                     <div class="border">
@@ -63,12 +54,7 @@
                     </div>
                 </div>
                 <h2>The Four Parts Explained</h2>
-                <ul>
-                    <li><strong>Content</strong>: The actual content of the box, where your text or images appear.</li>
-                    <li><strong>Padding</strong>: The transparent space between the content and the border.</li>
-                    <li><strong>Border</strong>: A line that goes around the padding and content.</li>
-                    <li><strong>Margin</strong>: The transparent space outside the border, pushing other elements away.</li>
-                </ul>
+                <p>The box is layered from the inside out: <strong>Content</strong> -> <strong>Padding</strong> (space inside) -> <strong>Border</strong> -> <strong>Margin</strong> (space outside).</p>
             </article>
             <nav class="lesson-navigation">
                 <a href="/courses/basic/lesson-intro-to-css.html" class="nav-button">Previous Lesson</a>
@@ -77,10 +63,7 @@
         </div>
     </main>
     <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 Alexr Training. All Rights Reserved.</p>
-        </div>
+        <div class="footer-content"><p>&copy; 2025 Alexr Training. All Rights Reserved.</p></div>
     </footer>
-
 </body>
 </html>
