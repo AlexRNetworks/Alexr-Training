@@ -82,7 +82,8 @@ section {
 header {
     background: var(--white-color);
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    padding: 1rem 20px;
+    /* MODIFIED: Increased top/bottom padding to make header taller */
+    padding: 20px 25px; 
     position: sticky;
     top: 0;
     z-index: 100;
@@ -102,9 +103,9 @@ header nav {
     color: var(--dark-color);
 }
 
-/* NEW RULE FOR THE LOGO IMAGE */
+/* MODIFIED: Increased logo height to fit new header size */
 .brand-logo img {
-    height: 40px; /* Adjust this value as needed */
+    height: 55px; /* You can adjust this value! Try 50px or 60px */
     width: auto;
     vertical-align: middle;
 }
@@ -117,13 +118,15 @@ header nav ul {
 
 header nav ul a {
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.1rem; /* Slightly larger font for balance */
 }
 
 .hero {
     text-align: center;
     padding: 80px 20px;
 }
+
+/* ... rest of the CSS is the same ... */
 
 .hero h1 { max-width: 800px; margin: 0 auto 1rem auto; }
 .sub-headline { font-size: 1.2rem; max-width: 650px; margin: 0 auto 2.5rem auto; }
@@ -147,9 +150,6 @@ header nav ul a {
     box-shadow: var(--box-shadow-hover);
 }
 
-/* ==========================================================================
-   4. Why Us & Features Section
-   ========================================================================== */
 .why-us {
     background-color: var(--secondary-color);
 }
@@ -169,10 +169,6 @@ header nav ul a {
 
 .feature h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
 
-
-/* ==========================================================================
-   5. Course Section
-   ========================================================================== */
 .courses-section {
     background-color: var(--white-color);
 }
@@ -250,10 +246,6 @@ header nav ul a {
     color: var(--white-color);
 }
 
-
-/* ==========================================================================
-   6. Learning Experience Section
-   ========================================================================== */
 .learning-experience {
     background-color: var(--secondary-color);
 }
@@ -273,11 +265,6 @@ header nav ul a {
     margin-bottom: 0.75rem;
     font-size: 1.3rem;
 }
-
-
-/* ==========================================================================
-   7. Footer Styles
-   ========================================================================== */
 
 footer {
     background-color: var(--dark-color);
@@ -318,15 +305,11 @@ footer {
     color: var(--dark-color);
 }
 
-/* ==========================================================================
-   8. Progress Tracking & Checkmarks
-   ========================================================================== */
-
 .lesson-item.completed .lesson-link::after {
     content: '✔';
-    color: #28a745; /* A success green color */
+    color: #28a745;
     font-size: 1.5rem;
-    margin-left: auto; /* This pushes the checkmark to the far right */
+    margin-left: auto;
     font-weight: bold;
 }
 
@@ -336,7 +319,7 @@ footer {
 
 .course-card.completed .course-button {
     background-color: #28a745;
-    pointer-events: none; /* Disables clicking on the button */
+    pointer-events: none;
     color: var(--white-color);
     text-decoration: line-through;
 }
@@ -344,10 +327,6 @@ footer {
 .course-card.completed .course-button:hover {
     background-color: #218838;
 }
-
-/* ==========================================================================
-   9. Responsive Design
-   ========================================================================== */
 
 @media (max-width: 768px) {
     h1 { font-size: 2.2rem; }
