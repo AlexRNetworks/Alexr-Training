@@ -82,8 +82,8 @@ section {
 header {
     background: var(--white-color);
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    /* MODIFIED: Increased top/bottom padding to make header taller */
-    padding: 20px 25px; 
+    /* MODIFIED: Significantly increased padding for a much taller header */
+    padding: 25px 40px; 
     position: sticky;
     top: 0;
     z-index: 100;
@@ -103,30 +103,31 @@ header nav {
     color: var(--dark-color);
 }
 
-/* MODIFIED: Increased logo height to fit new header size */
+/* MODIFIED: Dramatically increased logo height. */
 .brand-logo img {
-    height: 55px; /* You can adjust this value! Try 50px or 60px */
+    height: 85px; /* You can adjust this value! Try 75px or 90px */
     width: auto;
     vertical-align: middle;
 }
 
 header nav ul {
     display: flex;
-    gap: 2.5rem;
+    gap: 3rem; /* Increased gap to balance */
     list-style: none;
 }
 
+/* MODIFIED: Increased font size to balance the new header */
 header nav ul a {
     font-weight: 600;
-    font-size: 1.1rem; /* Slightly larger font for balance */
+    font-size: 1.2rem; 
 }
+
+/* ... a lot of CSS here that remains the same ... */
 
 .hero {
     text-align: center;
     padding: 80px 20px;
 }
-
-/* ... rest of the CSS is the same ... */
 
 .hero h1 { max-width: 800px; margin: 0 auto 1rem auto; }
 .sub-headline { font-size: 1.2rem; max-width: 650px; margin: 0 auto 2.5rem auto; }
