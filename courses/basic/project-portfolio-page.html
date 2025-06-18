@@ -11,13 +11,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/vscode-dark.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-
     <style>
         .lesson-container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
         .breadcrumb { margin-bottom: 2rem; }
         .lesson-content h1 { font-size: 2.5rem; color: var(--primary-color); }
         
-        /* NEW Professional IDE Styles */
         .ide-wrapper {
             margin-top: 2rem;
             border-radius: var(--border-radius);
@@ -52,7 +50,7 @@
 
         .ide-body {
             display: flex;
-            height: 60vh; /* Responsive height */
+            height: 60vh;
             min-height: 500px;
         }
 
@@ -72,28 +70,13 @@
             gap: 10px;
             transition: background-color 0.2s ease;
         }
-        .file:hover {
-            background-color: #37373d;
-        }
-        .file.active {
-            background-color: #094771;
-            color: white;
-        }
+        .file:hover { background-color: #37373d; }
+        .file.active { background-color: #094771; color: white; }
 
-        .ide-editor {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .CodeMirror {
-            flex-grow: 1;
-            height: auto;
-            font-size: 16px;
-        }
+        .ide-editor { flex-grow: 1; }
+        .CodeMirror { height: 100%; font-size: 16px; }
         
-        .ide-preview {
-            border-top: 1px solid #ddd;
-        }
+        .ide-preview { border-top: 1px solid #ddd; }
         .ide-preview-header {
             background-color: #f7f9fc;
             padding: 0.75rem 1rem;
@@ -136,15 +119,16 @@
                 </div>
                 <div class="ide-body">
                     <div class="ide-sidebar">
-                        <div class="file active" data-file="html">
+                        <div class="file active" data-editor="html">
                             <i class="fab fa-html5" style="color: #e34c26;"></i> index.html
                         </div>
-                        <div class="file" data-file="css">
+                        <div class="file" data-editor="css">
                             <i class="fab fa-css3-alt" style="color: #264de4;"></i> style.css
                         </div>
                     </div>
                     <div class="ide-editor">
-                        <textarea id="code-editor"></textarea>
+                        <textarea id="html-editor"></textarea>
+                        <textarea id="css-editor"></textarea>
                     </div>
                 </div>
                 <div class="ide-preview">
