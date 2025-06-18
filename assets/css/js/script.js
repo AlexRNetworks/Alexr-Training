@@ -108,5 +108,62 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- INITIALIZATION ---
     // Load progress as soon as the DOM is ready to apply any existing checkmarks.
     loadAndApplyProgress();
+// --- NEW INTERACTIVE IDE LOGIC ---
+    // Check if we are on the project page by looking for the editor elements
+    if (document.getElementById('html-editor') && document.getElementById('css-editor')) {
+        
+        // Starting boilerplate code for the user
+        const startingHtml = `<h1>Your Name</h1>
+<p>Aspiring Web Developer</p>
+`;
+        const startingCss = `/* Your portfolio CSS goes here! */
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}`;
+
+        // Configure and initialize the HTML editor
+        const htmlEditor = CodeMirror.fromTextArea(document.getElementById('html-editor'), {
+            mode: 'htmlmixed',
+            theme: 'material-darker',
+            lineNumbers: true,
+            value: startingHtml
+        });
+
+        // Configure and initialize the CSS editor
+        const cssEditor = CodeMirror.fromTextArea(document.getElementById('css-editor'), {
+            mode: 'css',
+            theme: 'material-darker',
+            lineNumbers: true,
+            value: startingCss
+        });
+
+        const previewFrame = document.getElementById('preview');
+
+        // Function to update the preview pane
+        const updatePreview = () => {
+            const htmlCode = htmlEditor.getValue();
+            const cssCode = cssEditor.getValue();
+
+            // Construct the full HTML document for the iframe
+            const previewDoc = `
+                <html>
+                    <head>
+                        <style>${cssCode}</style>
+                    </head>
+                    <body>${htmlCode}</body>
+                </html>
+            `;
+            // The srcdoc attribute is a great way to inject content into an iframe
+            previewFrame.srcdoc = previewDoc;
+        };
+
+        // Add event listeners to update the preview whenever the user types
+        htmlEditor.on('change', updatePreview);
+        cssEditor.on('change', updatePreview);
+
+        // Initial update to show the starting code
+        updatePreview();
+    }
 
 });
