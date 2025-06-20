@@ -18,43 +18,12 @@
         .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); }
         .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; text-align: center; }
         .nav-button.complete { background-color: #28a745; }
-
-        /* Iframe and Fullscreen Button Styles */
-        .embedded-editor-wrapper {
-            margin-top: 2.5rem;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            box-shadow: 0 10px 30px rgba(0, 86, 179, 0.1);
-            overflow: hidden; /* To keep the border-radius on the iframe */
-        }
-        #project-iframe {
-            width: 100%;
-            height: 700px; /* A good, tall default size */
-            border: none;
-        }
-        .fullscreen-controls {
-            text-align: center;
-            padding: 1rem;
-            background-color: #f7f9fc;
-            border-top: 1px solid #ddd;
-        }
-        #fullscreen-button {
-            background-color: var(--dark-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: background-color var(--transition-speed);
-        }
-        #fullscreen-button:hover {
-            background-color: #333;
-        }
-        #fullscreen-button .fa-expand {
-            margin-right: 8px;
-        }
+        .embedded-editor-wrapper { margin-top: 2.5rem; border: 1px solid #ddd; border-radius: var(--border-radius); box-shadow: 0 10px 30px rgba(0, 86, 179, 0.1); overflow: hidden; }
+        #project-iframe { width: 100%; height: 700px; border: none; }
+        .fullscreen-controls { text-align: center; padding: 1rem; background-color: #f7f9fc; border-top: 1px solid #ddd; }
+        #fullscreen-button { background-color: var(--dark-color); color: white; border: none; padding: 10px 20px; font-size: 1rem; font-weight: bold; border-radius: var(--border-radius); cursor: pointer; transition: background-color var(--transition-speed); }
+        #fullscreen-button:hover { background-color: #333; }
+        #fullscreen-button .fa-expand { margin-right: 8px; }
     </style>
 </head>
 <body>
@@ -88,7 +57,7 @@
             </article>
 
             <div class="embedded-editor-wrapper">
-                <iframe id="project-iframe" src="https://alexrcode.netlify.app/" title="AlexrCode Live Editor" allowfullscreen></iframe>
+                <iframe id="project-iframe" src="https://alexrcode.netlify.app/" title="AlexrCode Live Editor" allow="fullscreen"></iframe>
                 <div class="fullscreen-controls">
                     <button id="fullscreen-button">
                         <i class="fas fa-expand"></i> Go Fullscreen
