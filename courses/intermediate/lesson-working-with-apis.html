@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 2: Working with APIs - Alexr Training</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>.lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; } .breadcrumb { margin-bottom: 2rem; } .breadcrumb a { color: var(--primary-color); text-decoration: none; } .breadcrumb a:hover { text-decoration: underline; } .lesson-content h1 { font-size: 2.5rem; } .lesson-content h2 { font-size: 1.8rem; text-align: left; margin-top: 2.5rem; } .lesson-content p { font-size: 1.1rem; line-height: 1.7; } .code-block { background-color: #2d2d2d; color: #f8f8f2; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 2rem; overflow-x: auto; font-family: 'Courier New', Courier, monospace; } .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); } .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; }</style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="brand-logo"><img src="https://i.ibb.co/RGyg4bJ8/Alexr-Training-512-x-256-px-512-x-180-px-1.png" alt="Alexr Training Logo"></a>
+            <ul><li><a href="/#about">Why Us</a></li><li><a href="/#courses">Courses</a></li></ul>
+        </nav>
+    </header>
+    <main>
+        <div class="lesson-container">
+            <nav class="breadcrumb">
+                <a href="/">Home</a> &gt; <a href="/courses/intermediate/intermediate-course.html">Intermediate Course</a> &gt; <span>Lesson 2: Working with APIs</span>
+            </nav>
+            <article class="lesson-content">
+                <h1>Lesson 2: Working with APIs (The Fetch API)</h1>
+                <p>One of the most powerful features of modern JavaScript is the ability to communicate with servers and get data without reloading the page. We do this by interacting with <strong>APIs (Application Programming Interfaces)</strong>.</p>
+                <h2>The Fetch API</h2>
+                <p>The <code>fetch()</code> API is the modern, built-in way to make web requests. It uses the Promises we learned about in the last lesson, making it perfect for asynchronous operations.</p>
+                <p>Let's fetch some sample user data from a free public API called JSONPlaceholder.</p>
+                <div class="code-block"><pre><code>// The URL of the API endpoint we want to get data from
+const apiUrl = 'https://jsonplaceholder.typicode.com/users/1';
+
+// Use fetch to make the request
+fetch(apiUrl)
+  .then(response => response.json()) // 1. Parse the response as JSON
+  .then(user => {                   // 2. Work with the final data
+    console.log("User's Name:", user.name);
+    console.log("User's Email:", user.email);
+  })
+  .catch(error => {                 // 3. Handle any errors
+    console.error("Failed to fetch data:", error);
+  });
+
+// Or, using async/await for cleaner code:
+async function getUser() {
+  try {
+    const response = await fetch(apiUrl);
+    const user = await response.json();
+    console.log("User's Website:", user.website);
+  } catch (error) {
+    console.error("Failed to get user:", error);
+  }
+}
+
+getUser();</code></pre></div>
+                <p>This ability to fetch and use data from external sources is fundamental to building rich applications like weather apps, stock tickers, social media feeds, and more.</p>
+            </article>
+            <nav class="lesson-navigation">
+                <a href="/courses/intermediate/lesson-async-js.html" class="nav-button">Previous Lesson</a>
+                <a href="/courses/intermediate/lesson-intro-to-react.html" class="nav-button" data-lesson-id="working-with-apis">Next Lesson</a>
+            </nav>
+        </div>
+    </main>
+    <footer><div class="footer-content"><p>&copy; 2025 Alexr Training. All Rights Reserved.</p></div></footer>
+</body>
+</html>
