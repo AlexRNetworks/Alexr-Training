@@ -26,7 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
         
-        // The fullscreen button logic has been removed from here.
+        const fullscreenButton = document.getElementById('fullscreen-button');
+        const projectIframe = document.getElementById('project-iframe');
+        if (fullscreenButton && projectIframe) {
+            fullscreenButton.addEventListener('click', () => {
+                if (projectIframe.requestFullscreen) { projectIframe.requestFullscreen(); }
+            });
+        }
     };
 
     // --- PROGRESS TRACKING LOGIC ---
