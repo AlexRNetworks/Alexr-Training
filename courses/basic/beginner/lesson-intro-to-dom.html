@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 4: Introduction to the DOM - Alexr Training</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>.lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; } .breadcrumb { margin-bottom: 2rem; } .breadcrumb a { color: var(--primary-color); text-decoration: none; } .breadcrumb a:hover { text-decoration: underline; } .lesson-content h1 { font-size: 2.5rem; } .lesson-content h2 { font-size: 1.8rem; text-align: left; margin-top: 2.5rem; } .lesson-content p { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1.5rem; } .code-block { background-color: #2d2d2d; color: #f8f8f2; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 2rem; overflow-x: auto; font-family: 'Courier New', Courier, monospace; } .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); } .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; }</style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="brand-logo"><img src="https://i.ibb.co/RGyg4bJ8/Alexr-Training-512-x-256-px-512-x-180-px-1.png" alt="Alexr Training Logo"></a>
+            <ul><li><a href="/#about">Why Us</a></li><li><a href="/#courses">Courses</a></li></ul>
+        </nav>
+    </header>
+    <main>
+        <div class="lesson-container">
+            <nav class="breadcrumb">
+                <a href="/">Home</a> &gt; <a href="/courses/beginner/beginner-course.html">Beginner Course</a> &gt; <span>Lesson 4: Introduction to the DOM</span>
+            </nav>
+            <article class="lesson-content">
+                <h1>Lesson 4: Introduction to the DOM</h1>
+                <p>This is where JavaScript becomes truly powerful for web development. The <strong>Document Object Model (DOM)</strong> is a programming interface for web documents. In simple terms, it's a representation of your HTML page that JavaScript can read and manipulate.</p>
+                
+                <h2>What is the DOM?</h2>
+                <p>When a browser loads a webpage, it creates a "model" of that page in memory. It sees your HTML as a tree of objects (or "nodes"). The DOM allows our JavaScript to interact with this tree. We can find elements, change their content, modify their styles, and even create or delete them entirely!</p>
+
+                <h2>Selecting and Modifying Elements</h2>
+                <p>The most common task is selecting an element and doing something with it. We can use <code>document.querySelector()</code> to find the first element that matches a CSS selector.</p>
+                <p>Imagine your HTML has a heading: <code>&lt;h1 id="main-title"&gt;Hello World&lt;/h1&gt;</code></p>
+                <div class="code-block"><pre><code>// 1. Select the element using its ID
+const myHeading = document.querySelector("#main-title");
+
+// 2. Change its text content
+myHeading.textContent = "Welcome to Alexr Training!";
+
+// 3. Change its style
+myHeading.style.color = "blue";</code></pre></div>
+                <p>After this script runs, the heading on your page will instantly change its text and color. This ability to manipulate the DOM is the foundation of every interactive website, from simple alert boxes to complex web applications.</p>
+            </article>
+            <nav class="lesson-navigation">
+                <a href="/courses/beginner/lesson-functions-control-flow.html" class="nav-button">Previous Lesson</a>
+                <a href="/courses/beginner/project-tip-calculator.html" class="nav-button" data-lesson-id="intro-to-dom">Next Lesson: Your First JS Project!</a>
+            </nav>
+        </div>
+    </main>
+    <footer><div class="footer-content"><p>&copy; 2025 Alexr Training. All Rights Reserved.</p></div></footer>
+</body>
+</html>
