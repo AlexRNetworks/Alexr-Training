@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project: Tip Calculator - Alexr Training</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>.lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; } .breadcrumb { margin-bottom: 2rem; } .breadcrumb a { color: var(--primary-color); text-decoration: none; } .breadcrumb a:hover { text-decoration: underline; } .lesson-content h1 { font-size: 2.5rem; color: var(--primary-color); } .lesson-content h2 { font-size: 1.8rem; text-align: left; margin-top: 2.5rem; border-bottom: 2px solid var(--light-grey-color); padding-bottom: 0.5rem; } .lesson-content p, .lesson-content li { font-size: 1.1rem; line-height: 1.7; } .requirements-box { background-color: var(--secondary-color); border-left: 5px solid var(--accent-color); padding: 1.5rem 2rem; margin: 2rem 0; border-radius: var(--border-radius); } .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); } .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; } .nav-button.complete { background-color: #28a745; } .nav-button.complete:hover { background-color: #218838; } </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="brand-logo"><img src="https://i.ibb.co/RGyg4bJ8/Alexr-Training-512-x-256-px-512-x-180-px-1.png" alt="Alexr Training Logo"></a>
+            <ul><li><a href="/#about">Why Us</a></li><li><a href="/#courses">Courses</a></li></ul>
+        </nav>
+    </header>
+    <main>
+        <div class="lesson-container">
+            <nav class="breadcrumb">
+                <a href="/">Home</a> &gt; <a href="/courses/beginner/beginner-course.html">Beginner Course</a> &gt; <span>Project: Tip Calculator</span>
+            </nav>
+            <article class="lesson-content">
+                <h1>Project: Interactive Tip Calculator</h1>
+                <p>It's time to build your first interactive web application! You will use your knowledge of HTML, CSS, and now JavaScript to create a functional tip calculator.</p>
+                <div class="requirements-box">
+                    <h2>Project Requirements</h2>
+                    <ul>
+                        <li>An input field for the user to enter their bill amount.</li>
+                        <li>An input field for the user to enter the tip percentage.</li>
+                        <li>A "Calculate" button.</li>
+                        <li>An area (like a <code>&lt;p&gt;</code> or <code>&lt;h2&gt;</code> tag) to display the final calculated tip amount and the total bill.</li>
+                        <li>Your JavaScript code should get the values from the inputs, perform the calculation, and update the display area with the result when the button is clicked.</li>
+                    </ul>
+                </div>
+                <h2>Project Setup</h2>
+                <p>We recommend using the editor on your final project page from the Basic course to build this. Here is a basic HTML structure to get you started. You will need to write the JavaScript to make it work!</p>
+                <div class="code-block"><pre><code>&lt;h2&gt;Tip Calculator&lt;/h2&gt;
+
+&lt;label for="billAmount"&gt;Bill Amount:&lt;/label&gt;
+&lt;input type="number" id="billAmount"&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;label for="tipPercentage"&gt;Tip Percentage:&lt;/label&gt;
+&lt;input type="number" id="tipPercentage"&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;button id="calculateBtn"&gt;Calculate&lt;/button&gt;
+
+&lt;h3&gt;Results&lt;/h3&gt;
+&lt;p&gt;Tip Amount: &lt;span id="tipAmount"&gt;...&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Total Bill: &lt;span id="totalBill"&gt;...&lt;/span&gt;&lt;/p&gt;
+
+&lt;!-- You will need a script to make this work! --&gt;</code></pre></div>
+            </article>
+            <nav class="lesson-navigation">
+                <a href="/courses/beginner/lesson-intro-to-dom.html" class="nav-button">Previous Lesson</a>
+                <a href="/#courses" class="nav-button complete" data-lesson-id="project-tip-calculator">Course Complete!</a>
+            </nav>
+        </div>
+    </main>
+    <footer><div class="footer-content"><p>&copy; 2025 Alexr Training. All Rights Reserved.</p></div></footer>
+</body>
+</html>
