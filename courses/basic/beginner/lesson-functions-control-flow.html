@@ -17,36 +17,23 @@
     <main>
         <div class="lesson-container">
             <nav class="breadcrumb">
-                <a href="/">Home</a> &gt; <a href="/courses/beginner/beginner-course.html">Beginner Course</a> &gt; <span>Lesson 3: Functions & Control Flow</span>
+                <a href="/">Home</a> &gt; <a href="/courses/basic/beginner/beginner-course.html">Beginner Course</a> &gt; <span>Lesson 3: Functions & Control Flow</span>
             </nav>
             <article class="lesson-content">
                 <h1>Lesson 3: Functions & Control Flow</h1>
-                <p>Now that we can store data, we need ways to perform actions and make decisions. We do this with <strong>functions</strong> and <strong>control flow</strong> statements.</p>
-                
+                <p>We need ways to perform actions and make decisions. We do this with <strong>functions</strong> and <strong>control flow</strong> statements like <code>if...else</code>.</p>
                 <h2>Functions: Reusable Blocks of Code</h2>
-                <p>A <strong>function</strong> is a block of code designed to perform a particular task. You can "call" a function whenever you need it to run, which prevents you from having to write the same code over and over again.</p>
+                <p>A <strong>function</strong> is a block of code designed to perform a particular task. You can "call" a function whenever you need it to run.</p>
                 <div class="code-block"><pre><code>// Defining the function
 function greetUser() {
-  let userName = "Alex";
-  console.log("Hello, " + userName + "!");
+  console.log("Hello, there!");
 }
 
-// Calling the function to make it run
-greetUser(); // This will print "Hello, Alex!" to the console.</code></pre></div>
-
-                <h2>Control Flow: Making Decisions with `if...else`</h2>
-                <p>Often, you only want to run code if a certain condition is true. The <code>if...else</code> statement is perfect for this. It allows your code to respond differently to different situations.</p>
-                <div class="code-block"><pre><code>let userIsLoggedIn = true;
-
-if (userIsLoggedIn === true) {
-  console.log("Welcome back!");
-} else {
-  console.log("Please log in to continue.");
-}</code></pre></div>
-                <p>In this example, because <code>userIsLoggedIn</code> is true, only the first message will be printed. If it were false, the second message would be printed instead. This is the foundation of creating responsive, intelligent web applications.</p>
+// Calling the function
+greetUser();</code></pre></div>
             </article>
             <nav class="lesson-navigation">
-                <a href="/courses/beginner/lesson-variables-data-types.html" class="nav-button">Previous Lesson</a>
+                <a href="/courses/basic/beginner/lesson-variables-data-types.html" class="nav-button">Previous Lesson</a>
                 <a href="/courses/basic/beginner/lesson-intro-to-dom.html" class="nav-button" data-lesson-id="functions-control-flow">Next Lesson</a>
             </nav>
         </div>
