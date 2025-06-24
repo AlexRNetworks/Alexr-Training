@@ -17,42 +17,34 @@
     <main>
         <div class="lesson-container">
             <nav class="breadcrumb">
-                <a href="/">Home</a> &gt; <a href="/courses/beginner/beginner-course.html">Beginner Course</a> &gt; <span>Project: Tip Calculator</span>
+                <a href="/">Home</a> &gt; <a href="/courses/basic/beginner/beginner-course.html">Beginner Course</a> &gt; <span>Project: Tip Calculator</span>
             </nav>
             <article class="lesson-content">
                 <h1>Project: Interactive Tip Calculator</h1>
-                <p>It's time to build your first interactive web application! You will use your knowledge of HTML, CSS, and now JavaScript to create a functional tip calculator.</p>
+                <p>It's time to build your first interactive web application! You will use your knowledge of HTML, CSS, and JavaScript to create a functional tip calculator.</p>
                 <div class="requirements-box">
                     <h2>Project Requirements</h2>
                     <ul>
-                        <li>An input field for the user to enter their bill amount.</li>
-                        <li>An input field for the user to enter the tip percentage.</li>
+                        <li>Input fields for the bill amount and tip percentage.</li>
                         <li>A "Calculate" button.</li>
-                        <li>An area (like a <code>&lt;p&gt;</code> or <code>&lt;h2&gt;</code> tag) to display the final calculated tip amount and the total bill.</li>
-                        <li>Your JavaScript code should get the values from the inputs, perform the calculation, and update the display area with the result when the button is clicked.</li>
+                        <li>An area to display the calculated tip amount and the total bill.</li>
+                        <li>Your JavaScript code should get the values from the inputs, perform the calculation, and update the display area when the button is clicked.</li>
                     </ul>
                 </div>
                 <h2>Project Setup</h2>
-                <p>We recommend using the editor on your final project page from the Basic course to build this. Here is a basic HTML structure to get you started. You will need to write the JavaScript to make it work!</p>
-                <div class="code-block"><pre><code>&lt;h2&gt;Tip Calculator&lt;/h2&gt;
-
-&lt;label for="billAmount"&gt;Bill Amount:&lt;/label&gt;
+                <p>We recommend using the editor on your final project page from the Basic course to build this. Here is a basic HTML structure to get you started.</p>
+                <div class="code-block"><pre><code>&lt;!-- You can use this HTML as a starting point --&gt;
+&lt;h2&gt;Tip Calculator&lt;/h2&gt;
+&lt;label&gt;Bill Amount:&lt;/label&gt;
 &lt;input type="number" id="billAmount"&gt;
-
 &lt;br&gt;&lt;br&gt;
-
-&lt;label for="tipPercentage"&gt;Tip Percentage:&lt;/label&gt;
+&lt;label&gt;Tip Percentage:&lt;/label&gt;
 &lt;input type="number" id="tipPercentage"&gt;
-
 &lt;br&gt;&lt;br&gt;
-
 &lt;button id="calculateBtn"&gt;Calculate&lt;/button&gt;
-
 &lt;h3&gt;Results&lt;/h3&gt;
-&lt;p&gt;Tip Amount: &lt;span id="tipAmount"&gt;...&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Total Bill: &lt;span id="totalBill"&gt;...&lt;/span&gt;&lt;/p&gt;
-
-&lt;!-- You will need a script to make this work! --&gt;</code></pre></div>
+&lt;p&gt;Tip: &lt;span id="tipAmount"&gt;...&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Total: &lt;span id="totalBill"&gt;...&lt;/span&gt;&lt;/p&gt;</code></pre></div>
             </article>
             <nav class="lesson-navigation">
                 <a href="/courses/basic/beginner/lesson-intro-to-dom.html" class="nav-button">Previous Lesson</a>
