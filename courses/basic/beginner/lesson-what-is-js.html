@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1: What is JavaScript? - Alexr Training</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>.lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; } .breadcrumb { margin-bottom: 2rem; } .breadcrumb a { color: var(--primary-color); text-decoration: none; } .breadcrumb a:hover { text-decoration: underline; } .lesson-content h1 { font-size: 2.5rem; margin-bottom: 1rem; } .lesson-content p { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1.5rem; } .code-block { background-color: #2d2d2d; color: #f8f8f2; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 2rem; overflow-x: auto; font-family: 'Courier New', Courier, monospace; } .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); } .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; } .nav-button.disabled { background-color: var(--light-grey-color); cursor: not-allowed; color: var(--text-color); } </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="brand-logo"><img src="https://i.ibb.co/RGyg4bJ8/Alexr-Training-512-x-256-px-512-x-180-px-1.png" alt="Alexr Training Logo"></a>
+            <ul><li><a href="/#about">Why Us</a></li><li><a href="/#courses">Courses</a></li></ul>
+        </nav>
+    </header>
+    <main>
+        <div class="lesson-container">
+            <nav class="breadcrumb">
+                <a href="/">Home</a> &gt; <a href="/courses/beginner/beginner-course.html">Beginner Course</a> &gt; <span>Lesson 1: What is JavaScript?</span>
+            </nav>
+            <article class="lesson-content">
+                <h1>Lesson 1: What is JavaScript?</h1>
+                <p>If HTML is the skeleton and CSS is the skin, then <strong>JavaScript (JS)</strong> is the brain and nervous system. It is a full programming language that allows you to make your websites interactive and dynamic.</p>
+                <p>With JavaScript, you can react to user actions like clicks and keyboard presses, fetch data from other websites, create animations, and much more. It's what transforms a static document into a web application.</p>
+                <p>You can include JavaScript in your HTML file by using the <code>&lt;script&gt;</code> tag. It's best practice to place it at the very end of your <code>&lt;body&gt;</code> tag to ensure all HTML content has loaded before the script runs.</p>
+                <div class="code-block"><pre><code>&lt;body&gt;
+    &lt;!-- All your HTML content --&gt;
+    
+    &lt;script src="/assets/js/my-script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre></div>
+            </article>
+            <nav class="lesson-navigation">
+                <a href="/courses/basic/project-portfolio-page.html" class="nav-button">Previous Course</a>
+                <a href="/courses/beginner/lesson-variables-data-types.html" class="nav-button" data-lesson-id="what-is-js">Next Lesson</a>
+            </nav>
+        </div>
+    </main>
+    <footer><div class="footer-content"><p>&copy; 2025 Alexr Training. All Rights Reserved.</p></div></footer>
+</body>
+</html>
