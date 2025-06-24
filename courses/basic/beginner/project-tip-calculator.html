@@ -5,7 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project: Tip Calculator - Alexr Training</title>
     <link rel="stylesheet" href="/assets/css/style.css">
-    <style>.lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; } .breadcrumb { margin-bottom: 2rem; } .breadcrumb a { color: var(--primary-color); text-decoration: none; } .breadcrumb a:hover { text-decoration: underline; } .lesson-content h1 { font-size: 2.5rem; color: var(--primary-color); } .lesson-content h2 { font-size: 1.8rem; text-align: left; margin-top: 2.5rem; border-bottom: 2px solid var(--light-grey-color); padding-bottom: 0.5rem; } .lesson-content p, .lesson-content li { font-size: 1.1rem; line-height: 1.7; } .requirements-box { background-color: var(--secondary-color); border-left: 5px solid var(--accent-color); padding: 1.5rem 2rem; margin: 2rem 0; border-radius: var(--border-radius); } .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); } .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; } .nav-button.complete { background-color: #28a745; } .nav-button.complete:hover { background-color: #218838; } </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        .lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; } 
+        .breadcrumb { margin-bottom: 2rem; } 
+        .breadcrumb a { color: var(--primary-color); text-decoration: none; } 
+        .breadcrumb a:hover { text-decoration: underline; } 
+        .lesson-content h1 { font-size: 2.5rem; color: var(--primary-color); } 
+        .lesson-content h2 { font-size: 1.8rem; text-align: left; margin-top: 2.5rem; border-bottom: 2px solid var(--light-grey-color); padding-bottom: 0.5rem; } 
+        .lesson-content p, .lesson-content li { font-size: 1.1rem; line-height: 1.7; } 
+        .requirements-box { background-color: var(--secondary-color); border-left: 5px solid var(--accent-color); padding: 1.5rem 2rem; margin: 2rem 0; border-radius: var(--border-radius); } 
+        .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); } 
+        .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; text-align: center; display: inline-flex; align-items: center; gap: 8px; }
+        .nav-button.complete { background-color: #28a745; } 
+        .nav-button.complete:hover { background-color: #218838; } 
+        .editor-link-button { margin-top: 1rem; }
+    </style>
 </head>
 <body>
     <header>
@@ -21,7 +36,7 @@
             </nav>
             <article class="lesson-content">
                 <h1>Project: Interactive Tip Calculator</h1>
-                <p>It's time to build your first interactive web application! You will use your knowledge of HTML, CSS, and JavaScript to create a functional tip calculator.</p>
+                <p>It's time to build your first interactive web application! You will use your knowledge of HTML, CSS, and now JavaScript to create a functional tip calculator.</p>
                 <div class="requirements-box">
                     <h2>Project Requirements</h2>
                     <ul>
@@ -32,15 +47,22 @@
                     </ul>
                 </div>
                 <h2>Project Setup</h2>
-                <p>We recommend using the editor on your final project page from the Basic course to build this. Here is a basic HTML structure to get you started.</p>
+                <p>We recommend using the live editor from the Basic Course final project to build this. Click the button below to go directly to the editor.</p>
+                
+                <a href="/courses/basic/project-portfolio-page.html" class="nav-button editor-link-button">
+                    <i class="fas fa-code"></i> Go to Project Editor
+                </a>
+
+                <h3 style="margin-top: 2rem;">HTML Starter Code:</h3>
+                <p>You can use this HTML as a starting point in the editor.</p>
                 <div class="code-block"><pre><code>&lt;!-- You can use this HTML as a starting point --&gt;
 &lt;h2&gt;Tip Calculator&lt;/h2&gt;
-&lt;label&gt;Bill Amount:&lt;/label&gt;
+&lt;label for="billAmount"&gt;Bill Amount:&lt;/label&gt;
 &lt;input type="number" id="billAmount"&gt;
 &lt;br&gt;&lt;br&gt;
-&lt;label&gt;Tip Percentage:&lt;/label&gt;
+&lt;label for="tipPercentage"&gt;Tip Percentage:&lt;/label&gt;
 &lt;input type="number" id="tipPercentage"&gt;
-&lt;br&gt;&lt;br&gt;
+&lt;br&gt;&br&gt;
 &lt;button id="calculateBtn"&gt;Calculate&lt;/button&gt;
 &lt;h3&gt;Results&lt;/h3&gt;
 &lt;p&gt;Tip: &lt;span id="tipAmount"&gt;...&lt;/span&gt;&lt;/p&gt;
