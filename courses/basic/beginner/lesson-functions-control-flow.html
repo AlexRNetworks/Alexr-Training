@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3: Functions & Control Flow - Alexr Training</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>.lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; } .breadcrumb { margin-bottom: 2rem; } .breadcrumb a { color: var(--primary-color); text-decoration: none; } .breadcrumb a:hover { text-decoration: underline; } .lesson-content h1 { font-size: 2.5rem; } .lesson-content h2 { font-size: 1.8rem; text-align: left; margin-top: 2.5rem; } .lesson-content p { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1.5rem; } .code-block { background-color: #2d2d2d; color: #f8f8f2; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 2rem; overflow-x: auto; font-family: 'Courier New', Courier, monospace; } .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); } .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; }</style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="brand-logo"><img src="https://i.ibb.co/RGyg4bJ8/Alexr-Training-512-x-256-px-512-x-180-px-1.png" alt="Alexr Training Logo"></a>
+            <ul><li><a href="/#about">Why Us</a></li><li><a href="/#courses">Courses</a></li></ul>
+        </nav>
+    </header>
+    <main>
+        <div class="lesson-container">
+            <nav class="breadcrumb">
+                <a href="/">Home</a> &gt; <a href="/courses/beginner/beginner-course.html">Beginner Course</a> &gt; <span>Lesson 3: Functions & Control Flow</span>
+            </nav>
+            <article class="lesson-content">
+                <h1>Lesson 3: Functions & Control Flow</h1>
+                <p>Now that we can store data, we need ways to perform actions and make decisions. We do this with <strong>functions</strong> and <strong>control flow</strong> statements.</p>
+                
+                <h2>Functions: Reusable Blocks of Code</h2>
+                <p>A <strong>function</strong> is a block of code designed to perform a particular task. You can "call" a function whenever you need it to run, which prevents you from having to write the same code over and over again.</p>
+                <div class="code-block"><pre><code>// Defining the function
+function greetUser() {
+  let userName = "Alex";
+  console.log("Hello, " + userName + "!");
+}
+
+// Calling the function to make it run
+greetUser(); // This will print "Hello, Alex!" to the console.</code></pre></div>
+
+                <h2>Control Flow: Making Decisions with `if...else`</h2>
+                <p>Often, you only want to run code if a certain condition is true. The <code>if...else</code> statement is perfect for this. It allows your code to respond differently to different situations.</p>
+                <div class="code-block"><pre><code>let userIsLoggedIn = true;
+
+if (userIsLoggedIn === true) {
+  console.log("Welcome back!");
+} else {
+  console.log("Please log in to continue.");
+}</code></pre></div>
+                <p>In this example, because <code>userIsLoggedIn</code> is true, only the first message will be printed. If it were false, the second message would be printed instead. This is the foundation of creating responsive, intelligent web applications.</p>
+            </article>
+            <nav class="lesson-navigation">
+                <a href="/courses/beginner/lesson-variables-data-types.html" class="nav-button">Previous Lesson</a>
+                <a href="/courses/beginner/lesson-intro-to-dom.html" class="nav-button" data-lesson-id="functions-control-flow">Next Lesson</a>
+            </nav>
+        </div>
+    </main>
+    <footer><div class="footer-content"><p>&copy; 2025 Alexr Training. All Rights Reserved.</p></div></footer>
+</body>
+</html>
