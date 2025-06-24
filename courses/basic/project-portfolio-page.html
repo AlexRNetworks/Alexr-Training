@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project: Build a Portfolio - Alexr Training</title>
+    
     <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <style>
         .lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
         .breadcrumb { margin-bottom: 2rem; }
@@ -13,30 +14,25 @@
         .lesson-content h2 { font-size: 1.8rem; text-align: left; margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 2px solid var(--light-grey-color); padding-bottom: 0.5rem; }
         .lesson-content p, .lesson-content li { font-size: 1.1rem; line-height: 1.7; }
         .requirements-box { background-color: var(--secondary-color); border-left: 5px solid var(--accent-color); padding: 1.5rem 2rem; margin: 2rem 0; border-radius: var(--border-radius); }
-        
-        /* NEW WARNING BOX STYLE */
-        .warning-box {
-            background-color: #fffbe6;
-            border-left: 5px solid #ffc107;
-            padding: 1.5rem 2rem;
-            margin: 2rem 0;
-            border-radius: var(--border-radius);
-        }
-        .warning-box h3 {
-            color: #856404;
-            margin-top: 0;
-            margin-bottom: 0.5rem;
-        }
-
+        .warning-box { background-color: #fffbe6; border-left: 5px solid #ffc107; padding: 1.5rem 2rem; margin: 2rem 0; border-radius: var(--border-radius); }
+        .warning-box h3 { color: #856404; margin-top: 0; margin-bottom: 0.5rem; }
         .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); }
         .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; text-align: center; }
         .nav-button.complete { background-color: #28a745; }
-        .embedded-editor-wrapper { margin-top: 2.5rem; border: 1px solid #ddd; border-radius: var(--border-radius); box-shadow: 0 10px 30px rgba(0, 86, 179, 0.1); overflow: hidden; }
-        #project-iframe { width: 100%; height: 700px; border: none; }
-        .fullscreen-controls { text-align: center; padding: 1rem; background-color: #f7f9fc; border-top: 1px solid #ddd; }
-        #fullscreen-button { background-color: var(--dark-color); color: white; border: none; padding: 10px 20px; font-size: 1rem; font-weight: bold; border-radius: var(--border-radius); cursor: pointer; transition: background-color var(--transition-speed); }
-        #fullscreen-button:hover { background-color: #333; }
-        #fullscreen-button .fa-expand { margin-right: 8px; }
+        
+        /* Styles for the embedded editor */
+        .embedded-editor-wrapper {
+            margin-top: 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0, 86, 179, 0.1);
+            overflow: hidden;
+        }
+        #project-iframe {
+            width: 100%;
+            height: 700px;
+            border: none;
+        }
     </style>
 </head>
 <body>
@@ -58,13 +54,11 @@
 
             <article class="lesson-content">
                 <h1>Final Project: Build Your Personal Portfolio Page</h1>
-                <p>It's time to apply everything you've learned! Use the live code editor embedded below to build your project. When you're ready for more space, use the "Go Fullscreen" button.</p>
-
+                <p>It's time to apply everything you've learned! Use the live code editor embedded below to build your project. The editor has its own built-in fullscreen mode if you need more space.</p>
                 <div class="warning-box">
                     <h3>Important: Save Your Work!</h3>
-                    <p>This live editor does not save your progress automatically. If you refresh or leave this page, your code will be lost. Please <strong>copy and paste your code into a local text file</strong> on your computer to save it. Or Click "Save Project"</p>
+                    <p>This live editor does not save your progress automatically. If you refresh or leave this page, your code will be lost. Please <strong>copy and paste your code into a local text file</strong> on your computer to save it.</p>
                 </div>
-
                 <div class="requirements-box">
                     <h2>Project Requirements</h2>
                     <ul>
@@ -77,9 +71,6 @@
 
             <div class="embedded-editor-wrapper">
                 <iframe id="project-iframe" src="https://alexrcode.netlify.app/" title="AlexrCode Live Editor" allow="fullscreen"></iframe>
-                <div class="fullscreen-controls">
-                    <button id="fullscreen-button"><i class="fas fa-expand"></i> Go Fullscreen</button>
-                </div>
             </div>
 
             <nav class="lesson-navigation">
