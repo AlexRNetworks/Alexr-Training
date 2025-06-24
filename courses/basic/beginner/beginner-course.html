@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beginner Course - Alexr Training</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        .course-header { background-color: var(--secondary-color); text-align: center; padding: 60px 20px; }
+        .course-header h1 { font-size: 2.8rem; }
+        .course-header p { font-size: 1.2rem; max-width: 700px; margin: 1rem auto 0 auto; }
+        .lesson-list { list-style: none; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        .lesson-item { background-color: var(--white-color); border: 1px solid var(--light-grey-color); border-radius: var(--border-radius); margin-bottom: 1rem; transition: all var(--transition-speed); }
+        .lesson-item:hover { border-color: var(--primary-color); transform: translateY(-4px); box-shadow: var(--box-shadow); }
+        .lesson-link { display: flex; align-items: center; padding: 1.5rem; color: var(--dark-color); font-size: 1.2rem; font-weight: 600; }
+        .lesson-number { font-size: 1rem; font-weight: 700; margin-right: 1.5rem; color: var(--primary-color); background-color: var(--secondary-color); border-radius: 50%; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="brand-logo"><img src="https://i.ibb.co/RGyg4bJ8/Alexr-Training-512-x-256-px-512-x-180-px-1.png" alt="Alexr Training Logo"></a>
+            <ul><li><a href="/#about">Why Us</a></li><li><a href="/#courses">Courses</a></li></ul>
+        </nav>
+    </header>
+    <main>
+        <section class="course-header">
+            <h1>Beginner Course: JavaScript Fundamentals</h1>
+            <p>Bring your websites to life by learning the fundamentals of the world's most popular programming language.</p>
+        </section>
+        <ul class="lesson-list">
+            <li class="lesson-item" data-lesson-id="what-is-js"><a href="/courses/beginner/lesson-what-is-js.html" class="lesson-link"><span class="lesson-number">1</span> What is JavaScript?</a></li>
+            <li class="lesson-item" data-lesson-id="variables-data-types"><a href="/courses/beginner/lesson-variables-data-types.html" class="lesson-link"><span class="lesson-number">2</span> Variables & Data Types</a></li>
+            <li class="lesson-item" data-lesson-id="functions-control-flow"><a href="/courses/beginner/lesson-functions-control-flow.html" class="lesson-link"><span class="lesson-number">3</span> Functions & Control Flow</a></li>
+            <li class="lesson-item" data-lesson-id="intro-to-dom"><a href="/courses/beginner/lesson-intro-to-dom.html" class="lesson-link"><span class="lesson-number">4</span> Introduction to the DOM</a></li>
+            <li class="lesson-item" data-lesson-id="project-tip-calculator"><a href="/courses/beginner/project-tip-calculator.html" class="lesson-link"><span class="lesson-number">5</span> Project: Tip Calculator</a></li>
+        </ul>
+    </main>
+    <footer>
+        <div class="footer-content"><p>&copy; 2025 Alexr Training. All Rights Reserved.</p></div>
+    </footer>
+    <script src="/assets/js/script.js"></script>
+</body>
+</html>
