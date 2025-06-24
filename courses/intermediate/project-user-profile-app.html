@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project: User Profile App - Alexr Training</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>.lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; } .breadcrumb { margin-bottom: 2rem; } .breadcrumb a { color: var(--primary-color); text-decoration: none; } .breadcrumb a:hover { text-decoration: underline; } .lesson-content h1 { font-size: 2.5rem; color: var(--primary-color); } .lesson-content h2 { font-size: 1.8rem; text-align: left; margin-top: 2.5rem; border-bottom: 2px solid var(--light-grey-color); padding-bottom: 0.5rem; } .lesson-content p, .lesson-content li { font-size: 1.1rem; line-height: 1.7; } .requirements-box { background-color: var(--secondary-color); border-left: 5px solid var(--accent-color); padding: 1.5rem 2rem; margin: 2rem 0; border-radius: var(--border-radius); } .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); } .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; text-align: center; display: inline-flex; align-items: center; gap: 8px; } .nav-button.complete { background-color: #28a745; } .nav-button.complete:hover { background-color: #218838; } .editor-link-button { margin-top: 1rem; }</style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="brand-logo"><img src="https://i.ibb.co/RGyg4bJ8/Alexr-Training-512-x-256-px-512-x-180-px-1.png" alt="Alexr Training Logo"></a>
+            <ul><li><a href="/#about">Why Us</a></li><li><a href="/#courses">Courses</a></li></ul>
+        </nav>
+    </header>
+    <main>
+        <div class="lesson-container">
+            <nav class="breadcrumb">
+                <a href="/">Home</a> &gt; <a href="/courses/intermediate/intermediate-course.html">Intermediate Course</a> &gt; <span>Project: User Profile App</span>
+            </nav>
+            <article class="lesson-content">
+                <h1>Project: User Profile Card App</h1>
+                <p>It's time to combine everything you've learned in the intermediate course: async JavaScript, APIs, and the basics of React. Your task is to build a simple application that fetches a user's data from a public API and displays it as a profile card.</p>
+                <div class="requirements-box">
+                    <h2>Project Requirements</h2>
+                    <ul>
+                        <li>Use the `fetch` API to get user data from `https://reqres.in/api/users/2`.</li>
+                        <li>Create a React component called `UserProfileCard`.</li>
+                        <li>Use the `useState` hook to store the fetched user data.</li>
+                        <li>Use the `useEffect` hook to fetch the data when the component first loads.</li>
+                        <li>Display the user's avatar (image), first name, last name, and email in your component.</li>
+                        <li>Show a "Loading..." message while the data is being fetched.</li>
+                    </ul>
+                </div>
+                <h2>Project Setup</h2>
+                <p>This project requires a slightly different editor setup. We recommend clearing the HTML and CSS tabs in the editor and working only in the "JavaScript" tab (which you can create in your own editor). You will also need to add the React library links to the HTML.</p>
+                <a href="/courses/basic/project-portfolio-page.html" class="nav-button editor-link-button"><i class="fas fa-code"></i> Go to Project Editor</a>
+                
+                <h3 style="margin-top: 2rem;">HTML Starter Code:</h3>
+                <p>In the HTML tab of the editor, use this simple setup:</p>
+                <div class="code-block"><pre><code>&lt;!-- Add this to the 'Settings' or as external scripts --&gt;
+&lt;script src="https://unpkg.com/react@18/umd/react.development.js"&gt;&lt;/script&gt;
+&lt;script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"&gt;&lt;/script&gt;
+&lt;script src="https://unpkg.com/@babel/standalone/babel.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Your React app will render in this div --&gt;
+&lt;div id="root"&gt;&lt;/div&gt;
+
+&lt;!-- Your React code will go in the JS tab, with type="text/babel" --&gt;</code></pre></div>
+                
+                <h3 style="margin-top: 2rem;">JavaScript Starter Code:</h3>
+                <p>In the JS tab of the editor, make sure to set the type to "text/babel" and use this as a starting point:</p>
+                <div class="code-block"><pre><code>const { useState, useEffect } = React;
+
+function UserProfileCard() {
+  // 1. Set up your state here for user data and loading status
+  // const [user, setUser] = useState(null);
+
+  // 2. Use useEffect to fetch data when the component mounts
+  // useEffect(() => {
+  //   fetch('https://reqres.in/api/users/2')
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       // Set the user data in state
+  //     });
+  // }, []); // The empty array means this effect runs once
+
+  // 3. Add a loading message
+  // if (!user) {
+  //   return &lt;div&gt;Loading...&lt;/div&gt;;
+  // }
+  
+  // 4. Return your JSX for the user profile card
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;User Profile&lt;/h1&gt;
+      {/* Display user avatar, name, and email here */}
+    &lt;/div&gt;
+  );
+}
+
+const container = document.getElementById('root');
+const root = ReactDOM.createRoot(container);
+root.render(&lt;UserProfileCard /&gt;);</code></pre></div>
+            </article>
+            <nav class="lesson-navigation">
+                <a href="/courses/intermediate/lesson-react-components.html" class="nav-button">Previous Lesson</a>
+                <a href="/#courses" class="nav-button complete" data-lesson-id="project-user-profile-app">Finish Course!</a>
+            </nav>
+        </div>
+    </main>
+    <footer><div class="footer-content"><p>&copy; 2025 Alexr Training. All Rights Reserved.</p></div></footer>
+</body>
+</html>
