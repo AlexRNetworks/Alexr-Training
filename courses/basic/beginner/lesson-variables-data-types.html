@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2: Variables & Data Types - Alexr Training</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>.lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; } .breadcrumb { margin-bottom: 2rem; } .breadcrumb a { color: var(--primary-color); text-decoration: none; } .breadcrumb a:hover { text-decoration: underline; } .lesson-content h1 { font-size: 2.5rem; } .lesson-content h2 { font-size: 1.8rem; text-align: left; margin-top: 2.5rem; } .lesson-content p, .lesson-content li { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1.5rem; } .lesson-content ul { list-style-position: inside; } .code-block { background-color: #2d2d2d; color: #f8f8f2; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 2rem; overflow-x: auto; font-family: 'Courier New', Courier, monospace; } .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); } .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; }</style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="brand-logo"><img src="https://i.ibb.co/RGyg4bJ8/Alexr-Training-512-x-256-px-512-x-180-px-1.png" alt="Alexr Training Logo"></a>
+            <ul><li><a href="/#about">Why Us</a></li><li><a href="/#courses">Courses</a></li></ul>
+        </nav>
+    </header>
+    <main>
+        <div class="lesson-container">
+            <nav class="breadcrumb">
+                <a href="/">Home</a> &gt; <a href="/courses/beginner/beginner-course.html">Beginner Course</a> &gt; <span>Lesson 2: Variables & Data Types</span>
+            </nav>
+            <article class="lesson-content">
+                <h1>Lesson 2: Variables & Data Types</h1>
+                <p>To do anything useful in programming, we need a way to store and label information. We do this with <strong>variables</strong>. Think of a variable as a labeled box where you can keep a piece of information to use later.</p>
+                
+                <h2>Declaring Variables</h2>
+                <p>In modern JavaScript, we use the <code>let</code> and <code>const</code> keywords to declare variables. Use <code>let</code> for variables whose value might change, and <code>const</code> for variables that will always stay the same (constants).</p>
+                <div class="code-block"><pre><code>let userScore = 0; // We can change this later
+userScore = 10;      // This is okay
+
+const siteName = "Alexr Training"; // This can't be changed
+// siteName = "Something Else"; // This would cause an error!</code></pre></div>
+
+                <h2>Basic Data Types</h2>
+                <p>Variables can hold different types of data. The most common ones are:</p>
+                <ul>
+                    <li><strong>String:</strong> A sequence of text, wrapped in quotes. e.g., <code>"Hello, world!"</code></li>
+                    <li><strong>Number:</strong> Any kind of number, including integers and decimals. e.g., <code>42</code> or <code>3.14</code></li>
+                    <li><strong>Boolean:</strong> A simple true or false value. e.g., <code>true</code> or <code>false</code></li>
+                </ul>
+                <div class="code-block"><pre><code>let greeting = "Welcome!";      // This is a String
+const lessonsInCourse = 5;      // This is a Number
+let isLoggedIn = false;         // This is a Boolean</code></pre></div>
+                <p>Understanding these basic building blocks is essential before we can start making our pages interactive.</p>
+            </article>
+            <nav class="lesson-navigation">
+                <a href="/courses/beginner/lesson-what-is-js.html" class="nav-button">Previous Lesson</a>
+                <a href="/courses/beginner/lesson-functions-control-flow.html" class="nav-button" data-lesson-id="variables-data-types">Next Lesson</a>
+            </nav>
+        </div>
+    </main>
+    <footer><div class="footer-content"><p>&copy; 2025 Alexr Training. All Rights Reserved.</p></div></footer>
+</body>
+</html>
