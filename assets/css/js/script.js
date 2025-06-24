@@ -58,11 +58,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if (basicCard) { basicCard.classList.add('completed'); }
         }
         
-        // --- NEW: Check Beginner Course Completion ---
+        // --- Check Beginner Course Completion ---
         const beginnerCourseLessons = ['what-is-js', 'variables-data-types', 'functions-control-flow', 'intro-to-dom', 'project-tip-calculator'];
         if (beginnerCourseLessons.every(id => progress[id])) {
             const beginnerCard = document.querySelector('.course-card[data-course-id="beginner"]');
             if (beginnerCard) { beginnerCard.classList.add('completed'); }
+        }
+        
+        // --- NEW: Check Intermediate Course Completion ---
+        const intermediateCourseLessons = ['async-js', 'working-with-apis', 'intro-to-react', 'react-components', 'project-user-profile-app'];
+        if (intermediateCourseLessons.every(id => progress[id])) {
+            const intermediateCard = document.querySelector('.course-card[data-course-id="intermediate"]');
+            if (intermediateCard) { intermediateCard.classList.add('completed'); }
         }
     };
 
