@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 4: React Components, Props & State - Alexr Training</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>.lesson-container { max-width: 900px; margin: 40px auto; padding: 0 20px; } .breadcrumb { margin-bottom: 2rem; } .breadcrumb a { color: var(--primary-color); text-decoration: none; } .breadcrumb a:hover { text-decoration: underline; } .lesson-content h1 { font-size: 2.5rem; } .lesson-content h2 { font-size: 1.8rem; text-align: left; margin-top: 2.5rem; } .lesson-content p { font-size: 1.1rem; line-height: 1.7; } .code-block { background-color: #2d2d2d; color: #f8f8f2; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 2rem; overflow-x: auto; font-family: 'Courier New', Courier, monospace; } .lesson-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-grey-color); } .nav-button { background-color: var(--primary-color); color: var(--white-color); padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; }</style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="brand-logo"><img src="https://i.ibb.co/RGyg4bJ8/Alexr-Training-512-x-256-px-512-x-180-px-1.png" alt="Alexr Training Logo"></a>
+            <ul><li><a href="/#about">Why Us</a></li><li><a href="/#courses">Courses</a></li></ul>
+        </nav>
+    </header>
+    <main>
+        <div class="lesson-container">
+            <nav class="breadcrumb">
+                <a href="/">Home</a> &gt; <a href="/courses/intermediate/intermediate-course.html">Intermediate Course</a> &gt; <span>Lesson 4: React Components, Props & State</span>
+            </nav>
+            <article class="lesson-content">
+                <h1>Lesson 4: React Components, Props, and State</h1>
+                <p>The core building blocks of any React application are <strong>components</strong>. A component is an independent, reusable piece of the UI. We will focus on function components, which are the modern standard.</p>
+                <h2>Function Components</h2>
+                <p>A function component is literally just a JavaScript function that returns some JSX, which describes what the UI should look like.</p>
+                <div class="code-block"><pre><code>function WelcomeMessage() {
+  return &lt;h1&gt;Welcome to the course!&lt;/h1&gt;;
+}</code></pre></div>
+                
+                <h2>Props: Passing Data to Components</h2>
+                <p><strong>Props</strong> (short for "properties") allow you to pass data into your components, much like arguments in a regular function. This makes components reusable and dynamic.</p>
+                <div class="code-block"><pre><code>// The component now accepts 'props' as an argument
+function WelcomeMessage(props) {
+  return &lt;h1&gt;Welcome, {props.name}!&lt;/h1&gt;;
+}
+
+// When using the component, we pass the 'name' prop
+&lt;WelcomeMessage name="Alex" /&gt; 
+// This would render: <h1>Welcome, Alex!</h1></code></pre></div>
+
+                <h2>State: A Component's Memory</h2>
+                <p>What if a component needs to remember something that can change over time, like a counter or user input? For this, we use <strong>state</strong>. The <code>useState</code> hook is the primary way to add state to a function component.</p>
+                <div class="code-block"><pre><code>import React, { useState } from 'react';
+
+function Counter() {
+  // Declare a new state variable called "count"
+  const [count, setCount] = useState(0);
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;You clicked {count} times&lt;/p&gt;
+      &lt;button onClick={() => setCount(count + 1)}&gt;
+        Click me
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+                <p>When the button is clicked, `setCount` is called, React re-renders the `Counter` component with the new `count` value, and the display updates automatically. This concept of state is what makes React so powerful for building interactive UIs.</p>
+            </article>
+            <nav class="lesson-navigation">
+                <a href="/courses/intermediate/lesson-intro-to-react.html" class="nav-button">Previous Lesson</a>
+                <a href="/courses/intermediate/project-user-profile-app.html" class="nav-button" data-lesson-id="react-components">Next Lesson: Your First React Project!</a>
+            </nav>
+        </div>
+    </main>
+    <footer><div class="footer-content"><p>&copy; 2025 Alexr Training. All Rights Reserved.</p></div></footer>
+</body>
+</html>
