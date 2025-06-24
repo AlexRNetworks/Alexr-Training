@@ -26,13 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
         
-        const fullscreenButton = document.getElementById('fullscreen-button');
-        const projectIframe = document.getElementById('project-iframe');
-        if (fullscreenButton && projectIframe) {
-            fullscreenButton.addEventListener('click', () => {
-                if (projectIframe.requestFullscreen) { projectIframe.requestFullscreen(); }
-            });
-        }
+        // The fullscreen button logic has been removed from here.
     };
 
     // --- PROGRESS TRACKING LOGIC ---
@@ -45,27 +39,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadAndApplyProgress = () => {
         let progress = JSON.parse(localStorage.getItem('alexrTrainingProgress')) || {};
         
-        // Apply checkmarks to all lesson items that are completed
         document.querySelectorAll('.lesson-item[data-lesson-id]').forEach(item => {
             const lessonId = item.dataset.lessonId;
             if (progress[lessonId]) { item.classList.add('completed'); }
         });
 
-        // --- Check Basic Course Completion ---
         const basicCourseLessons = ['html-basics', 'structuring-a-page', 'intro-to-css', 'box-model', 'project-portfolio'];
         if (basicCourseLessons.every(id => progress[id])) {
             const basicCard = document.querySelector('.course-card[data-course-id="basic"]');
             if (basicCard) { basicCard.classList.add('completed'); }
         }
         
-        // --- Check Beginner Course Completion ---
         const beginnerCourseLessons = ['what-is-js', 'variables-data-types', 'functions-control-flow', 'intro-to-dom', 'project-tip-calculator'];
         if (beginnerCourseLessons.every(id => progress[id])) {
             const beginnerCard = document.querySelector('.course-card[data-course-id="beginner"]');
             if (beginnerCard) { beginnerCard.classList.add('completed'); }
         }
         
-        // --- NEW: Check Intermediate Course Completion ---
         const intermediateCourseLessons = ['async-js', 'working-with-apis', 'intro-to-react', 'react-components', 'project-user-profile-app'];
         if (intermediateCourseLessons.every(id => progress[id])) {
             const intermediateCard = document.querySelector('.course-card[data-course-id="intermediate"]');
